@@ -4,4 +4,9 @@
 
 {% block body %}
 <h1>Dashboard</h1>
+
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <p>Email: {{ app.user.email }}</p>
+  {% endif %}
+
 {% endblock %}
