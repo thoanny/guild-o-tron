@@ -1,7 +1,52 @@
 @import "normalize";
+@import "variables";
 
-$color: lightgray;
+@import url('https://fonts.googleapis.com/css?family=PT+Serif');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 body {
-    background-color: $color;
+  font-family: 'Lato', sans-serif;
+  color: #444;
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: 'PT Serif', serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  display: block;
+  padding: .5em 0em;
+}
+
+input, button, textarea {
+  font-family: inherit;
+  font-size: 1;
+  line-height: 1;
+  padding: .25em .5em;
+  border: 2px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 0;
+    border-color: #ccc;
+  }
+}
+
+input[type="checkbox"] {
+  width: auto;
+}
+
+button {
+  margin-top: 1em;
+  cursor: pointer;
+  padding: .5em;
+  width: auto;
 }

@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-          {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ path('homepage') }}">Home</a></li>
+
+          {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li><a href="{{ path('app_login') }}">Login</a></li>
+          <li><a href="{{ path('app_register') }}">Signup</a></li>
+          {% endif %}
+
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+          <li><a href="{{ path('app_logout') }}">Logout</a></li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    </header>
+
+    <div id="content">
+      <div class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}
-          {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
+      </div>
+    </div>
+
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+  </body>
 </html>
