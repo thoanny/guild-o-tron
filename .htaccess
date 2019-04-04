@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^build/(.*)$ public/build/$1 [QSA,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ /public/index.php/$1 [QSA,L]
 </IfModule>
