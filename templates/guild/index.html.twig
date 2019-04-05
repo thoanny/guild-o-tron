@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+<h1>Guilds' directory</h1>
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<p><a href="{{ path('guilds_add') }}">Add guild</a></p>
+{% endif %}
+
+{% if guilds %}
+  <ul>
+    {% for guild in guilds %}
+      <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{{guild.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No guild found.</p>
+{% endif %}
+
+{% endblock %}

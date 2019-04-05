@@ -14,6 +14,8 @@
         <ul>
           <li><a href="{{ path('homepage') }}">Home</a></li>
 
+          <li><a href="{{ path('guilds') }}">Guilds</a></li>
+
           {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
           <li><a href="{{ path('app_login') }}">Login</a></li>
           <li><a href="{{ path('app_register') }}">Signup</a></li>
@@ -30,6 +32,13 @@
 
     <div id="content">
       <div class="container">
+
+        {% for type, messages in app.session.flashbag.all() %}
+          {% for message in messages %}
+            <div class="flash-{{type}}">{{message}}</div>
+          {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
       </div>
     </div>

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add guild{% endblock %}
+
+{% block body %}
+    <h1>Add guild</h1>
+
+    <form method="post" autocomplete="off">
+      <label for="inputToken">Guild Wars 2 Api key</label>
+      <input type="text" name="token" id="inputToken" value="BECC9FE0-FB9F-0C46-81DB-F864E9216DD1E5B15E0A-FDB9-490C-B92C-F75D754F98C4" required />
+
+      <button type="button" name="check" id="buttonCheckApiKey">Check</button>
+
+      <label for="selectGid">Guilds</label>
+      <select name="gid" id="selectGid" required>
+        <option value="" disabled selected>-- Set your GW2 Api Key first --</option>
+      </select>
+
+      <button type="submit" name="guild">Add guild</button>
+    </form>
+{% endblock %}

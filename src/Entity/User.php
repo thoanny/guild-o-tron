@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $resetToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Guild", mappedBy="user")
+     */
+    private $guilds;
+
+    public function __construct()
+    {
+        $this->guilds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,5 +138,36 @@ class User implements UserInterface
     public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
+    }
+
+    /**
+     * @return Collection|Guild[]
+     */
+    public function getGuilds(): Collection
+    {
+        return $this->guilds;
+    }
+
+    public function addGuild(Guild $guild): self
+    {
+        if (!$this->guilds->contains($guild)) {
+            $this->guilds[] = $guild;
+            $guild->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuild(Guild $guild): self
+    {
+        if ($this->guilds->contains($guild)) {
+            $this->guilds->removeElement($guild);
+            // set the owning side to null (unless already changed)
+            if ($guild->getUser() === $this) {
+                $guild->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
