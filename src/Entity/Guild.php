@@ -61,6 +61,11 @@ class Guild
      */
     private $guildLogs;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\GuildMember", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $guildMembers;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -174,6 +179,23 @@ class Guild
             if ($guildLog->getGuild() === $this) {
                 $guildLog->setGuild(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getGuildMembers(): ?GuildMember
+    {
+        return $this->guildMembers;
+    }
+
+    public function setGuildMembers(GuildMember $guildMembers): self
+    {
+        $this->guildMembers = $guildMembers;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $guildMembers->getGuild()) {
+            $guildMembers->setGuild($this);
         }
 
         return $this;

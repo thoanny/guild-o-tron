@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Guild;
 use App\Entity\GuildLog;
+use App\Entity\GuildMember;
 use App\Form\GuildFormType;
 use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -186,9 +187,32 @@ class GuildController extends AbstractController
         $entityManager->flush();
       }
 
+      // Update guild members
+      $members = $api->get('/guild/:id/members', $guild->getToken(), ['id' => $guild->getGid()]);
+      if($members) {
+
+        $checksum = md5(json_encode($members));
+        $guildMembers = $entityManager->getRepository(GuildMember::class)->findOneByGuild( $guild );
+
+        if(!$guildMembers) {
+          $newMembers = new GuildMember;
+          $newMembers->setMembers((array) $members);
+          $newMembers->setChecksum($checksum);
+          $newMembers->setGuild($guild);
+          $entityManager->persist($newMembers);
+          $entityManager->flush();
+        } elseif($guildMembers->getChecksum() !== $checksum) {
+          $guildMembers->setMembers((array) $members);
+          $guildMembers->setChecksum($checksum);
+          $entityManager->flush();
+        }
+
+      }
+
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
-        'logs' => $guild->getGuildLogs()
+        'logs' => $guild->getGuildLogs(),
+        'members' => $guild->getGuildMembers()
       ]);
     }
 
