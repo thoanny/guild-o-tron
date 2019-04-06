@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Guild;
+use App\Entity\GuildLog;
 use App\Form\GuildFormType;
 use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -150,11 +151,44 @@ class GuildController extends AbstractController
       */
     public function show(string $slug): Response
     {
+      $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
 
+      // Update guild logs
+      $latestLogs = $entityManager->getRepository(GuildLog::class)->findOneBy( [],
+        [ 'lid' => 'DESC' ]
+      );
+
+      $newLogs = [];
+      if($latestLogs) {
+        $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()], ['since' => $latestLogs->getLid()]);
+      } else {
+        $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()]);
+      }
+
+      if($newLogs) {
+        foreach($newLogs as $log) {
+
+          if(isset($log->user) && isset($log->type)) {
+            $newLog = new GuildLog;
+            $newLog->setCreatedAt(new \DateTime($log->time));
+            $newLog->setUserName($log->user);
+            $newLog->setType($log->type);
+            $newLog->setData((array) $log);
+            $newLog->setGuild($guild);
+            $newLog->setLid($log->id);
+            $entityManager->persist($newLog);
+          }
+
+        }
+
+        $entityManager->flush();
+      }
+
       return $this->render('guild/show.html.twig', [
-        'guild' => $guild
+        'guild' => $guild,
+        'logs' => $guild->getGuildLogs()
       ]);
     }
 

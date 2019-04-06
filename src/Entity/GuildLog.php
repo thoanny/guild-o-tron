@@ -42,6 +42,11 @@ class GuildLog
      */
     private $guild;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $lid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class GuildLog
     public function setGuild(?Guild $guild): self
     {
         $this->guild = $guild;
+
+        return $this;
+    }
+
+    public function getLid(): ?int
+    {
+        return $this->lid;
+    }
+
+    public function setLid(int $lid): self
+    {
+        $this->lid = $lid;
 
         return $this;
     }

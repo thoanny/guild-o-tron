@@ -1,0 +1,30 @@
+{{ log.getCreatedAt()|date("d/m/Y H:i") }}:
+
+{% if log.getType() == 'joined' %}
+  {{log.getUserName()}} has joined the guild
+{% elseif log.getType() == 'invited' %}
+  {{log.getUserName()}} has been invited by {{log.getData().invited_by}}
+{% elseif log.getType() == 'kick' %}
+  {% if log.getUserName() == log.getData().kicked_by %}
+    {{log.getUserName()}} has left the guild
+  {% else %}
+    {{log.getUserName()}} has been kicked by {{log.getData().kicked_by}}
+  {% endif %}
+{% elseif log.getType() == 'rank_change' %}
+  {{log.getUserName()}} has change rank from {{log.getData().old_rank}} to {{log.getData().new_rank}}
+{% elseif log.getType() == 'treasury' %}
+  {{log.getUserName()}} has deposit {{log.getData().count}}&nbsp;&times; {{log.getData().item_id}}
+{% elseif log.getType() == 'stash' %}
+  {# @todo: diff between items and coins #}
+  {{log.getUserName()}} has {{log.getData().operation}} {{log.getData().count}}&nbsp;&times; z{{log.getData().item_id}}
+{% elseif log.getType() == 'motd' %}
+  {{log.getUserName()}} has changed the message of the day:<br />
+  {{log.getData().motd|nl2br}}
+{% elseif log.getType() == 'upgrade' %}
+  {{log.getUserName()}} has {{log.getData().action}} upgrade {{log.getData().upgrade_id}}
+  {% if log.getData().recipe_id is defined %}({{log.getData().recipe_id}}){% endif %}
+{% elseif log.getType() == 'invite_declined' %}
+  {{log.getUserName()}} has declined invite to join
+{% else %}
+xx {{log.getType()}}
+{% endif %}
