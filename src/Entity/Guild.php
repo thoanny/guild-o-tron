@@ -58,6 +58,7 @@ class Guild
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\GuildLog", mappedBy="guild")
+     * @ORM\OrderBy({"lid" = "DESC"})
      */
     private $guildLogs;
 

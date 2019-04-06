@@ -10,7 +10,9 @@
   {% if logs %}
     <ul>
       {% for log in logs %}
-        <li>{% include 'guild/_log.html.twig' with {'log': log} %}</li>
+        {% if log.getData().type != 'motd' %}
+          <li>{% include 'guild/_log.html.twig' with {'log': log} %}</li>
+        {% endif %}
       {% endfor %}
     </ul>
   {% else %}
