@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -53,6 +55,16 @@ class Guild
      * @ORM\Column(type="string", length=255)
      */
     private $gid;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GuildLog", mappedBy="guild")
+     */
+    private $guildLogs;
+
+    public function __construct()
+    {
+        $this->guildLogs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,5 +146,36 @@ class Guild
     public function getSlug()
     {
       return $this->slug;
+    }
+
+    /**
+     * @return Collection|GuildLog[]
+     */
+    public function getGuildLogs(): Collection
+    {
+        return $this->guildLogs;
+    }
+
+    public function addGuildLog(GuildLog $guildLog): self
+    {
+        if (!$this->guildLogs->contains($guildLog)) {
+            $this->guildLogs[] = $guildLog;
+            $guildLog->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuildLog(GuildLog $guildLog): self
+    {
+        if ($this->guildLogs->contains($guildLog)) {
+            $this->guildLogs->removeElement($guildLog);
+            // set the owning side to null (unless already changed)
+            if ($guildLog->getGuild() === $this) {
+                $guildLog->setGuild(null);
+            }
+        }
+
+        return $this;
     }
 }
