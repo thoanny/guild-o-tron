@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks -MultiViews
+  RewriteEngine On
+  RewriteRule ^build/(.*)$ /public/build/$1 [QSA,L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ /public/$1 [QSA,L]
+</IfModule>
