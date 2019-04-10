@@ -266,37 +266,14 @@ class GuildController extends AbstractController
 
     }
 
-     /**
-      * @Route("/guilds/{slug}", name="guilds_show")
-      */
-    public function show(string $slug): Response
-    {
+    private function getGuildLogsFromAPI($guild) {
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
-      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
 
-      // Update Stash
-      if(!($stash = $guild->getGuildStash())) {
-        $stash = $this->getGuildStashFromAPI($guild);
-      } else {
-        $this->getGuildStashFromAPI($guild);
-      }
+      $guildLogs = $entityManager->getRepository(GuildLog::class)->findAll();
 
-      // Updates Members
-      if(!($members = $guild->getGuildMembers())) {
-        $members = $this->getGuildMembersFromAPI($guild);
-      } else {
-        $this->getGuildMembersFromAPI($guild);
-      }
-
-      // Update guild logs
-      $latestLogs = $entityManager->getRepository(GuildLog::class)->findOneBy( [],
-        [ 'lid' => 'DESC' ]
-      );
-
-      $newLogs = [];
-      if($latestLogs) {
-        $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()], ['since' => $latestLogs->getLid()]);
+      if($guildLogs) {
+        $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()], ['since' => $guildLogs[0]->getLid()]);
       } else {
         $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()]);
       }
@@ -320,9 +297,41 @@ class GuildController extends AbstractController
         $entityManager->flush();
       }
 
+      $guildLogs = $entityManager->getRepository(GuildLog::class)->findAll();
+
+      return $guildLogs;
+
+    }
+
+     /**
+      * @Route("/guilds/{slug}", name="guilds_show")
+      */
+    public function show(string $slug): Response
+    {
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+      // Update Stash
+      if(!($stash = $guild->getGuildStash())) {
+        $stash = $this->getGuildStashFromAPI($guild);
+      } else {
+        $this->getGuildStashFromAPI($guild);
+      }
+
+      // Updates Members
+      if(!($members = $guild->getGuildMembers())) {
+        $members = $this->getGuildMembersFromAPI($guild);
+      } else {
+        $this->getGuildMembersFromAPI($guild);
+      }
+
+      // Update/Get Logs
+      $logs = $this->getGuildLogsFromAPI($guild);
+
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
-        'logs' => $guild->getGuildLogs(),
+        'logs' => $logs,
         'members' => $members,
         'stash' => $stash
       ]);

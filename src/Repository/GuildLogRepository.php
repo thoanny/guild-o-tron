@@ -19,6 +19,11 @@ class GuildLogRepository extends ServiceEntityRepository
         parent::__construct($registry, GuildLog::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('lid' => 'DESC'));
+    }
+
     // /**
     //  * @return GuildLog[] Returns an array of GuildLog objects
     //  */
