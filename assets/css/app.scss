@@ -55,8 +55,17 @@ button {
 .marquee {
   overflow: hidden;
   white-space: nowrap;
+  border: 1px solid #ddd;
+
+  $h: 2.5em;
+
+  height: $h;
+  line-height: $h;
 
   ul {
+    margin: 0;
+    padding: 0;
+    
     li {
       list-style: none;
       display: inline-block;
