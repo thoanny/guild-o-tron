@@ -16,7 +16,7 @@
   {{log.getUserName()}} deposited <span data-item-id="{{log.getData().item_id}}">{{log.getData().item_id}}</span> &times;&nbsp;{{log.getData().count}} into Treasury.
 {% elseif log.getType() == 'stash' %}
   {% if log.getData().coins > 0 %}
-    {{log.getUserName()}} {{log.getData().operation}}ed {{log.getData().coins}} coins.
+    {{log.getUserName()}} {{log.getData().operation}}ed {{log.getData().coins|currency}} coins.
   {% else %}
     {{log.getUserName()}} {{log.getData().operation}}ed <span data-item-id="{{log.getData().item_id}}">{{log.getData().item_id}}</span> &times;&nbsp;{{log.getData().count}}.
   {% endif %}

@@ -140,6 +140,18 @@ button {
 }
 
 
+.currency {
+  white-space:nowrap;
+
+  > span {
+    margin-right: .5em;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
 .item {
   &.border {
     &.rarity-Junk { border-color: $junk; }

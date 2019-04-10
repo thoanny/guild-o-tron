@@ -27,7 +27,7 @@
     <div id="guild-stash">
       {% for st in stash.getStash().stash %}
         <h3>{{stash.getStash()._upgrades[st.upgrade_id].name}}</h3>
-        <h4>Coins: {{st.coins}}</h4>
+        <h4>Coins: {{st.coins|currency}}</h4>
 
         <ul>
           {% for inv in st.inventory %}
