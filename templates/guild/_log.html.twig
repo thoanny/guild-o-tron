@@ -1,4 +1,4 @@
-{{ log.getCreatedAt()|date("d/m/Y H:i") }}:
+<span class="date">{{ log.getCreatedAt()|date("d/m/y H:i") }}</span>
 
 {% if log.getType() == 'joined' %}
   {{log.getUserName()}} has joined the guild.

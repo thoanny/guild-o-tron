@@ -50,3 +50,31 @@ button {
   padding: .5em;
   width: auto;
 }
+
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+
+  ul {
+    li {
+      list-style: none;
+      display: inline-block;
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+  }
+}
+
+#guild-logs {
+  li {
+    .date {
+      font-weight: bold;
+      font-style: italic;
+      background: #ddd;
+      font-size: .8em;
+      padding: .25em .5em;
+      letter-spacing: .1em;
+    }
+  }
+}
