@@ -242,9 +242,9 @@ class GuildController extends AbstractController
 
       if(!($stash = $guild->getGuildStash())) {
         $stash = $this->getGuildStashFromAPI($guild);
+      } else {
+        $this->getGuildStashFromAPI($guild);
       }
-
-      $this->getGuildStashFromAPI($guild);
 
       // Update guild logs
       $latestLogs = $entityManager->getRepository(GuildLog::class)->findOneBy( [],
