@@ -8,12 +8,16 @@ parameters:
 doctrine:
     dbal:
         # configure these for your database server
+<<<<<<< HEAD
         driver: 'pdo_mysql'
         server_version: '5.7'
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
+=======
+        driver: 'pdo_sqlite'
+>>>>>>> f6192f3c4776d1f3e23a0c479321824378d651ae
         url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: true
