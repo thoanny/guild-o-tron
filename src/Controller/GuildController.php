@@ -231,6 +231,41 @@ class GuildController extends AbstractController
       return $guildStash;
     }
 
+    private function getGuildMembersFromAPI($guild) {
+
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+
+      $members = $api->get('/guild/:id/members', $guild->getToken(), ['id' => $guild->getGid()]);
+
+      if(!$members) {
+        return;
+      }
+
+      $checksum = md5(json_encode($members));
+      $guildMembers = $entityManager->getRepository(GuildMember::class)->findOneByGuild( $guild );
+
+      if($guildMembers && $guildMembers->getChecksum() == $checksum) {
+        return;
+      }
+
+      if(!$guildMembers) {
+        $guildMembers = new GuildMember;
+        $guildMembers->setMembers((array) $members);
+        $guildMembers->setChecksum($checksum);
+        $guildMembers->setGuild($guild);
+        $entityManager->persist($guildMembers);
+        $entityManager->flush();
+      } elseif($guildMembers->getChecksum() !== $checksum) {
+        $guildMembers->setMembers((array) $members);
+        $guildMembers->setChecksum($checksum);
+        $entityManager->flush();
+      }
+
+      return $guildMembers;
+
+    }
+
      /**
       * @Route("/guilds/{slug}", name="guilds_show")
       */
@@ -240,10 +275,18 @@ class GuildController extends AbstractController
       $entityManager = $this->getDoctrine()->getManager();
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
 
+      // Update Stash
       if(!($stash = $guild->getGuildStash())) {
         $stash = $this->getGuildStashFromAPI($guild);
       } else {
         $this->getGuildStashFromAPI($guild);
+      }
+
+      // Updates Members
+      if(!($members = $guild->getGuildMembers())) {
+        $members = $this->getGuildMembersFromAPI($guild);
+      } else {
+        $this->getGuildMembersFromAPI($guild);
       }
 
       // Update guild logs
@@ -277,32 +320,10 @@ class GuildController extends AbstractController
         $entityManager->flush();
       }
 
-      // Update guild members
-      $members = $api->get('/guild/:id/members', $guild->getToken(), ['id' => $guild->getGid()]);
-      if($members) {
-
-        $checksum = md5(json_encode($members));
-        $guildMembers = $entityManager->getRepository(GuildMember::class)->findOneByGuild( $guild );
-
-        if(!$guildMembers) {
-          $newMembers = new GuildMember;
-          $newMembers->setMembers((array) $members);
-          $newMembers->setChecksum($checksum);
-          $newMembers->setGuild($guild);
-          $entityManager->persist($newMembers);
-          $entityManager->flush();
-        } elseif($guildMembers->getChecksum() !== $checksum) {
-          $guildMembers->setMembers((array) $members);
-          $guildMembers->setChecksum($checksum);
-          $entityManager->flush();
-        }
-
-      }
-
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
         'logs' => $guild->getGuildLogs(),
-        'members' => $guild->getGuildMembers(),
+        'members' => $members,
         'stash' => $stash
       ]);
     }
