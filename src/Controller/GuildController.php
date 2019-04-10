@@ -270,7 +270,7 @@ class GuildController extends AbstractController
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
 
-      $guildLogs = $entityManager->getRepository(GuildLog::class)->findAll();
+      $guildLogs = $entityManager->getRepository(GuildLog::class)->findByGuild($guild);
 
       if($guildLogs) {
         $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()], ['since' => $guildLogs[0]->getLid()]);

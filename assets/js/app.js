@@ -17,6 +17,35 @@ import tippy from 'tippy.js'
 
 var $ = require('jquery');
 
+function _init_gw2_items() {
+  var $items = $(document).find('[data-item-id]');
+
+  if($items.length > 0) {
+    var ids = new Array();
+
+    $items.each(function(key, item) {
+      var id = $(item).data('item-id');
+
+      if(ids.indexOf(id) == -1){
+        ids.push(id);
+      }
+
+    });
+
+    if(ids) {
+      ids = ids.join(',');
+
+      $.get('https://api.guildwars2.com/v2/items', {'ids': ids}, function(res) {
+        $.each(res, function(k, item) {
+          $('[data-item-id="'+item.id+'"]').addClass('item rarity-'+item.rarity).text('['+item.name+']');
+        });
+      });
+    }
+
+  }
+
+}
+
 $(document).ready(function() {
   $('button#buttonCheckApiKey').on('click', function() {
     var $token = $('input#inputToken');
@@ -47,5 +76,7 @@ $(document).ready(function() {
   });
 
   $('.marquee').marquee();
+
+  _init_gw2_items();
 
 });

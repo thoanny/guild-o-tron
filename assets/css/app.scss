@@ -163,4 +163,13 @@ button {
     &.rarity-Ascended { border-color: $ascended; }
     &.rarity-Legendary { border-color: $legendary; }
   }
+
+  &.rarity-Junk { color: $junk; }
+  &.rarity-Basic { color: $basic; }
+  &.rarity-Fine { color: $fine; }
+  &.rarity-Masterwork { color: $masterwork; }
+  &.rarity-Rare { color: $rare; }
+  &.rarity-Exotic { color: $exotic; }
+  &.rarity-Ascended { color: $ascended; }
+  &.rarity-Legendary { color: $legendary; }
 }

@@ -11,7 +11,11 @@
     {{log.getData().kicked_by}} has kicked {{log.getUserName()}} from the guild.
   {% endif %}
 {% elseif log.getType() == 'rank_change' %}
-  {{log.getData().changed_by}} has changed the role of {{log.getUserName()}} to {{log.getData().new_rank}}.
+  {% if log.getData().changed_by is defined %}
+    {{log.getData().changed_by}} has changed the role of {{log.getUserName()}} to {{log.getData().new_rank}}.
+  {% else %}
+    {{log.getUserName()}} has changed role to {{log.getData().new_rank}}.
+  {% endif %}
 {% elseif log.getType() == 'treasury' %}
   {{log.getUserName()}} deposited <span data-item-id="{{log.getData().item_id}}">{{log.getData().item_id}}</span> &times;&nbsp;{{log.getData().count}} into Treasury.
 {% elseif log.getType() == 'stash' %}
