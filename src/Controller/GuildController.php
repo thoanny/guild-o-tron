@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Guild;
 use App\Entity\GuildLog;
+use App\Entity\GuildStash;
 use App\Entity\GuildMember;
 use App\Form\GuildFormType;
 use App\Utils\Gw2Api;
@@ -147,6 +148,89 @@ class GuildController extends AbstractController
 
      }
 
+
+    private function getGuildStashFromAPI($guild) {
+
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+
+      $stash = $api->get('/guild/:id/stash', $guild->getToken(), ['id' => $guild->getGid()]);
+
+      if(!$stash) {
+        return;
+      }
+
+      $checksum = md5(json_encode($stash));
+      $guildStash = $entityManager->getRepository(GuildStash::class)->findOneByGuild( $guild );
+
+      if($guildStash && $guildStash->getChecksum() == $checksum) {
+        return;
+      }
+
+      $items_ids = [];
+      $_items = [];
+      $upgrades_ids = [];
+      $_upgrades = [];
+
+      foreach($stash as $st) {
+        $upgrades_ids[] = $st->upgrade_id;
+
+        foreach($st->inventory as $inv) {
+          if($inv && !in_array($inv->id, $items_ids)) {
+            $items_ids[] = $inv->id;
+          }
+        }
+      }
+
+      if($upgrades_ids) {
+        $ids = implode(',', $upgrades_ids);
+        $upgrades = $api->get('/guild/upgrades', null, null, ['ids' => $ids]);
+
+        if($upgrades) {
+          foreach($upgrades as $upgrade) {
+            $_upgrades[$upgrade->id] = $upgrade;
+          }
+        }
+      }
+
+      if($items_ids) {
+        $items_chunk = array_chunk($items_ids, 100);
+
+        foreach($items_chunk as $items) {
+          $ids = implode(',', $items);
+          $items = $api->get('/items', null, null, ['ids' => $ids]);
+
+          if($items) {
+            foreach($items as $item) {
+              $_items[$item->id] = $item;
+            }
+          }
+
+        }
+      }
+
+      $data = [
+        'stash' =>      (array) $stash,
+        '_items' =>     (array) $_items,
+        '_upgrades' =>  (array) $_upgrades,
+      ];
+
+      if(!$guildStash) {
+        $guildStash = new GuildStash;
+        $guildStash->setStash($data);
+        $guildStash->setChecksum($checksum);
+        $guildStash->setGuild($guild);
+        $entityManager->persist($guildStash);
+        $entityManager->flush();
+      } else {
+        $guildStash->setStash($data);
+        $guildStash->setChecksum($checksum);
+        $entityManager->flush();
+      }
+
+      return $guildStash;
+    }
+
      /**
       * @Route("/guilds/{slug}", name="guilds_show")
       */
@@ -155,6 +239,12 @@ class GuildController extends AbstractController
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+      if(!($stash = $guild->getGuildStash())) {
+        $stash = $this->getGuildStashFromAPI($guild);
+      }
+
+      $this->getGuildStashFromAPI($guild);
 
       // Update guild logs
       $latestLogs = $entityManager->getRepository(GuildLog::class)->findOneBy( [],
@@ -212,7 +302,8 @@ class GuildController extends AbstractController
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
         'logs' => $guild->getGuildLogs(),
-        'members' => $guild->getGuildMembers()
+        'members' => $guild->getGuildMembers(),
+        'stash' => $stash
       ]);
     }
 

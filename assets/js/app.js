@@ -13,6 +13,7 @@ require('../js/jquery.marquee.js');
 require('../js/jquery.easing.js');
 require('../js/jquery.pause.js');
 
+import tippy from 'tippy.js'
 
 var $ = require('jquery');
 

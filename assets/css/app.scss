@@ -65,7 +65,7 @@ button {
   ul {
     margin: 0;
     padding: 0;
-    
+
     li {
       list-style: none;
       display: inline-block;
@@ -85,5 +85,70 @@ button {
       padding: .25em .5em;
       letter-spacing: .1em;
     }
+  }
+}
+
+#guild-stash {
+  $s: 64px;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    max-width: 740px;
+
+    li {
+      display: block;
+      width: $s;
+      height: $s;
+      background: #eee;
+      margin: 3px;
+
+      position: relative;
+
+      span {
+        position: absolute;
+        width: $s;
+        height: $s;
+        display: block;
+        top: 0;
+        box-sizing: border-box;
+        z-index: 99;
+
+        &.item {
+          border: 2px solid #cacaca;
+          z-index: 9;
+        }
+
+        &.count {
+          padding: .25em .5em;
+          text-align: right;
+          color: #fea;
+          text-shadow: 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, -1px 1px 0 #000;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        display: block;
+        position: relative;
+      }
+    }
+  }
+}
+
+
+.item {
+  &.border {
+    &.rarity-Junk { border-color: $junk; }
+    &.rarity-Basic { border-color: $basic; }
+    &.rarity-Fine { border-color: $fine; }
+    &.rarity-Masterwork { border-color: $masterwork; }
+    &.rarity-Rare { border-color: $rare; }
+    &.rarity-Exotic { border-color: $exotic; }
+    &.rarity-Ascended { border-color: $ascended; }
+    &.rarity-Legendary { border-color: $legendary; }
   }
 }

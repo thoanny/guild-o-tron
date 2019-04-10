@@ -67,6 +67,11 @@ class Guild
      */
     private $guildMembers;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\GuildStash", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $guildStash;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -197,6 +202,23 @@ class Guild
         // set the owning side of the relation if necessary
         if ($this !== $guildMembers->getGuild()) {
             $guildMembers->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function getGuildStash(): ?GuildStash
+    {
+        return $this->guildStash;
+    }
+
+    public function setGuildStash(GuildStash $guildStash): self
+    {
+        $this->guildStash = $guildStash;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $guildStash->getGuild()) {
+            $guildStash->setGuild($this);
         }
 
         return $this;
