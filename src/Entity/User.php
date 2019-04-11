@@ -47,6 +47,11 @@ class User implements UserInterface
      */
     private $guilds;
 
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $account_name;
+
     public function __construct()
     {
         $this->guilds = new ArrayCollection();
@@ -167,6 +172,18 @@ class User implements UserInterface
                 $guild->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccountName(): ?string
+    {
+        return $this->account_name;
+    }
+
+    public function setAccountName(string $account_name): self
+    {
+        $this->account_name = $account_name;
 
         return $this;
     }

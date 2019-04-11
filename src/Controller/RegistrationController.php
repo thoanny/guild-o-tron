@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Utils\Gw2Api;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,16 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $api = new Gw2Api();
+            $account = $api->get('/account', $form->get('apiKey')->getData());
+
+            if(!$account) {
+              $this->addFlash('danger', 'API offline or wrong API key. Please try again.');
+              return $this->redirectToRoute('app_register');
+            }
+
+            $user->setAccountName($account->name);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
