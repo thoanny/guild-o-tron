@@ -177,3 +177,62 @@ button {
   &.rarity-Ascended { color: $ascended; }
   &.rarity-Legendary { color: $legendary; }
 }
+
+header {
+  border-top: 1em solid #f5cd79;
+  height: 2.5em;
+  border-bottom: 2px solid #ecf0f1;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #logo {
+    margin-top: -1.5em;
+    height: 5em;
+    display: flex;
+
+    .site-title {
+      line-height: 3.5em;
+      font-size: 1.5em;
+      font-weight: bold;
+      font-family: 'PT Serif', serif;
+      color: darken(#f5cd79, 33%);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      width: 5em;
+    }
+  }
+
+  nav {
+    height: 2.5em;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 2.5em;
+    line-height: 2.5em;
+
+    li {
+      display: inline-block;
+      padding: 0 .75em;
+
+      &.red {
+        color: #e74c3c;
+      }
+
+      a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: .8em;
+        color: inherit;
+      }
+    }
+  }
+}

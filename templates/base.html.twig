@@ -10,24 +10,31 @@
   <body>
 
     <header>
-      <nav>
-        <ul>
-          <li><a href="{{ path('homepage') }}">Home</a></li>
+      <div class="container">
+        <div id="logo">
+          <img src="{{ asset('build/logo.png') }}" />
+          <span class="site-title">Guild-O-Tron</span>
+        </div>
 
-          <li><a href="{{ path('guilds') }}">Guilds</a></li>
+        <nav>
+          <ul>
+            <li><a href="{{ path('homepage') }}">Home</a></li>
 
-          {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-          <li><a href="{{ path('app_login') }}">Login</a></li>
-          <li><a href="{{ path('app_register') }}">Signup</a></li>
-          {% endif %}
+            <li><a href="{{ path('guilds') }}">Guilds</a></li>
 
-          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-          <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-          <li><a href="{{ path('app_logout') }}">Logout</a></li>
-          {% endif %}
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li><a href="{{ path('app_login') }}">Login</a></li>
+            <li><a href="{{ path('app_register') }}">Signup</a></li>
+            {% endif %}
 
-        </ul>
-      </nav>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="red"><a href="{{ path('app_logout') }}">Logout</a></li>
+            {% endif %}
+
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <div id="content">
