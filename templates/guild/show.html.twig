@@ -5,6 +5,14 @@
 {% block body %}
   <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
 
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if isMember %}
+      <p>You're a member of that guild.</p>
+    {% else %}
+      <p>You're <u>not</u> a member of that guild.</p>
+    {% endif %}
+  {% endif %}
+
   <h2>Logs</h2>
 
   {% if logs %}

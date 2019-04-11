@@ -303,6 +303,15 @@ class GuildController extends AbstractController
 
     }
 
+    function searchUserByAccountName($name, $array) {
+       foreach ($array as $key => $val) {
+           if ($val['name'] === $name) {
+               return $key;
+           }
+       }
+       return -1;
+    }
+
      /**
       * @Route("/guilds/{slug}", name="guilds_show")
       */
@@ -311,6 +320,7 @@ class GuildController extends AbstractController
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+      $user = $this->getUser();
 
       // Update Stash
       if(!($stash = $guild->getGuildStash())) {
@@ -329,11 +339,17 @@ class GuildController extends AbstractController
       // Update/Get Logs
       $logs = $this->getGuildLogsFromAPI($guild);
 
+      $isMember = false;
+      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+        $isMember = true;
+      }
+
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
         'logs' => $logs,
         'members' => $members,
-        'stash' => $stash
+        'stash' => $stash,
+        'isMember' => $isMember
       ]);
     }
 
