@@ -46,6 +46,35 @@ function _init_gw2_items() {
 
 }
 
+function _init_gw2_upgrades() {
+  var $upgrades = $(document).find('[data-upgrade-id]');
+
+  if($upgrades.length > 0) {
+    var ids = new Array();
+
+    $upgrades.each(function(key, upgrade) {
+      var id = $(upgrade).data('upgrade-id');
+
+      if(ids.indexOf(id) == -1){
+        ids.push(id);
+      }
+
+    });
+
+    if(ids) {
+      ids = ids.join(',');
+
+      $.get('https://api.guildwars2.com/v2/guild/upgrades', {'ids': ids}, function(res) {
+        $.each(res, function(k, upgrade) {
+          $('[data-upgrade-id="'+upgrade.id+'"]').addClass('upgrade').text('['+upgrade.name+']');
+        });
+      });
+    }
+
+  }
+
+}
+
 $(document).ready(function() {
   $('button#buttonCheckApiKey').on('click', function() {
     var $token = $('input#inputToken');
@@ -78,5 +107,6 @@ $(document).ready(function() {
   $('.marquee').marquee();
 
   _init_gw2_items();
+  _init_gw2_upgrades();
 
 });

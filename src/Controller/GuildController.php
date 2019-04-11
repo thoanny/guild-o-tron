@@ -297,7 +297,7 @@ class GuildController extends AbstractController
         $entityManager->flush();
       }
 
-      $guildLogs = $entityManager->getRepository(GuildLog::class)->findAll();
+      $guildLogs = $entityManager->getRepository(GuildLog::class)->findByGuild($guild);
 
       return $guildLogs;
 

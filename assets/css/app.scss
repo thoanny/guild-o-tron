@@ -85,6 +85,10 @@ button {
       padding: .25em .5em;
       letter-spacing: .1em;
     }
+
+    .item, .upgrade {
+      font-weight: bold;
+    }
   }
 }
 
@@ -95,7 +99,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
-    max-width: 740px;
+    max-width: 700px;
 
     li {
       display: block;
