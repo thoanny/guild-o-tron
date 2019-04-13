@@ -446,9 +446,9 @@ class GuildController extends AbstractController
        return -1;
     }
 
-     /**
-      * @Route("/guilds/{slug}", name="guilds_show")
-      */
+   /**
+    * @Route("/guilds/{slug}", name="guilds_show")
+    */
     public function show(string $slug): Response
     {
       $api = new Gw2Api();
@@ -493,5 +493,94 @@ class GuildController extends AbstractController
         'isMember' => $isMember
       ]);
     }
+
+
+  /**
+   * @Route("/guilds/{slug}/treasury", name="guilds_treasury")
+   */
+   public function treasury(string $slug): Response
+   {
+     $api = new Gw2Api();
+     $entityManager = $this->getDoctrine()->getManager();
+     $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+     $user = $this->getUser();
+
+     // Update/Get Treasury
+     $treasury = $this->getGuildTreasuryFromAPI($guild);
+
+     $isMember = false;
+     if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+       $isMember = true;
+     }
+
+     return $this->render('guild/show.html.twig', [
+       'guild' => $guild,
+       'treasury' => $treasury,
+       'isMember' => $isMember,
+       'view' => 'treasury'
+     ]);
+   }
+
+   /**
+    * @Route("/guilds/{slug}/stash", name="guilds_stash")
+    */
+    public function stash(string $slug): Response
+    {
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+      $user = $this->getUser();
+
+      // Update Stash
+      if(!($stash = $guild->getGuildStash())) {
+        $stash = $this->getGuildStashFromAPI($guild);
+      } else {
+        $this->getGuildStashFromAPI($guild);
+      }
+
+      $isMember = false;
+      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+        $isMember = true;
+      }
+
+      return $this->render('guild/show.html.twig', [
+        'guild' => $guild,
+        'stash' => $stash,
+        'isMember' => $isMember,
+        'view' => 'stash'
+      ]);
+    }
+
+  /**
+   * @Route("/guilds/{slug}/members", name="guilds_members")
+   */
+   public function members(string $slug): Response
+   {
+     $api = new Gw2Api();
+     $entityManager = $this->getDoctrine()->getManager();
+     $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+     $user = $this->getUser();
+
+     // Updates Members
+     if(!($members = $guild->getGuildMembers())) {
+       $members = $this->getGuildMembersFromAPI($guild);
+     } else {
+       $this->getGuildMembersFromAPI($guild);
+     }
+
+     $isMember = false;
+     if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+       $isMember = true;
+     }
+
+     // dd($treasury->getTreasury());
+
+     return $this->render('guild/show.html.twig', [
+       'guild' => $guild,
+       'members' => $members,
+       'isMember' => $isMember,
+       'view' => 'members'
+     ]);
+   }
 
 }

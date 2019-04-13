@@ -5,6 +5,15 @@
 {% block body %}
   <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
 
+  <ul>
+    <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">Home</a></li>
+    <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">Stash</a></li>
+    <li><a href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">Treasury</a></li>
+    <li>Scribe</li>
+    <li>Events</li>
+    <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">Members</a></li>
+  </ul>
+
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% if isMember %}
       <p>You're a member of that guild.</p>
@@ -13,9 +22,16 @@
     {% endif %}
   {% endif %}
 
-  {% include 'guild/_treasury.html.twig' with {'treasury': treasury} %}
-  {% include 'guild/_logs.html.twig' with {'logs': logs} %}
-  {% include 'guild/_stash.html.twig' with {'stash': stash} %}
-  {% include 'guild/_members.html.twig' with {'members': members} %}
+  {% if view is defined and view == 'stash' %}
+    {% include 'guild/_stash.html.twig' with {'stash': stash} %}
+  {% elseif view is defined and view == 'treasury' %}
+    {% include 'guild/_treasury.html.twig' with {'treasury': treasury} %}
+  {% elseif view is defined and view == 'scribe' %}
+    SCRIBE
+  {% elseif view is defined and view == 'members' %}
+    {% include 'guild/_members.html.twig' with {'members': members} %}
+  {% else %}
+    {% include 'guild/_logs.html.twig' with {'logs': logs} %}
+  {% endif %}
 
 {% endblock %}
