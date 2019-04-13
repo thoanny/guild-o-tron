@@ -11,6 +11,10 @@ body {
 
 h1, h2, h3, h4, h5, h6, .title {
   font-family: 'PT Serif', serif;
+
+  small {
+    opacity: .55;
+  }
 }
 
 .container {
@@ -92,7 +96,7 @@ button {
   }
 }
 
-#guild-stash {
+#guild-stash, #guild-treasury {
   $s: 64px;
 
   ul {
@@ -138,6 +142,147 @@ button {
         box-sizing: border-box;
         display: block;
         position: relative;
+      }
+    }
+  }
+}
+
+#guild-treasury {
+  $s: 64px;
+  $p: 12px;
+
+  ul {
+    max-width: 815px;
+
+    li {
+      height: calc(#{$s} + #{$p} + 3px);
+      background: none;
+      margin: 5px;
+    }
+  }
+
+  .progress {
+    display:block;
+    height: $p;
+    width: 100%;
+    background: #f5cd79;
+    position: absolute;
+    top: calc(#{$s} + 3px);
+
+    .current {
+      height: 100%;
+      background: darken( #f5cd79, 25%);
+    }
+  }
+
+  li[data-complete="0"] {
+    .count {
+      display: none;
+    }
+    .progress {
+      background: #e74c3c;
+    }
+  }
+
+  li[data-complete="100"] {
+    opacity: .33;
+
+    .count {
+      display: none;
+    }
+
+    .progress {
+      background: #2ecc71;
+
+      .current {
+        display: none;
+      }
+    }
+  }
+
+  span {
+    display:block;
+  }
+}
+
+#guild-upgrades {
+  .upgrade {
+    margin-top: 3em;
+  }
+
+  h3 {
+    // padding: .5em;
+    // background: lighten(#f5cd79, 25%);
+    line-height: 2em;
+    margin-bottom: 0;
+
+    img {
+      height: 2em;
+      vertical-align: top;
+      vertical-align: middle;
+      margin-right: .25em;
+      border-radius: 3px;
+      // margin-top: -.5em;
+    }
+  }
+
+  ul.costs {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 3em;
+
+    li {
+      padding: .75em .75em 0;
+      padding-bottom: calc(.5em + 5px);
+      position: relative;
+      width: calc(100% / 2 - .5em);
+      box-sizing: border-box;
+
+      // Ellipsis
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &::after {
+        content: '';
+        display: block;
+        height: 5px;
+        width: 100%;
+        background: #f5cd79;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+      }
+
+      .current {
+        position: absolute;
+        bottom: 0;
+        height: 5px;
+        background: darken( #f5cd79, 25%);
+        left: 0;
+        z-index: 9;
+      }
+
+      &[data-complete="0"]::after {
+        background: #e74c3c;
+      }
+
+      &[data-complete="100"] {
+        opacity: .33;
+
+        .current {
+          background: #2ecc71;
+        }
+      }
+
+      img {
+        height: 1em;
+        width: auto;
+        vertical-align: bottom;
+        border-radius: 3px;
       }
     }
   }

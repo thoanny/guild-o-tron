@@ -1,0 +1,15 @@
+<h2>Logs</h2>
+
+{% if logs %}
+<div class="marquee" data-pauseOnHover="true" data-speed="150">
+  <ul id="guild-logs">
+    {% for log in logs %}
+      {% if log.getData().type != 'motd' %}
+        <li>{% include 'guild/_log.html.twig' with {'log': log} %}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+  <p>No logs.</p>
+{% endif %}

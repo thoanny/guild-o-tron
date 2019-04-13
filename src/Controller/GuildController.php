@@ -6,6 +6,7 @@ use App\Entity\Guild;
 use App\Entity\GuildLog;
 use App\Entity\GuildStash;
 use App\Entity\GuildMember;
+use App\Entity\GuildTreasury;
 use App\Form\GuildFormType;
 use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -303,6 +304,139 @@ class GuildController extends AbstractController
 
     }
 
+    private function getguildTreasuryFromAPI($guild) {
+
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+
+      $guildTreasury = $entityManager->getRepository(GuildTreasury::class)->findOneByGuild($guild);
+
+      // dd(date('Y-m-d H:i:s', strtotime("-15 min")));
+
+      if($guildTreasury && $guildTreasury->getUpdatedAt() <= date('Y-m-d H:i:s', strtotime("-15 min"))) {
+        return $guildTreasury;
+      }
+
+      $treasury = $api->get('/guild/:id/treasury', $guild->getToken(), ['id' => $guild->getGid()]);
+      $checksum = md5( json_encode($treasury) );
+
+      if($guildTreasury && $checksum == $guildTreasury->getChecksum()) {
+        return $guildTreasury;
+      }
+
+      $items_ids = [];
+      $upgrades_ids = [];
+      $_items = [];
+      $_upgrades = [];
+      $_items_total = [];
+
+      if($treasury) {
+        foreach($treasury as $k => $tr) {
+          if(!in_array($tr->item_id, $items_ids)) {
+            $items_ids[] = $tr->item_id;
+          }
+
+          $treasury[$k]->needed_total = 0;
+          $treasury[$k]->total = 0;
+
+          if(isset($tr->needed_by)) {
+            $needed_total = 0;
+
+            foreach($tr->needed_by as $need) {
+              if(!in_array($need->upgrade_id, $upgrades_ids)) {
+                $upgrades_ids[] = $need->upgrade_id;
+              }
+
+              if(isset($need->count)) {
+                $needed_total = $needed_total + $need->count;
+              }
+            }
+          }
+
+          $treasury[$k]->needed_total = $needed_total;
+          $treasury[$k]->total = round($tr->count / $needed_total * 100, 2);
+          $_items_total[$tr->item_id] = $tr->count;
+        }
+      }
+
+      if($items_ids) {
+        $items_chunk = array_chunk($items_ids, 100);
+
+        foreach($items_chunk as $items) {
+          $ids = implode(',', $items);
+          $items = $api->get('/items', null, null, ['ids' => $ids]);
+
+          if($items) {
+            foreach($items as $item) {
+              $_items[$item->id] = $item;
+            }
+          }
+
+        }
+      }
+
+      $_guild =  $api->get('/guild/:id', $guild->getToken(), ['id' => $guild->getGid()]);
+
+      if($upgrades_ids) {
+        $upgrades_chunk = array_chunk($upgrades_ids, 100);
+
+        foreach($upgrades_chunk as $upgrades) {
+          $ids = implode(',', $upgrades);
+          $upgrades = $api->get('/guild/upgrades', null, null, ['ids' => $ids]);
+
+          if($upgrades) {
+            foreach($upgrades as $upgrade) {
+              $_upgrades[$upgrade->id] = $upgrade;
+
+              if(isset($upgrade->costs)) {
+                foreach($upgrade->costs as $k => $cost) {
+                  if($cost->type == 'Item') {
+                    $_upgrades[$upgrade->id]->costs[$k]->total = $_items_total[$cost->item_id];
+                    $pc = round($_items_total[$cost->item_id] / $cost->count * 100, 2);
+                    $_upgrades[$upgrade->id]->costs[$k]->pc = ($pc > 100) ? 100 : $pc;
+                  }
+                  if($cost->type == 'Currency' && $cost->name == 'Aetherium') {
+                    $pc = round($_guild->aetherium / $cost->count * 100, 2);
+                    $_upgrades[$upgrade->id]->costs[$k]->pc = ($pc > 100) ? 100 : $pc;
+                  }
+                  if($cost->type == 'Collectible' && $cost->item_id == '70701') {
+                    $pc = round($_guild->favor / $cost->count * 100, 2);
+                    $_upgrades[$upgrade->id]->costs[$k]->pc = ($pc > 100) ? 100 : $pc;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      $data = [
+        'treasury' => $treasury,
+        'aetherium' => $_guild->aetherium,
+        'favor' => $_guild->favor,
+        '_items' => $_items,
+        '_upgrades' => $_upgrades,
+        '_items_total' => $_items_total
+      ];
+
+      if(!$guildTreasury) {
+        $guildTreasury = new GuildTreasury;
+        $guildTreasury->setTreasury($data);
+        $guildTreasury->setChecksum($checksum);
+        $guildTreasury->setGuild($guild);
+        $entityManager->persist($guildTreasury);
+        $entityManager->flush();
+      } else {
+        $guildTreasury->setTreasury($data);
+        $guildTreasury->setChecksum($checksum);
+        $entityManager->flush();
+      }
+
+      return $guildTreasury;
+
+    }
+
     function searchUserByAccountName($name, $array) {
        foreach ($array as $key => $val) {
            if ($val['name'] === $name) {
@@ -337,18 +471,25 @@ class GuildController extends AbstractController
       }
 
       // Update/Get Logs
-      $logs = $this->getGuildLogsFromAPI($guild);
+      // $logs = $this->getGuildLogsFromAPI($guild);
+      $logs = null; // @todo to fix!
+
+      // Update/Get Treasury
+      $treasury = $this->getGuildTreasuryFromAPI($guild);
 
       $isMember = false;
       if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
         $isMember = true;
       }
 
+      // dd($treasury->getTreasury());
+
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
         'logs' => $logs,
         'members' => $members,
         'stash' => $stash,
+        'treasury' => $treasury,
         'isMember' => $isMember
       ]);
     }

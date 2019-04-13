@@ -72,6 +72,11 @@ class Guild
      */
     private $guildStash;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\GuildTreasury", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $guildTreasury;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -219,6 +224,23 @@ class Guild
         // set the owning side of the relation if necessary
         if ($this !== $guildStash->getGuild()) {
             $guildStash->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function getGuildTreasury(): ?GuildTreasury
+    {
+        return $this->guildTreasury;
+    }
+
+    public function setGuildTreasury(GuildTreasury $guildTreasury): self
+    {
+        $this->guildTreasury = $guildTreasury;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $guildTreasury->getGuild()) {
+            $guildTreasury->setGuild($this);
         }
 
         return $this;

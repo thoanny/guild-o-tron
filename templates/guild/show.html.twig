@@ -13,78 +13,9 @@
     {% endif %}
   {% endif %}
 
-  <h2>Logs</h2>
-
-  {% if logs %}
-  <div class="marquee" data-pauseOnHover="true" data-speed="150">
-    <ul id="guild-logs">
-      {% for log in logs %}
-        {% if log.getData().type != 'motd' %}
-          <li>{% include 'guild/_log.html.twig' with {'log': log} %}</li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
-  {% else %}
-    <p>No logs.</p>
-  {% endif %}
-
-  {% if stash %}
-
-    <h2>Stash</h2>
-
-    <div id="guild-stash">
-      {% for st in stash.getStash().stash %}
-        <h3>{{stash.getStash()._upgrades[st.upgrade_id].name}}</h3>
-        <h4>Coins: {{st.coins|currency}}</h4>
-
-        {% if st.note is defined %}
-          <p><em>{{st.note}}</em></p>
-        {% endif %}
-
-        <ul>
-          {% for inv in st.inventory %}
-            {% if inv %}
-              <li data-tippy-arrow="true" data-tippy="{{inv.count}}&nbsp;&times; {{stash.getStash()._items[inv.id].name}}">
-                <span class="count">{{inv.count}}</span>
-                <span class="item border rarity-{{stash.getStash()._items[inv.id].rarity}}"><img src="{{stash.getStash()._items[inv.id].icon}}" /></span>
-              </li>
-            {% else %}
-              <li><span class="item empty"></span></li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-
-      {% endfor %}
-    </div>
-  {% else %}
-    <p>No Stash.</p>
-  {% endif %}
-
-
-  <h2>Members</h2>
-
-  {% if members %}
-    <table cellpadding="5" cellspacing="0" border="1" bordercolor="#ddd">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Rank</th>
-          <th>Joined</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for member in members.members %}
-        <tr>
-          <td>{{member.name}}</td>
-          <td>{{member.rank}}</td>
-          <td>{{member.joined|date('d/m/Y')}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No members.</p>
-  {% endif %}
+  {% include 'guild/_treasury.html.twig' with {'treasury': treasury} %}
+  {% include 'guild/_logs.html.twig' with {'logs': logs} %}
+  {% include 'guild/_stash.html.twig' with {'stash': stash} %}
+  {% include 'guild/_members.html.twig' with {'members': members} %}
 
 {% endblock %}
