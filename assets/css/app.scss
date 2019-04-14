@@ -410,7 +410,7 @@ header {
 
   #guild-links {
     padding: 0;
-    
+
     li {
       display: inline-block;
 
@@ -459,6 +459,7 @@ header {
   top: 80px;
   left: 0;
   right: 0;
+  z-index: 9999;
 
   > div {
     max-width: 720px;
