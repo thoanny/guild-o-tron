@@ -237,30 +237,32 @@ class GuildController extends AbstractController
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
 
+      $guildMembers = $entityManager->getRepository(GuildMember::class)->findOneByGuild($guild);
+
+      if($guildMembers && $guildMembers->getUpdatedAt() <= date('Y-m-d H:i:s', strtotime("-15 min"))) {
+        return $guildMembers;
+      }
+
       $members = $api->get('/guild/:id/members', $guild->getToken(), ['id' => $guild->getGid()]);
-
-      if(!$members) {
-        return;
-      }
-
       $checksum = md5(json_encode($members));
-      $guildMembers = $entityManager->getRepository(GuildMember::class)->findOneByGuild( $guild );
 
-      if($guildMembers && $guildMembers->getChecksum() == $checksum) {
-        return;
+      if($guildMembers && $checksum == $guildMembers->getChecksum()) {
+        return $guildMembers;
       }
 
-      if(!$guildMembers) {
-        $guildMembers = new GuildMember;
-        $guildMembers->setMembers((array) $members);
-        $guildMembers->setChecksum($checksum);
-        $guildMembers->setGuild($guild);
-        $entityManager->persist($guildMembers);
-        $entityManager->flush();
-      } elseif($guildMembers->getChecksum() !== $checksum) {
-        $guildMembers->setMembers((array) $members);
-        $guildMembers->setChecksum($checksum);
-        $entityManager->flush();
+      if($members) {
+        if(!$guildMembers) {
+          $guildMembers = new GuildMember;
+          $guildMembers->setMembers((array) $members);
+          $guildMembers->setChecksum($checksum);
+          $guildMembers->setGuild($guild);
+          $entityManager->persist($guildMembers);
+          $entityManager->flush();
+        } else {
+          $guildMembers->setMembers((array) $members);
+          $guildMembers->setChecksum($checksum);
+          $entityManager->flush();
+        }
       }
 
       return $guildMembers;
@@ -439,6 +441,7 @@ class GuildController extends AbstractController
 
     function searchUserByAccountName($name, $array) {
        foreach ($array as $key => $val) {
+         $val = (array) $val;
            if ($val['name'] === $name) {
                return $key;
            }
@@ -456,40 +459,20 @@ class GuildController extends AbstractController
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
       $user = $this->getUser();
 
-      // Update Stash
-      if(!($stash = $guild->getGuildStash())) {
-        $stash = $this->getGuildStashFromAPI($guild);
-      } else {
-        $this->getGuildStashFromAPI($guild);
-      }
-
-      // Updates Members
-      if(!($members = $guild->getGuildMembers())) {
-        $members = $this->getGuildMembersFromAPI($guild);
-      } else {
-        $this->getGuildMembersFromAPI($guild);
-      }
+      $members = $this->getGuildMembersFromAPI($guild);
 
       // Update/Get Logs
       // $logs = $this->getGuildLogsFromAPI($guild);
       $logs = null; // @todo to fix!
 
-      // Update/Get Treasury
-      $treasury = $this->getGuildTreasuryFromAPI($guild);
-
       $isMember = false;
-      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+      if( $user && $members && $this->searchUserByAccountName( $user->getAccountName(), $members->getMembers() ) >= 0 ) {
         $isMember = true;
       }
-
-      // dd($treasury->getTreasury());
 
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
         'logs' => $logs,
-        'members' => $members,
-        'stash' => $stash,
-        'treasury' => $treasury,
         'isMember' => $isMember
       ]);
     }
@@ -562,18 +545,12 @@ class GuildController extends AbstractController
      $user = $this->getUser();
 
      // Updates Members
-     if(!($members = $guild->getGuildMembers())) {
-       $members = $this->getGuildMembersFromAPI($guild);
-     } else {
-       $this->getGuildMembersFromAPI($guild);
-     }
+     $members = $this->getGuildMembersFromAPI($guild);
 
      $isMember = false;
      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
        $isMember = true;
      }
-
-     // dd($treasury->getTreasury());
 
      return $this->render('guild/show.html.twig', [
        'guild' => $guild,
