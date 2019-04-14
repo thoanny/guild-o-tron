@@ -550,3 +550,17 @@ header {
     }
   }
 }
+
+#guilds-directory {
+  .guild {
+    margin-top: 3em;
+
+    h3 + h4 {
+      margin-top: -.75em;
+    }
+
+    h4 {
+      font-style: italic;
+    }
+  }
+}
