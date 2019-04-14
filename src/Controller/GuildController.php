@@ -275,11 +275,13 @@ class GuildController extends AbstractController
 
       $guildLogs = $entityManager->getRepository(GuildLog::class)->findByGuild($guild);
 
+
       if($guildLogs) {
         $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()], ['since' => $guildLogs[0]->getLid()]);
       } else {
         $newLogs = $api->get('/guild/:id/log', $guild->getToken(), ['id' => $guild->getGid()]);
       }
+
 
       if($newLogs) {
         foreach($newLogs as $log) {
@@ -460,10 +462,7 @@ class GuildController extends AbstractController
       $user = $this->getUser();
 
       $members = $this->getGuildMembersFromAPI($guild);
-
-      // Update/Get Logs
-      // $logs = $this->getGuildLogsFromAPI($guild);
-      $logs = null; // @todo to fix!
+      $logs = $this->getGuildLogsFromAPI($guild);
 
       $isMember = false;
       if( $user && $members && $this->searchUserByAccountName( $user->getAccountName(), $members->getMembers() ) >= 0 ) {
