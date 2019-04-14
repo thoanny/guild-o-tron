@@ -3,16 +3,31 @@
 {% block title %}{{guild.name}}!{% endblock %}
 
 {% block body %}
-  <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
 
-  <ul>
-    <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">Home</a></li>
-    <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">Stash</a></li>
-    <li><a href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">Treasury</a></li>
-    <li>Scribe</li>
-    <li>Events</li>
-    <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">Members</a></li>
-  </ul>
+</div>
+
+  <div id="guild-header">
+    <div id="cover">
+      <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">Home</a></li>
+        <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">Stash</a></li>
+        <li><a href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">Treasury</a></li>
+        <li>Scribe</li>
+        <li>Achievements</li>
+        <li>Events</li>
+        <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">Members</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+<div class="container">
+
+
 
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% if isMember %}
