@@ -9,6 +9,15 @@
 <p><a href="{{ path('guilds_add') }}">Add guild</a></p>
 {% endif %}
 
+{% if my_guilds %}
+  <ul id="my-guilds">
+    <li><strong>Your guilds:</strong></li>
+    {% for guild in my_guilds %}
+      <li><a href="{{ path('guilds_show', {'slug': guild.guild.slug}) }}">{{guild.guild.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 {% if guilds %}
   <ul>
     {% for guild in guilds %}

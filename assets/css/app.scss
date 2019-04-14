@@ -524,3 +524,24 @@ header {
 .discord {
   color: #7289da;
 }
+
+#my-guilds {
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    padding: 0 .25em;
+
+    a {
+      background: #eee;
+      padding: .25em .5em;
+      color: inherit;
+      text-decoration: none;
+      font-size: .9em;
+      font-weight: bold;
+      letter-spacing: 0.025em;
+      border-radius: 3px;
+    }
+  }
+}

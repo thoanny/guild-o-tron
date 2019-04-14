@@ -23,14 +23,21 @@ class GuildController extends AbstractController
     /**
      * @Route("/guilds", name="guilds")
      */
-    public function index()
+    public function index(Security $security)
     {
 
       $repository = $this->getDoctrine()->getRepository(Guild::class);
       $guilds = $repository->findBy(['display_in_directory' => 1]);
+      $user = $security->getUser();
+
+      $myGuilds = null;
+      if($user) {
+        $myGuilds = $this->getDoctrine()->getRepository(GuildMember::class)->findMyGuilds($user);
+      }
 
       return $this->render('guild/index.html.twig', [
-          'guilds' => $guilds,
+        'guilds' => $guilds,
+        'my_guilds' => $myGuilds
       ]);
     }
 
