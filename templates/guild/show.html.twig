@@ -9,6 +9,7 @@
   <div id="guild-header">
     <div id="cover">
       <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
+      {% if guild.description %}<p class="guild-description">{{guild.description}}</p>{% endif %}
     </div>
 
     <nav>

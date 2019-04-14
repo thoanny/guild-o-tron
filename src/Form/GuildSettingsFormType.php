@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class GuildSettingsFormType extends AbstractType
 {
@@ -21,6 +22,13 @@ class GuildSettingsFormType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
+      ->add('description', TextType::class, [
+        'label' => 'Slogan',
+        'required' => false,
+        'attr' => [
+          'maxlength' => 255
+        ]
+      ])
       ->add('display_in_directory', ChoiceType::class, [
         'choices' => [
           'Yes' => true,

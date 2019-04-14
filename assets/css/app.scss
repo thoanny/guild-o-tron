@@ -7,6 +7,7 @@
 body {
   font-family: 'Lato', sans-serif;
   color: #444;
+  line-height: 1.4;
 }
 
 h1, h2, h3, h4, h5, h6, .title {
@@ -392,6 +393,19 @@ header {
     background: url('../img/guild-header-bg.jpg') no-repeat bottom center;
     background-size: cover;
     padding: 5em 1em;
+
+    h1 + p {
+      margin-top: -.5em;
+    }
+
+    .guild-description {
+      font-weight: bold;
+      font-style: italic;
+      font-size: 1.4em;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   nav {
