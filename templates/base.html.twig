@@ -43,7 +43,9 @@
 
         {% for type, messages in app.session.flashbag.all() %}
           {% for message in messages %}
-            <div class="flash-{{type}}">{{message}}</div>
+          <div class="flash-message">
+            <div class="flash-{{type}}"><a href="#!" class="flash-close">&times;</a>{{message}}</div>
+          </div>
           {% endfor %}
         {% endfor %}
 

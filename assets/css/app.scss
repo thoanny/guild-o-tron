@@ -441,3 +441,53 @@ header {
   left: 0;
   right: 0;
 }
+
+.flash-message {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+
+  > div {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em 2em;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    box-sizing: border-box;
+
+    $green: #27ae60;
+    $red: #c0392b;
+    $blue: #2980b9;
+    $orange: #f39c12;
+
+    &.flash-danger {
+      background: $red;
+    }
+
+    &.flash-success {
+      background: $green;
+    }
+
+    &.flash-info {
+      background: $blue;
+    }
+
+    &.flash-warning {
+      background: $orange;
+    }
+
+    .flash-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: inherit;
+      text-decoration: none;
+      font-size: 1.5em;
+      line-height: 1;
+      padding: 0 .25em;
+    }
+  }
+}

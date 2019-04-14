@@ -106,6 +106,11 @@ $(document).ready(function() {
 
   $('.marquee').marquee();
 
+  $('.flash-message').on('click', '.flash-close', function(e) {
+    e.preventDefault();
+    $(this).parent().parent().remove();
+  });
+
   _init_gw2_items();
   _init_gw2_upgrades();
 
