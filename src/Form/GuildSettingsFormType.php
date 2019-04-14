@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class GuildSettingsFormType extends AbstractType
 {
@@ -35,6 +36,11 @@ class GuildSettingsFormType extends AbstractType
           'No' => false
         ]
       ])
+      ->add('facebook', UrlType::class, ['required' => false])
+      ->add('twitter', UrlType::class, ['required' => false])
+      ->add('youtube', UrlType::class, ['required' => false])
+      ->add('twitch', UrlType::class, ['required' => false])
+      ->add('discord', UrlType::class, ['required' => false])
       ->add('display_stash', ChoiceType::class, [
         'choices' => $this->displayChoices
       ])

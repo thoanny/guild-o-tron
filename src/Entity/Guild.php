@@ -97,6 +97,31 @@ class Guild
      */
     private $display_in_directory;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $youtube;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $discord;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $twitch;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -310,6 +335,66 @@ class Guild
     public function setDisplayInDirectory(bool $display_in_directory): self
     {
         $this->display_in_directory = $display_in_directory;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    public function getYoutube(): ?string
+    {
+        return $this->youtube;
+    }
+
+    public function setYoutube(?string $youtube): self
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    public function getDiscord(): ?string
+    {
+        return $this->discord;
+    }
+
+    public function setDiscord(?string $discord): self
+    {
+        $this->discord = $discord;
+
+        return $this;
+    }
+
+    public function getTwitch(): ?string
+    {
+        return $this->twitch;
+    }
+
+    public function setTwitch(?string $twitch): self
+    {
+        $this->twitch = $twitch;
 
         return $this;
     }

@@ -408,6 +408,18 @@ header {
     }
   }
 
+  #guild-links {
+    padding: 0;
+    
+    li {
+      display: inline-block;
+
+      a {
+        color: inherit;
+      }
+    }
+  }
+
   nav {
     ul {
       padding: 0;
@@ -490,4 +502,24 @@ header {
       padding: 0 .25em;
     }
   }
+}
+
+.facebook {
+  color: #3b5998;
+}
+
+.twitter {
+  color: #1da1f2;
+}
+
+.youtube {
+  color: #ff0000;
+}
+
+.twitch {
+  color: #6441a5;
+}
+
+.discord {
+  color: #7289da;
 }

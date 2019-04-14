@@ -10,6 +10,53 @@
     <div id="cover">
       <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
       {% if guild.description %}<p class="guild-description">{{guild.description}}</p>{% endif %}
+      <ul id="guild-links">
+        {% if guild.getFacebook() %}
+          <li class="facebook">
+            <a href="{{ guild.getFacebook() }}" target="_blank" data-tippy="Facebook" data-tippy-arrow="true"><span class="fa-stack">
+                <i class="fas fa-square fa-stack-2x"></i>
+                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+        {% if guild.getTwitter() %}
+          <li class="twitter">
+            <a href="{{ guild.getTwitter() }}" target="_blank" data-tippy="Twitter" data-tippy-arrow="true"><span class="fa-stack">
+                <i class="fas fa-square fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+        {% if guild.getYoutube() %}
+          <li class="youtube">
+            <a href="{{ guild.getYoutube() }}" target="_blank" data-tippy="Youtube" data-tippy-arrow="true"><span class="fa-stack">
+                <i class="fas fa-square fa-stack-2x"></i>
+                <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+        {% if guild.getTwitch() %}
+          <li class="twitch">
+            <a href="{{ guild.getTwitch() }}" target="_blank" data-tippy="Twitch" data-tippy-arrow="true"><span class="fa-stack">
+                <i class="fas fa-square fa-stack-2x"></i>
+                <i class="fab fa-twitch fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+        {% if guild.getDiscord() %}
+          <li class="discord">
+            <a href="{{ guild.getDiscord() }}" target="_blank" data-tippy="Discord" data-tippy-arrow="true"><span class="fa-stack">
+                <i class="fas fa-square fa-stack-2x"></i>
+                <i class="fab fa-discord fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
 
     <nav>
