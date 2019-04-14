@@ -77,6 +77,26 @@ class Guild
      */
     private $guildTreasury;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $display_stash;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $display_treasury;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $display_members;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $display_in_directory;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -242,6 +262,54 @@ class Guild
         if ($this !== $guildTreasury->getGuild()) {
             $guildTreasury->setGuild($this);
         }
+
+        return $this;
+    }
+
+    public function getDisplayStash(): ?string
+    {
+        return $this->display_stash;
+    }
+
+    public function setDisplayStash(string $display_stash): self
+    {
+        $this->display_stash = $display_stash;
+
+        return $this;
+    }
+
+    public function getDisplayTreasury(): ?string
+    {
+        return $this->display_treasury;
+    }
+
+    public function setDisplayTreasury(string $display_treasury): self
+    {
+        $this->display_treasury = $display_treasury;
+
+        return $this;
+    }
+
+    public function getDisplayMembers(): ?string
+    {
+        return $this->display_members;
+    }
+
+    public function setDisplayMembers(string $display_members): self
+    {
+        $this->display_members = $display_members;
+
+        return $this;
+    }
+
+    public function getDisplayInDirectory(): ?bool
+    {
+        return $this->display_in_directory;
+    }
+
+    public function setDisplayInDirectory(bool $display_in_directory): self
+    {
+        $this->display_in_directory = $display_in_directory;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Entity\GuildStash;
 use App\Entity\GuildMember;
 use App\Entity\GuildTreasury;
 use App\Form\GuildFormType;
+use App\Form\GuildSettingsFormType;
 use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -92,6 +93,10 @@ class GuildController extends AbstractController
         $newGuild->setTag($guild->tag);
         $newGuild->setName($guild->name);
         $newGuild->setGid($guild->id);
+        $newGuild->setDisplayStash('members');
+        $newGuild->setDisplayTreasury('members');
+        $newGuild->setDisplayMembers('members');
+        $newGuild->setDisplayInDirectory(0);
         $newGuild->setToken($token);
 
         $entityManager->persist($newGuild);
@@ -487,13 +492,21 @@ class GuildController extends AbstractController
      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
      $user = $this->getUser();
 
-     // Update/Get Treasury
-     $treasury = $this->getGuildTreasuryFromAPI($guild);
-
      $isMember = false;
      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
        $isMember = true;
      }
+
+     if(
+       ($guild->getDisplayTreasury() == 'hide') ||
+       ($guild->getDisplayTreasury() == 'members' && !$isMember) ||
+       ($guild->getDisplayTreasury() == 'logged' && !$user)
+     ) {
+       return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+     }
+
+     // Update/Get Treasury
+     $treasury = $this->getGuildTreasuryFromAPI($guild);
 
      return $this->render('guild/show.html.twig', [
        'guild' => $guild,
@@ -513,16 +526,24 @@ class GuildController extends AbstractController
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
       $user = $this->getUser();
 
+      $isMember = false;
+      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+        $isMember = true;
+      }
+
+      if(
+        ($guild->getDisplayStash() == 'hide') ||
+        ($guild->getDisplayStash() == 'members' && !$isMember) ||
+        ($guild->getDisplayStash() == 'logged' && !$user)
+      ) {
+        return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+      }
+
       // Update Stash
       if(!($stash = $guild->getGuildStash())) {
         $stash = $this->getGuildStashFromAPI($guild);
       } else {
         $this->getGuildStashFromAPI($guild);
-      }
-
-      $isMember = false;
-      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
-        $isMember = true;
       }
 
       return $this->render('guild/show.html.twig', [
@@ -543,13 +564,21 @@ class GuildController extends AbstractController
      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
      $user = $this->getUser();
 
-     // Updates Members
-     $members = $this->getGuildMembersFromAPI($guild);
-
      $isMember = false;
      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
        $isMember = true;
      }
+
+     if(
+       ($guild->getDisplayMembers() == 'hide') ||
+       ($guild->getDisplayMembers() == 'members' && !$isMember) ||
+       ($guild->getDisplayMembers() == 'logged' && !$user)
+     ) {
+       return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+     }
+
+     // Updates Members
+     $members = $this->getGuildMembersFromAPI($guild);
 
      return $this->render('guild/show.html.twig', [
        'guild' => $guild,
@@ -561,13 +590,28 @@ class GuildController extends AbstractController
 
   /**
    * @Route("/guilds/{slug}/settings", name="guilds_settings")
+   * @IsGranted("ROLE_USER")
    */
-  public function settings(string $slug): Response
+  public function settings(string $slug, Request $request): Response
   {
     $entityManager = $this->getDoctrine()->getManager();
     $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
 
     $user = $this->getUser();
+    if ($guild->getUser() !== $user) {
+      $this->addFlash('danger', 'You can\'t access this page.');
+      return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+    }
+
+    $form = $this->createForm(GuildSettingsFormType::class, $guild);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $guild = $form->getData();
+      $entityManager->flush();
+
+      $this->addFlash('success', 'Settings saved.');
+      return $this->redirectToRoute('guilds_settings', ['slug' => $slug]);
+    }
 
     $isMember = false;
     if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
@@ -578,6 +622,7 @@ class GuildController extends AbstractController
       'view' => 'settings',
       'guild' => $guild,
       'isMember' => $isMember,
+      'settings' => $form->createView()
     ]);
   }
 
