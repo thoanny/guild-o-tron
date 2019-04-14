@@ -416,3 +416,14 @@ header {
   }
 
 }
+
+#guild-logs-marquee {
+  position: fixed;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
