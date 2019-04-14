@@ -20,6 +20,31 @@ class GuildSettingsFormType extends AbstractType
     'Public' => 'public'
   ];
 
+  private $activitiesChoices = [
+    'PvE' => 'pve',
+    'PvP' => 'pvp',
+    'WvW' => 'wvw',
+    'Raids' => 'raids',
+    'Dungeons' => 'dungeons',
+    'Fractals' => 'fractals',
+    'Guild missions' => 'missions',
+    'World boss' => 'wb',
+    'Exploration' => 'explo',
+    'Jumping puzzles' => 'jump'
+  ];
+
+  private $tagsChoices = [
+    'Family' => 'family',
+    'Casual' => 'casual',
+    'Hardcore' => 'hardcore',
+    'Role Playing' => 'rp',
+    'Support' => 'support',
+    'Beginner' => 'beginner',
+    'Expert' => 'expert',
+    'Adult' => 'adult',
+    'Multigaming' => 'multi',
+  ];
+
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
@@ -35,6 +60,16 @@ class GuildSettingsFormType extends AbstractType
           'Yes' => true,
           'No' => false
         ]
+      ])
+      ->add('activities', ChoiceType::class, [
+        'choices' => $this->activitiesChoices,
+        'multiple' => true,
+        'expanded' => true
+      ])
+      ->add('tags', ChoiceType::class, [
+        'choices' => $this->tagsChoices,
+        'multiple' => true,
+        'expanded' => true
       ])
       ->add('facebook', UrlType::class, ['required' => false])
       ->add('twitter', UrlType::class, ['required' => false])

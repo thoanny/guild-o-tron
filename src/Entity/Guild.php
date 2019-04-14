@@ -122,6 +122,16 @@ class Guild
      */
     private $twitch;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $activities = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $tags = [];
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -395,6 +405,30 @@ class Guild
     public function setTwitch(?string $twitch): self
     {
         $this->twitch = $twitch;
+
+        return $this;
+    }
+
+    public function getActivities(): ?array
+    {
+        return $this->activities;
+    }
+
+    public function setActivities(?array $activities): self
+    {
+        $this->activities = $activities;
+
+        return $this;
+    }
+
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): self
+    {
+        $this->tags = $tags;
 
         return $this;
     }

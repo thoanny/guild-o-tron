@@ -46,8 +46,13 @@ input, button, textarea, select {
   }
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
   width: auto;
+
+  & + label {
+    display: inline-block;
+    padding: 0 1em 0 .25em;
+  }
 }
 
 button {
