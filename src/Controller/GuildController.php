@@ -27,7 +27,7 @@ class GuildController extends AbstractController
     {
 
       $repository = $this->getDoctrine()->getRepository(Guild::class);
-      $guilds = $repository->findAll();
+      $guilds = $repository->findBy(['display_in_directory' => 1]);
 
       return $this->render('guild/index.html.twig', [
           'guilds' => $guilds,
