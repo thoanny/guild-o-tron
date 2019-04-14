@@ -20,6 +20,7 @@
         <li>Achievements</li>
         <li>Events</li>
         <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">Members</a></li>
+        <li><a href="{{ path('guilds_settings', {'slug': guild.slug}) }}">Settings</a></li>
       </ul>
     </nav>
 
@@ -43,6 +44,8 @@
     SCRIBE
   {% elseif view is defined and view == 'members' %}
     {% include 'guild/_members.html.twig' with {'members': members} %}
+  {% elseif view is defined and view == 'settings' %}
+    {% include 'guild/_settings.html.twig' %}
   {% else %}
     {% include 'guild/_logs.html.twig' with {'logs': logs} %}
   {% endif %}

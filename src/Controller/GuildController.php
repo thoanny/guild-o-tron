@@ -559,4 +559,26 @@ class GuildController extends AbstractController
      ]);
    }
 
+  /**
+   * @Route("/guilds/{slug}/settings", name="guilds_settings")
+   */
+  public function settings(string $slug): Response
+  {
+    $entityManager = $this->getDoctrine()->getManager();
+    $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+    $user = $this->getUser();
+
+    $isMember = false;
+    if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+      $isMember = true;
+    }
+
+    return $this->render('guild/show.html.twig', [
+      'view' => 'settings',
+      'guild' => $guild,
+      'isMember' => $isMember,
+    ]);
+  }
+
 }
