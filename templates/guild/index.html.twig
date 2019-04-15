@@ -13,7 +13,7 @@
   <ul id="my-guilds">
     <li><strong>Your guilds:</strong></li>
     {% for guild in my_guilds %}
-      <li><a href="{{ path('guilds_show', {'slug': guild.guild.slug}) }}">{{guild.guild.name}}</a></li>
+      <li><a href="{{ path('guilds_show', {'slug': guild.guild.slug}) }}"><small>[{{guild.guild.tag}}]</small> {{guild.guild.name}}</a></li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -22,12 +22,26 @@
   <div id="guilds-directory">
     {% for guild in guilds %}
       <div class="guild">
-        <h3><small>[{{guild.tag}}]</small> {{guild.name}}</h3>
-        {% if guild.description %}<h4>{{guild.description}}</h4>{% endif %}
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis semper diam quis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi aliquam ipsum id ipsum volutpat lacinia. Nunc justo magna, placerat quis convallis a, imperdiet in erat. Aenean bibendum tortor eget eros finibus euismod. Vestibulum ut dignissim felis. Aenean congue nisl sagittis odio viverra tempor. Nam consectetur vestibulum lectus, varius laoreet arcu congue vitae. In vehicula felis nunc, ut mattis leo volutpat at. Aliquam hendrerit urna magna, vel dictum nunc tincidunt at. Vivamus eleifend ultrices quam, vitae maximus eros euismod sed. Phasellus consequat lobortis felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed euismod nulla erat, vitae accumsan arcu dignissim sit amet. Suspendisse potenti. Aenean pretium urna tortor, eget consectetur ipsum imperdiet ac.</p>
-        {% if guild.activities %}<p><strong>Activities:</strong> {{guild.activities|join(', ')}}</p>{% endif %}
-        {% if guild.tags %}<p><strong>Tags:</strong> {{guild.tags|join(', ')}}</p>{% endif %}
-        <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}"><i class="fas fa-angle-double-right"></i> More</a></p>
+        {% if guild.emblem %}
+        <div class="emblem">
+          <div style="filter: invert(100%);">
+            <div style="filter: brightness(0)">
+              <div style="filter: grayscale(100%);">
+                <img src="{{guild.emblem}}" />
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="details">
+          <h3><small>[{{guild.tag}}]</small> {{guild.name}}</h3>
+          {% if guild.description %}<h4>{{guild.description}}</h4>{% endif %}
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis semper diam quis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi aliquam ipsum id ipsum volutpat lacinia. Nunc justo magna, placerat quis convallis a, imperdiet in erat. Aenean bibendum tortor eget eros finibus euismod. Vestibulum ut dignissim felis. Aenean congue nisl sagittis odio viverra tempor. Nam consectetur vestibulum lectus, varius laoreet arcu congue vitae. In vehicula felis nunc, ut mattis leo volutpat at. Aliquam hendrerit urna magna, vel dictum nunc tincidunt at. Vivamus eleifend ultrices quam, vitae maximus eros euismod sed. Phasellus consequat lobortis felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed euismod nulla erat, vitae accumsan arcu dignissim sit amet. Suspendisse potenti. Aenean pretium urna tortor, eget consectetur ipsum imperdiet ac.</p>
+          {% if guild.activities %}<p><strong>Activities:</strong> {{guild.activities|join(', ')}}</p>{% endif %}
+          {% if guild.tags %}<p><strong>Tags:</strong> {{guild.tags|join(', ')}}</p>{% endif %}
+          <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}"><i class="fas fa-angle-double-right"></i> More</a></p>
+        </div>
+
       </div>
     {% endfor %}
   </div>

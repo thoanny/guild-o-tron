@@ -132,6 +132,26 @@ class Guild
      */
     private $tags = [];
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $level;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $capacity;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $emblem;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $checksum;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -429,6 +449,54 @@ class Guild
     public function setTags(?array $tags): self
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(int $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getEmblem(): ?string
+    {
+        return $this->emblem;
+    }
+
+    public function setEmblem(string $emblem): self
+    {
+        $this->emblem = $emblem;
+
+        return $this;
+    }
+
+    public function getChecksum(): ?string
+    {
+        return $this->checksum;
+    }
+
+    public function setChecksum(string $checksum): self
+    {
+        $this->checksum = $checksum;
 
         return $this;
     }

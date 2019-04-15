@@ -554,6 +554,29 @@ header {
 #guilds-directory {
   .guild {
     margin-top: 3em;
+    display: flex;
+    justify-content: space-between;
+
+    $w: 80px;
+    $p: .5em;
+
+    .emblem {
+      background: #f5cd79;
+      border-radius:50%;
+      padding: $p;
+      width: $w;
+      height: $w;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .details {
+      width: calc(100% - #{$w} - (#{$p} * 2) - 2em);
+    }
 
     h3 + h4 {
       margin-top: -.75em;

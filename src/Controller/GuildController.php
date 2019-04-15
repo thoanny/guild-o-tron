@@ -93,6 +93,13 @@ class GuildController extends AbstractController
           return $this->redirectToRoute('guilds');
         }
 
+        $checksum = md5( json_encode( $guild ) );
+
+        $emblem = $api->get('/emblem/foregrounds/:id', null, ['id' => $guild->emblem->foreground->id]);
+        if($emblem) {
+          $emblem = $emblem->layers[0];
+        }
+
         $user = $security->getUser();
 
         $newGuild = new Guild;
@@ -100,6 +107,10 @@ class GuildController extends AbstractController
         $newGuild->setTag($guild->tag);
         $newGuild->setName($guild->name);
         $newGuild->setGid($guild->id);
+        $newGuild->setLevel($guild->level);
+        $newGuild->setCapacity($guild->member_capacity);
+        $newGuild->setEmblem($emblem);
+        $newGuild->setChecksum($checksum);
         $newGuild->setDisplayStash('members');
         $newGuild->setDisplayTreasury('members');
         $newGuild->setDisplayMembers('members');
@@ -110,7 +121,7 @@ class GuildController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('notice', 'Guild created.');
-        return $this->redirectToRoute('guilds');
+        return $this->redirectToRoute('guilds_show', ['slug' => $newGuild->getSlug()]);
       } else {
         return $this->render('guild/add.html.twig');
       }
@@ -451,6 +462,36 @@ class GuildController extends AbstractController
 
     }
 
+    private function getGuildFromAPI($slug) {
+      $api = new Gw2Api();
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+      $apiGuild = $api->get('/guild/:id', $guild->getToken(), ['id' => $guild->getGid()]);
+
+      if($apiGuild) {
+        $checksum = md5( json_encode($apiGuild) );
+
+        if($checksum !== $guild->getChecksum()) {
+
+          $emblem = $api->get('/emblem/foregrounds/:id', null, ['id' => $apiGuild->emblem->foreground->id]);
+          if($emblem) {
+            $emblem = $emblem->layers[0];
+          }
+
+          $guild->setLevel($apiGuild->level);
+          $guild->setCapacity($apiGuild->member_capacity);
+          $guild->setEmblem($emblem);
+          $guild->setChecksum($checksum);
+          $entityManager->flush();
+
+        }
+
+      }
+
+      return $guild;
+
+    }
+
     function searchUserByAccountName($name, $array) {
        foreach ($array as $key => $val) {
          $val = (array) $val;
@@ -468,7 +509,8 @@ class GuildController extends AbstractController
     {
       $api = new Gw2Api();
       $entityManager = $this->getDoctrine()->getManager();
-      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+      $guild = $this->getGuildFromAPI($slug);
+
       $user = $this->getUser();
 
       $members = $this->getGuildMembersFromAPI($guild);
