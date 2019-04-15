@@ -32,7 +32,7 @@ Step 7
 
 Step 8
 
-`rm -rf .git assets bin node_modules .htaccess .gitignore composer.json composer.lock package.json symfony.lock webpack.config.js yarn.lock var`
+`rm -rf .git assets bin node_modules .htaccess .gitignore composer.json composer.lock package.json symfony.lock webpack.config.js yarn.lock var .env README.md`
 
 Step 9
 
