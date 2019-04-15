@@ -45,3 +45,7 @@ Transfer files with FTP
 Step 11
 
 Update database, at your own risk !
+
+Step 12
+
+Delete `var/cache/prod` folder
