@@ -8,6 +8,17 @@
 
   <div id="guild-header">
     <div id="cover">
+      {% if guild.emblem %}
+      <div class="emblem">
+        <div style="filter: invert(100%);">
+          <div style="filter: brightness(0)">
+            <div style="filter: grayscale(100%);">
+              <img src="{{guild.emblem}}" />
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
       <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
       {% if guild.description %}<p class="guild-description">{{guild.description}}</p>{% endif %}
       <ul id="guild-links">
