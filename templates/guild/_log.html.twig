@@ -1,32 +1,51 @@
 <span class="date">{{ log.getCreatedAt()|date("d/m/y H:i") }}</span>
 
-{% if log.getType() == 'joined' %}
-  {{log.getUserName()}} has joined the guild.
-{% elseif log.getType() == 'invited' %}
-  {{log.getData().invited_by}} has invited {{log.getUserName()}} to the guild.
-{% elseif log.getType() == 'kick' %}
-  {% if log.getUserName() == log.getData().kicked_by %}
-    {{log.getUserName()}} has left the guild.
+{% if log.type == 'joined' %}
+  {{ 'guild.log.joined'|trans({'%name%': log.username}) }}
+{% elseif log.type == 'invited' %}
+  {{ 'guild.log.invited'|trans({'%name%': log.username, '%by%': log.data.invited_by }) }}
+{% elseif log.type == 'kick' %}
+  {% if log.username == log.data.kicked_by %}
+    {{ 'guild.log.kick.itself'|trans({'%name%': log.username}) }}
   {% else %}
-    {{log.getData().kicked_by}} has kicked {{log.getUserName()}} from the guild.
+    {{ 'guild.log.kick'|trans({'%name%': log.username, '%by%': log.data.kicked_by}) }}
   {% endif %}
-{% elseif log.getType() == 'rank_change' %}
-  {% if log.getData().changed_by is defined %}
-    {{log.getData().changed_by}} has changed the role of {{log.getUserName()}} to {{log.getData().new_rank}}.
+{% elseif log.type == 'rank_change' %}
+  {% if log.data.changed_by is defined %}
+    {{ 'guild.log.rank_change'|trans({'%by%': log.data.changed_by, '%name%': log.username, '%rank%': log.data.new_rank}) }}
   {% else %}
-    {{log.getUserName()}} has changed role to {{log.getData().new_rank}}.
+    {{ 'guild.log.rank_change.itself'|trans({'%name%': log.username, '%rank%': log.data.new_rank}) }}
   {% endif %}
-{% elseif log.getType() == 'treasury' %}
-  {{log.getUserName()}} deposited <span data-item-id="{{log.getData().item_id}}">{{log.getData().item_id}}</span> &times;&nbsp;{{log.getData().count}} into Treasury.
-{% elseif log.getType() == 'stash' %}
-  {% if log.getData().coins > 0 %}
-    {{log.getUserName()}} {{log.getData().operation}}ed {{log.getData().coins|currency}} coins.
+{% elseif log.type == 'treasury' %}
+  {{ 'guild.log.treasury'|trans({'%name%': log.username, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~ '</span>'})|raw }}
+{% elseif log.type == 'stash' %}
+  {% if log.data.coins > 0 %}
+    {% if log.data.operation == 'deposit' %}
+      {{ 'guild.log.stash.coins.deposit'|trans({'%name%': log.username, '%coins%': log.data.coins|currency}) }}
+    {% elseif log.data.operation == 'withdraw' %}
+      {{ 'guild.log.stash.coins.withdraw'|trans({'%name%': log.username, '%coins%': log.data.coins|currency}) }}
+    {% endif %}
   {% else %}
-    {{log.getUserName()}} {{log.getData().operation}}ed <span data-item-id="{{log.getData().item_id}}">{{log.getData().item_id}}</span> &times;&nbsp;{{log.getData().count}}.
+    {% if log.data.operation == 'deposit' %}
+      {{ 'guild.log.stash.item.deposit'|trans({'%name%': log.username, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+    {% elseif log.data.operation == 'withdraw' %}
+      {{ 'guild.log.stash.item.withdraw'|trans({'%name%': log.username, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+    {% elseif log.data.operation == 'move' %}
+      {{ 'guild.log.stash.item.move'|trans({'%name%': log.username, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+    {% endif %}
   {% endif %}
-{% elseif log.getType() == 'upgrade' %}
-  {{log.getUserName()}} {{log.getData().action}} <span data-upgrade-id="{{log.getData().upgrade_id}}">{{log.getData().upgrade_id}}</span>.
-  {# @todo: {% if log.getData().recipe_id is defined %}({{log.getData().recipe_id}}){% endif %} #}
-{% elseif log.getType() == 'invite_declined' %}
-  {{log.getUserName()}} has declined invite to join the guild.
+{% elseif log.type == 'upgrade' %}
+  {#  queued, cancelled, completed, sped_up  #}
+  {% if log.data.action == 'queued' %}
+    {{ 'guild.log.upgrade.queued'|trans({'%name%': log.username, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+  {% elseif log.data.action == 'cancelled' %}
+    {{ 'guild.log.upgrade.cancelled'|trans({'%name%': log.username, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+  {% elseif log.data.action == 'completed' %}
+    {{ 'guild.log.upgrade.completed'|trans({'%name%': log.username, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+  {% elseif log.data.action == 'sped_up' %}
+    {{ 'guild.log.upgrade.sped_up'|trans({'%name%': log.username, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+  {% endif %}
+  {# @todo: {% if log.data.recipe_id is defined %}({{log.data.recipe_id}}){% endif %} #}
+{% elseif log.type == 'invite_declined' %}
+  {{ 'guild.log.invite.declined'|trans({'%name%': log.username}) }}
 {% endif %}

@@ -5,8 +5,4 @@
 {% block body %}
 <h1>Hello world!</h1>
 
-{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-  <p><a href="{{ path('app_login') }}">Login</a></p>
-{% endif %}
-
 {% endblock %}

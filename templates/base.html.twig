@@ -19,18 +19,18 @@
 
         <nav>
           <ul>
-            <li><a href="{{ path('homepage') }}">Home</a></li>
+            <li><a href="{{ path('homepage') }}">{% trans %}menu.home{% endtrans %}</a></li>
 
-            <li><a href="{{ path('guilds') }}">Guilds</a></li>
+            <li><a href="{{ path('guilds') }}">{% trans %}menu.guilds{% endtrans %}</a></li>
 
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path('app_login') }}">Login</a></li>
-            <li><a href="{{ path('app_register') }}">Signup</a></li>
+            <li><a href="{{ path('app_login') }}">{% trans %}menu.login{% endtrans %}</a></li>
+            <li><a href="{{ path('app_register') }}">{% trans %}menu.register{% endtrans %}</a></li>
             {% endif %}
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-            <li class="red"><a href="{{ path('app_logout') }}">Logout</a></li>
+            <li><a href="{{ path('dashboard') }}">{% trans %}menu.dashboard{% endtrans %}</a></li>
+            <li class="red"><a href="{{ path('app_logout') }}">{% trans %}menu.logout{% endtrans %}</a></li>
             {% endif %}
 
             <li class="red"><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>

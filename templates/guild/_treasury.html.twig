@@ -1,4 +1,4 @@
-<h2>Treasury</h2>
+<h2>{% trans %}guild.treasury.title{% endtrans %}</h2>
 
 {% if treasury %}
   <div id="guild-treasury">
@@ -13,7 +13,7 @@
     </ul>
   </div>
 
-  <h2>Upgrades</h2>
+  <h2>{% trans %}guild.upgrades.title{% endtrans %}</h2>
 
   <div id="guild-upgrades">
     {% for upgrade in treasury.treasury._upgrades %}

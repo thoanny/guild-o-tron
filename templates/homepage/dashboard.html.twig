@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}{% trans %}dashboard.title{% endtrans %}{% endblock %}
 
 {% block body %}
-<h1>Dashboard</h1>
+<h1>{% trans %}dashboard.title{% endtrans %}</h1>
 
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <p>Email: {{ app.user.email }}</p>
-    <p>Account: {{ app.user.accountName }}</p>
-    <p><a href="{{ path('app_logout') }}">Logout</a></p>
+    <p>{% trans %}dashboard.email.label{% endtrans %} {{ app.user.email }}</p>
+    <p>{% trans %}dashboard.account.label{% endtrans %} {{ app.user.accountName }}</p>
   {% endif %}
 
 {% endblock %}

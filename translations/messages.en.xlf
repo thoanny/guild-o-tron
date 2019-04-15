@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="GyNiJAi" resname="menu.home">
+        <source>menu.home</source>
+        <target state="translated">Home</target>
+      </trans-unit>
+      <trans-unit id="eFPhsV9" resname="menu.guilds">
+        <source>menu.guilds</source>
+        <target state="translated">Guilds</target>
+      </trans-unit>
+      <trans-unit id="mMdg0uH" resname="menu.login">
+        <source>menu.login</source>
+        <target state="translated">Login</target>
+      </trans-unit>
+      <trans-unit id="1slVsoT" resname="menu.register">
+        <source>menu.register</source>
+        <target state="translated">Register</target>
+      </trans-unit>
+      <trans-unit id="vLWpzeo" resname="menu.dashboard">
+        <source>menu.dashboard</source>
+        <target state="translated">Dashboard</target>
+      </trans-unit>
+      <trans-unit id="wBTFKFR" resname="menu.logout">
+        <source>menu.logout</source>
+        <target state="translated">Logout</target>
+      </trans-unit>
+      <trans-unit id="iSItoNa" resname="register.title">
+        <source>register.title</source>
+        <target state="translated">Register</target>
+      </trans-unit>
+      <trans-unit id="Gm6pWaT" resname="register.email.label">
+        <source>register.email.label</source>
+        <target state="translated">Email</target>
+      </trans-unit>
+      <trans-unit id="6Kb60GA" resname="register.password.label">
+        <source>register.password.label</source>
+        <target state="translated">Password</target>
+      </trans-unit>
+      <trans-unit id="sx9VASj" resname="register.apikey.label">
+        <source>register.apikey.label</source>
+        <target state="translated">Guild Wars 2 API key</target>
+      </trans-unit>
+      <trans-unit id="0n2N7hg" resname="register.gdpr.label">
+        <source>register.gdpr.label</source>
+        <target state="translated">I'm agree with the privacy policy</target>
+      </trans-unit>
+      <trans-unit id="AqH74Qc" resname="register.button">
+        <source>register.button</source>
+        <target state="translated">Register</target>
+      </trans-unit>
+      <trans-unit id="VRy0snh" resname="forgotten.password.title">
+        <source>forgotten.password.title</source>
+        <target state="translated">Forgotten password</target>
+      </trans-unit>
+      <trans-unit id="hH0QG2L" resname="forgotten.password.email.label">
+        <source>forgotten.password.email.label</source>
+        <target state="translated">E-mail</target>
+      </trans-unit>
+      <trans-unit id="s1WAyV." resname="forgotten.password.button">
+        <source>forgotten.password.button</source>
+        <target state="translated">Reset password</target>
+      </trans-unit>
+      <trans-unit id="Kd99AFq" resname="login.title">
+        <source>login.title</source>
+        <target state="translated">Login</target>
+      </trans-unit>
+      <trans-unit id="os73t2e" resname="login.email.label">
+        <source>login.email.label</source>
+        <target state="translated">Email</target>
+      </trans-unit>
+      <trans-unit id="HJtrGOc" resname="login.password.label">
+        <source>login.password.label</source>
+        <target state="translated">Password</target>
+      </trans-unit>
+      <trans-unit id="Nc_lWJm" resname="login.button">
+        <source>login.button</source>
+        <target state="translated">Login</target>
+      </trans-unit>
+      <trans-unit id="RlDpa7F" resname="forgotten.password.link">
+        <source>forgotten.password.link</source>
+        <target state="translated">Forgot your password?</target>
+      </trans-unit>
+      <trans-unit id="3bqLM8Q" resname="dashboard.title">
+        <source>dashboard.title</source>
+        <target state="translated">Dashboard</target>
+      </trans-unit>
+      <trans-unit id="eAaonCd" resname="dashboard.email.label">
+        <source>dashboard.email.label</source>
+        <target state="translated">Email:</target>
+      </trans-unit>
+      <trans-unit id="Hj1vECs" resname="dashboard.account.label">
+        <source>dashboard.account.label</source>
+        <target state="translated">Account:</target>
+      </trans-unit>
+      <trans-unit id="qLtomZ4" resname="guilds.title">
+        <source>guilds.title</source>
+        <target state="translated">Guilds</target>
+      </trans-unit>
+      <trans-unit id="yY42mgw" resname="guilds.add.button">
+        <source>guilds.add.button</source>
+        <target state="translated">Add guild</target>
+      </trans-unit>
+      <trans-unit id="BbRMXkG" resname="guilds.my.guilds">
+        <source>guilds.my.guilds</source>
+        <target state="translated">My guilds:</target>
+      </trans-unit>
+      <trans-unit id="vYMTj4h" resname="guilds.any">
+        <source>guilds.any</source>
+        <target state="translated">No guild.</target>
+      </trans-unit>
+      <trans-unit id="3mQaZL5" resname="guilds.add.title">
+        <source>guilds.add.title</source>
+        <target state="translated">Add a new guild</target>
+      </trans-unit>
+      <trans-unit id="W2xVeBg" resname="guilds.add.token.label">
+        <source>guilds.add.token.label</source>
+        <target state="translated">Guild Wars 2 API key</target>
+      </trans-unit>
+      <trans-unit id="0UcETfs" resname="guilds.add.guilds.label">
+        <source>guilds.add.guilds.label</source>
+        <target state="translated">Guilds</target>
+      </trans-unit>
+      <trans-unit id="x6rJNxy" resname="guilds.add.guilds.placeholder">
+        <source>guilds.add.guilds.placeholder</source>
+        <target state="translated">Check guilds with your API key first</target>
+      </trans-unit>
+      <trans-unit id="NNeeVQQ" resname="guild.submenu.home">
+        <source>guild.submenu.home</source>
+        <target state="translated">Home</target>
+      </trans-unit>
+      <trans-unit id="2VjGgq9" resname="guild.submenu.stash">
+        <source>guild.submenu.stash</source>
+        <target state="translated">Stash</target>
+      </trans-unit>
+      <trans-unit id="AT.xPCX" resname="guild.submenu.treasury">
+        <source>guild.submenu.treasury</source>
+        <target state="translated">Treasury</target>
+      </trans-unit>
+      <trans-unit id="2msTl.t" resname="guild.submenu.scribe">
+        <source>guild.submenu.scribe</source>
+        <target state="translated">Scribe</target>
+      </trans-unit>
+      <trans-unit id="quAUlot" resname="guild.submenu.achievements">
+        <source>guild.submenu.achievements</source>
+        <target state="translated">Achievements</target>
+      </trans-unit>
+      <trans-unit id="f6jxFom" resname="guild.submenu.events">
+        <source>guild.submenu.events</source>
+        <target state="translated">Events</target>
+      </trans-unit>
+      <trans-unit id="20gLJ8G" resname="guild.submenu.members">
+        <source>guild.submenu.members</source>
+        <target state="translated">Members</target>
+      </trans-unit>
+      <trans-unit id="H9S_qTb" resname="guild.submenu.settings">
+        <source>guild.submenu.settings</source>
+        <target state="translated">Settings</target>
+      </trans-unit>
+      <trans-unit id="BYxbgOa" resname="guild.log.treasury">
+        <source>guild.log.treasury</source>
+        <target state="translated"><![CDATA[%name% deposited %item% &times;&nbsp;%count% into Treasury.]]></target>
+      </trans-unit>
+      <trans-unit id="_g6qXrD" resname="guild.log.joined">
+        <source>guild.log.joined</source>
+        <target state="translated">%name% has joined the guild.</target>
+      </trans-unit>
+      <trans-unit id="pOz_CQo" resname="guild.log.invited">
+        <source>guild.log.invited</source>
+        <target state="translated">%by% has invited %name% to the guild.</target>
+      </trans-unit>
+      <trans-unit id="XPJU_hN" resname="guild.log.kick.itself">
+        <source>guild.log.kick.itself</source>
+        <target state="translated">%name% has left the guild.</target>
+      </trans-unit>
+      <trans-unit id="iI31g3Y" resname="guild.log.kick">
+        <source>guild.log.kick</source>
+        <target state="translated">%by% has kicked %name% from the guild.</target>
+      </trans-unit>
+      <trans-unit id="yvc67zH" resname="guild.log.rank_change">
+        <source>guild.log.rank_change</source>
+        <target state="translated">%by% has changed the role of %name% to %rank%.</target>
+      </trans-unit>
+      <trans-unit id="uavo3sE" resname="guild.log.rank_change.itself">
+        <source>guild.log.rank_change.itself</source>
+        <target state="translated">%name% has changed role to %rank%.</target>
+      </trans-unit>
+      <trans-unit id="7SSANiQ" resname="guild.log.stash.coins.deposit">
+        <source>guild.log.stash.coins.deposit</source>
+        <target state="translated">%name% deposited %coins%.</target>
+      </trans-unit>
+      <trans-unit id="1YPw.6T" resname="guild.log.stash.coins.withdraw">
+        <source>guild.log.stash.coins.withdraw</source>
+        <target state="translated">%name% withdrawed %coins%.</target>
+      </trans-unit>
+      <trans-unit id="X7gDZ6F" resname="guild.log.stash.item.deposit">
+        <source>guild.log.stash.item.deposit</source>
+        <target state="translated"><![CDATA[%name% deposited %item% &times;&nbsp;%count%.]]></target>
+      </trans-unit>
+      <trans-unit id="sSXqRQ4" resname="guild.log.stash.item.withdraw">
+        <source>guild.log.stash.item.withdraw</source>
+        <target state="translated"><![CDATA[%name% withdrawed %item% &times;&nbsp;%count%.]]></target>
+      </trans-unit>
+      <trans-unit id="ZpV.NzL" resname="guild.log.stash.item.move">
+        <source>guild.log.stash.item.move</source>
+        <target state="translated"><![CDATA[%name% moved %item% &times;&nbsp;%count%.]]></target>
+      </trans-unit>
+      <trans-unit id="K8pFaKo" resname="guild.log.invite.declined">
+        <source>guild.log.invite.declined</source>
+        <target state="translated">%name% has declined invite to join the guild.</target>
+      </trans-unit>
+      <trans-unit id="fqMRpVM" resname="guild.log.upgrade.queued">
+        <source>guild.log.upgrade.queued</source>
+        <target state="translated">%name% queued %upgrade%.</target>
+      </trans-unit>
+      <trans-unit id="Mumog6m" resname="guild.log.upgrade.cancelled">
+        <source>guild.log.upgrade.cancelled</source>
+        <target state="translated">%name% cancelled %upgrade%.</target>
+      </trans-unit>
+      <trans-unit id="EaGGUeR" resname="guild.log.upgrade.completed">
+        <source>guild.log.upgrade.completed</source>
+        <target state="translated">%name% completed %upgrade%.</target>
+      </trans-unit>
+      <trans-unit id="yLkdy1g" resname="guild.log.upgrade.sped_up">
+        <source>guild.log.upgrade.sped_up</source>
+        <target state="translated">%name% sped up %upgrade%.</target>
+      </trans-unit>
+      <trans-unit id="oncS5A5" resname="guild.members.title">
+        <source>guild.members.title</source>
+        <target state="translated">Members</target>
+      </trans-unit>
+      <trans-unit id="6hrMBo3" resname="guild.members.user">
+        <source>guild.members.user</source>
+        <target state="translated">User</target>
+      </trans-unit>
+      <trans-unit id="DekC_aB" resname="guild.members.rank">
+        <source>guild.members.rank</source>
+        <target state="translated">Rank</target>
+      </trans-unit>
+      <trans-unit id="RN39Lsl" resname="guild.members.joined">
+        <source>guild.members.joined</source>
+        <target state="translated">Joined</target>
+      </trans-unit>
+      <trans-unit id="HR50bZM" resname="guild.members.any">
+        <source>guild.members.any</source>
+        <target state="translated">No members.</target>
+      </trans-unit>
+      <trans-unit id="3MRpFtR" resname="guild.stash.title">
+        <source>guild.stash.title</source>
+        <target state="translated">Stash</target>
+      </trans-unit>
+      <trans-unit id="BcY6boP" resname="guild.stash.coins">
+        <source>guild.stash.coins</source>
+        <target state="translated">Coins:</target>
+      </trans-unit>
+      <trans-unit id="BWzMvIh" resname="guild.stash.any">
+        <source>guild.stash.any</source>
+        <target state="translated">No stash.</target>
+      </trans-unit>
+      <trans-unit id="udIm0IZ" resname="guild.treasury.title">
+        <source>guild.treasury.title</source>
+        <target state="translated">Treasury</target>
+      </trans-unit>
+      <trans-unit id="C1wsb0i" resname="guild.upgrades.title">
+        <source>guild.upgrades.title</source>
+        <target state="translated">Upgrades</target>
+      </trans-unit>
+      <trans-unit id="KKbLKEl" resname="guilds.add.check.button">
+        <source>guilds.add.check.button</source>
+        <target state="translated">Check my guilds</target>
+      </trans-unit>
+      <trans-unit id="5dGDmue" resname="guild.settings.title">
+        <source>guild.settings.title</source>
+        <target state="translated">Settings</target>
+      </trans-unit>
+      <trans-unit id="lXDSlza" resname="guild.settings.description.label">
+        <source>guild.settings.description.label</source>
+        <target state="translated">Slogan</target>
+      </trans-unit>
+      <trans-unit id="S1T54qp" resname="guild.settings.display_in_directory.label">
+        <source>guild.settings.display_in_directory.label</source>
+        <target state="translated">Display in guilds' directory</target>
+      </trans-unit>
+      <trans-unit id="ELrLGbn" resname="guild.settings.activities.label">
+        <source>guild.settings.activities.label</source>
+        <target state="translated">Activities</target>
+      </trans-unit>
+      <trans-unit id="Arr6BJ8" resname="guild.settings.tags.label">
+        <source>guild.settings.tags.label</source>
+        <target state="translated">Tags</target>
+      </trans-unit>
+      <trans-unit id="ZfkgAgk" resname="guild.settings.facebook.label">
+        <source>guild.settings.facebook.label</source>
+        <target state="translated">Facebook</target>
+      </trans-unit>
+      <trans-unit id="OXX6KHC" resname="guild.settings.twitter.label">
+        <source>guild.settings.twitter.label</source>
+        <target state="translated">Twitter</target>
+      </trans-unit>
+      <trans-unit id="ckRn1gw" resname="guild.settings.youtube.label">
+        <source>guild.settings.youtube.label</source>
+        <target state="translated">YouTube</target>
+      </trans-unit>
+      <trans-unit id="Bt0l7ht" resname="guild.settings.twitch.label">
+        <source>guild.settings.twitch.label</source>
+        <target state="translated">Twitch.tv</target>
+      </trans-unit>
+      <trans-unit id="Ahvp2z6" resname="guild.settings.discord.label">
+        <source>guild.settings.discord.label</source>
+        <target state="translated">Discord</target>
+      </trans-unit>
+      <trans-unit id="O.TSWU8" resname="guild.settings.display_stash.label">
+        <source>guild.settings.display_stash.label</source>
+        <target state="translated">Display Stash</target>
+      </trans-unit>
+      <trans-unit id="vgmGXdd" resname="guild.settings.display_treasury.label">
+        <source>guild.settings.display_treasury.label</source>
+        <target state="translated">Display Treasury</target>
+      </trans-unit>
+      <trans-unit id="7WorwWo" resname="guild.settings.display_members.label">
+        <source>guild.settings.display_members.label</source>
+        <target state="translated">Display Members</target>
+      </trans-unit>
+      <trans-unit id="3haLhWJ" resname="guild.settings.button">
+        <source>guild.settings.button</source>
+        <target state="translated">Update settings</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

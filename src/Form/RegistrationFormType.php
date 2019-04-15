@@ -36,14 +36,12 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('apiKey', TextType::class, [
-              'label' => 'Guild Wars 2 API Key',
               'mapped' => false,
               'constraints' => new NotBlank([
                 'message' => 'Please enter an API key'
               ]),
             ])
             ->add('gdpr', CheckboxType::class, [
-              'label' => 'I\'m agree with the Privacy policy',
               'mapped' => false,
               'constraints' => new IsTrue(),
             ])

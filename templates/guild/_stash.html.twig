@@ -1,11 +1,11 @@
 {% if stash %}
 
-  <h2>Stash</h2>
+  <h2>{% trans %}guild.stash.title{% endtrans %}</h2>
 
   <div id="guild-stash">
     {% for st in stash.getStash().stash %}
       <h3>{{stash.getStash()._upgrades[st.upgrade_id].name}}</h3>
-      <h4>Coins: {{st.coins|currency}}</h4>
+      <h4>{% trans %}guild.stash.coins{% endtrans %} {{st.coins|currency}}</h4>
 
       {% if st.note is defined %}
         <p><em>{{st.note}}</em></p>
@@ -27,5 +27,5 @@
     {% endfor %}
   </div>
 {% else %}
-  <p>No Stash.</p>
+  <p>{% trans %}guild.stash.any{% endtrans %}</p>
 {% endif %}

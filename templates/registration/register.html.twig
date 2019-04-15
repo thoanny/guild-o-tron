@@ -1,16 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{% trans %}register.title{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>{% trans %}register.title{% endtrans %}</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.apiKey) }}
-        {{ form_row(registrationForm.gdpr) }}
+        {{ form_label(registrationForm.email, 'register.email.label'|trans) }}
+        {{ form_widget(registrationForm.email) }}
 
-        <button class="btn">Register</button>
+        {{ form_label(registrationForm.plainPassword, 'register.password.label'|trans) }}
+        {{ form_widget(registrationForm.plainPassword) }}
+
+        {{ form_label(registrationForm.apiKey, 'register.apikey.label'|trans) }}
+        {{ form_widget(registrationForm.apiKey) }}
+
+        {{ form_widget(registrationForm.gdpr) }}
+        {{ form_label(registrationForm.gdpr, 'register.gdpr.label'|trans) }}
+
+        <div>
+          <button class="btn">{% trans %}register.button{% endtrans %}</button>
+        </div>
+
     {{ form_end(registrationForm) }}
 {% endblock %}

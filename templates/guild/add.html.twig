@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add guild{% endblock %}
+{% block title %}{% trans %}guilds.add.title{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Add guild</h1>
+    <h1>{% trans %}guilds.add.title{% endtrans %}</h1>
 
     <form method="post" autocomplete="off">
-      <label for="inputToken">Guild Wars 2 Api key</label>
+      <label for="inputToken">{% trans %}guilds.add.token.label{% endtrans %}</label>
       <input type="text" name="token" id="inputToken" value="" required />
 
-      <button type="button" name="check" id="buttonCheckApiKey">Check</button>
+      <button type="button" name="check" id="buttonCheckApiKey">{% trans %}guilds.add.check.button{% endtrans %}</button>
 
-      <label for="selectGid">Guilds</label>
+      <label for="selectGid">{% trans %}guilds.add.guilds.label{% endtrans %}</label>
       <select name="gid" id="selectGid" required>
-        <option value="" disabled selected>-- Set your GW2 Api Key first --</option>
+        <option value="" disabled selected>-- {% trans %}guilds.add.guilds.placeholder{% endtrans %} --</option>
       </select>
 
-      <button type="submit" name="guild">Add guild</button>
+      <button type="submit" name="guild">{% trans %}guilds.add.button{% endtrans %}</button>
     </form>
 {% endblock %}

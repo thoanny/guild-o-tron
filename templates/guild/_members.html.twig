@@ -1,12 +1,12 @@
-<h2>Members</h2>
+<h2>{% trans %}guild.members.title{% endtrans %}</h2>
 
 {% if members %}
   <table cellpadding="5" cellspacing="0" border="1" bordercolor="#ddd">
     <thead>
       <tr>
-        <th>User</th>
-        <th>Rank</th>
-        <th>Joined</th>
+        <th>{% trans %}guild.members.user{% endtrans %}</th>
+        <th>{% trans %}guild.members.rank{% endtrans %}</th>
+        <th>{% trans %}guild.members.joined{% endtrans %}</th>
       </tr>
     </thead>
     <tbody>
@@ -20,5 +20,5 @@
     </tbody>
   </table>
 {% else %}
-  <p>No members.</p>
+  <p>{% trans %}guild.members.any{% endtrans %}</p>
 {% endif %}

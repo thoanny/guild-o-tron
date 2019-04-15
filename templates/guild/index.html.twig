@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello!{% endblock %}
+{% block title %}{% trans %}guilds.title{% endtrans %}{% endblock %}
 
 {% block body %}
-<h1>Guilds' directory</h1>
+<h1>{% trans %}guilds.title{% endtrans %}</h1>
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-<p><a href="{{ path('guilds_add') }}">Add guild</a></p>
+  <p><a href="{{ path('guilds_add') }}">{% trans %}guilds.add.button{% endtrans %}</a></p>
 {% endif %}
 
 {% if my_guilds %}
   <ul id="my-guilds">
-    <li><strong>Your guilds:</strong></li>
+    <li><strong>{% trans %}guilds.my.guilds{% endtrans %}</strong></li>
     {% for guild in my_guilds %}
       <li><a href="{{ path('guilds_show', {'slug': guild.guild.slug}) }}"><small>[{{guild.guild.tag}}]</small> {{guild.guild.name}}</a></li>
     {% endfor %}
@@ -46,7 +46,7 @@
     {% endfor %}
   </div>
 {% else %}
-  <p>No guild found.</p>
+  <p>{% trans %}guilds.any{% endtrans %}</p>
 {% endif %}
 
 {% endblock %}

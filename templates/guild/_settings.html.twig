@@ -1,7 +1,45 @@
-<h2>Settings</h2>
+<h2>{% trans %}guild.settings.title{% endtrans %}</h2>
 
 {{ form_start(settings) }}
+
+    {{ form_label(settings.description, 'guild.settings.description.label'|trans) }}
+    {{ form_widget(settings.description) }}
+
+    {{ form_label(settings.display_in_directory, 'guild.settings.display_in_directory.label'|trans) }}
+    {{ form_widget(settings.display_in_directory) }}
+
+    {{ form_label(settings.activities, 'guild.settings.activities.label'|trans) }}
+    {{ form_widget(settings.activities) }}
+
+    {{ form_label(settings.tags, 'guild.settings.tags.label'|trans) }}
+    {{ form_widget(settings.tags) }}
+
+    {{ form_label(settings.facebook, 'guild.settings.facebook.label'|trans) }}
+    {{ form_widget(settings.facebook) }}
+
+    {{ form_label(settings.twitter, 'guild.settings.twitter.label'|trans) }}
+    {{ form_widget(settings.twitter) }}
+
+    {{ form_label(settings.youtube, 'guild.settings.youtube.label'|trans) }}
+    {{ form_widget(settings.youtube) }}
+
+    {{ form_label(settings.twitch, 'guild.settings.twitch.label'|trans) }}
+    {{ form_widget(settings.twitch) }}
+
+    {{ form_label(settings.discord, 'guild.settings.discord.label'|trans) }}
+    {{ form_widget(settings.discord) }}
+
+    {{ form_label(settings.display_stash, 'guild.settings.display_stash.label'|trans) }}
+    {{ form_widget(settings.display_stash) }}
+
+    {{ form_label(settings.display_treasury, 'guild.settings.display_treasury.label'|trans) }}
+    {{ form_widget(settings.display_treasury) }}
+
+    {{ form_label(settings.display_members, 'guild.settings.display_members.label'|trans) }}
+    {{ form_widget(settings.display_members) }}
+
     {{ form_widget(settings) }}
 
-    <input type="submit" class="btn" value="Update"/>
+    <button type="submit" class="btn">{% trans %}guild.settings.button{% endtrans %}</button>
+
 {{ form_end(settings) }}

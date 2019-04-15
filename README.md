@@ -49,3 +49,7 @@ Update database, at your own risk !
 Step 12
 
 Delete `var/cache/prod` folder
+
+## Translation
+
+Use `php bin/console translation:update {lang} --force` to generate new version of translation file.

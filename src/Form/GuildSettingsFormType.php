@@ -49,7 +49,6 @@ class GuildSettingsFormType extends AbstractType
   {
     $builder
       ->add('description', TextType::class, [
-        'label' => 'Slogan',
         'required' => false,
         'attr' => [
           'maxlength' => 255
