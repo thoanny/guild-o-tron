@@ -26,6 +26,18 @@ h1, h2, h3, h4, h5, h6, .title {
   position: relative;
 }
 
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.tac {
+  text-align: center;
+}
+
 label {
   display: block;
   padding: .5em 0em;
@@ -172,13 +184,13 @@ button {
     display:block;
     height: $p;
     width: 100%;
-    background: #f5cd79;
+    background: $primary;
     position: absolute;
     top: calc(#{$s} + 3px);
 
     .current {
       height: 100%;
-      background: darken( #f5cd79, 25%);
+      background: darken( $primary, 25%);
     }
   }
 
@@ -219,7 +231,7 @@ button {
 
   h3 {
     // padding: .5em;
-    // background: lighten(#f5cd79, 25%);
+    // background: lighten($primary, 25%);
     line-height: 2em;
     margin-bottom: 0;
 
@@ -258,7 +270,7 @@ button {
         display: block;
         height: 5px;
         width: 100%;
-        background: #f5cd79;
+        background: $primary;
         bottom: 0;
         left: 0;
         position: absolute;
@@ -268,7 +280,7 @@ button {
         position: absolute;
         bottom: 0;
         height: 5px;
-        background: darken( #f5cd79, 25%);
+        background: darken( $primary, 25%);
         left: 0;
         z-index: 9;
       }
@@ -331,7 +343,7 @@ button {
 }
 
 header {
-  border-top: 1em solid #f5cd79;
+  border-top: 1em solid $primary;
   height: 2.5em;
   border-bottom: 2px solid #ecf0f1;
 
@@ -350,7 +362,7 @@ header {
       font-size: 1.5em;
       font-weight: bold;
       font-family: 'PT Serif', serif;
-      color: darken(#f5cd79, 33%);
+      color: darken($primary, 33%);
     }
 
     img {
@@ -474,6 +486,8 @@ header {
   width: 100%;
   left: 0;
   right: 0;
+  z-index: 999;
+  background: #fff;
 }
 
 .flash-message {
@@ -578,7 +592,7 @@ header {
     $p: .5em;
 
     .emblem {
-      background: #f5cd79;
+      background: $primary;
       border-radius:50%;
       padding: $p;
       width: $w;
@@ -602,5 +616,104 @@ header {
     h4 {
       font-style: italic;
     }
+  }
+}
+
+.upgrades-resume {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 2em;
+  margin-bottom: 2em;
+
+  .progress-bar {
+    background: lighten( $primary, 15%);
+    height: 2.5em;
+    margin-bottom: 1em;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    width: calc(50% - .5em);
+
+    .text, .amount {
+      position: absolute;
+      z-index: 99;
+      padding: .5em .75em;
+    }
+
+    .text {
+      font-family: 'PT Serif', serif;
+      font-weight: bold;
+    }
+
+    .amount {
+      right: 0;
+      font-size: .8em;
+      line-height: 2em;
+    }
+
+    .bar {
+      height: 100%;
+      background: $primary;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 9;
+    }
+  }
+}
+
+@mixin mask() {
+  content: '';
+  display:block;
+  height: 170px;
+  width: 100%;
+  background: url('../img/mask.png') no-repeat center center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin imask() {
+  @include mask();
+  transform: rotate(180deg);
+  bottom: initial;
+  top: 0;
+}
+
+#guild-preview {
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+#guild-introduction {
+  font-size: 1.2em;
+  padding: 3em 2em calc(3em + 170px);
+  position: relative;
+  background: lighten( $primary, 15%);
+
+  &:after {
+    @include mask();
+  }
+}
+
+#guild-introduction + #guild-preview {
+  padding-top: 0;
+}
+
+#guild-chart {
+  padding: calc(3em + 170px) 2em;
+  background: lighten( $primary, 15%);
+  position: relative;
+  margin-top: -3em;
+
+  &:before {
+    @include imask();
+  }
+
+  &:after {
+    @include mask();
   }
 }

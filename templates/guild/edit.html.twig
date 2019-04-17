@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}{% endblock %}
+
+{% block body %}
+
+  <h2>{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}</h2>
+
+  <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}guild.home.edit.cancel{% endtrans %}</a></p>
+
+  {{ form_start(form) }}
+
+  {{ form_label(form.introduction, 'guild.home.edit.introduction'|trans) }}
+  {{ form_widget(form.introduction) }}
+
+  {{ form_label(form.chart, 'guild.home.edit.chart'|trans) }}
+  {{ form_widget(form.chart) }}
+
+  {{ form_label(form.notary, 'guild.notary'|trans) }}
+  {{ form_widget(form.notary) }}
+
+  {{ form_label(form.tavern, 'guild.tavern'|trans) }}
+  {{ form_widget(form.tavern) }}
+
+  {{ form_label(form.mine, 'guild.mine'|trans) }}
+  {{ form_widget(form.mine) }}
+
+  {{ form_label(form.workshop, 'guild.workshop'|trans) }}
+  {{ form_widget(form.workshop) }}
+
+  {{ form_label(form.market, 'guild.market'|trans) }}
+  {{ form_widget(form.market) }}
+
+  {{ form_label(form.arena, 'guild.arena'|trans) }}
+  {{ form_widget(form.arena) }}
+
+  {{ form_label(form.war_room, 'guild.war_room'|trans) }}
+  {{ form_widget(form.war_room) }}
+
+  {{ form_widget(form) }}
+
+  <button type="submit" class="btn">{% trans %}guild.home.edit.button{% endtrans %}</button>
+
+  {{ form_end(form) }}
+
+{% endblock %}

@@ -70,7 +70,12 @@
 
     <nav>
       <ul>
-        <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}guild.submenu.home{% endtrans %}</a></li>
+        <li>
+          <a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}guild.submenu.home{% endtrans %}</a>
+          {% if guild.getUser() == app.user %}
+             <small><a href="{{ path('guilds_edit', {'slug': guild.slug}) }}">({% trans %}guild.home.edit.link{% endtrans %})</a></small>
+          {% endif %}
+        </li>
         {% if (guild.getDisplayStash() == 'members' and isMember) or (guild.getDisplayStash() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayStash() == 'public' %}
           <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">{% trans %}guild.submenu.stash{% endtrans %}</a></li>
         {% endif %}
@@ -93,13 +98,13 @@
 
 <div class="container">
 
-  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+  {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% if isMember %}
       <p>You're a member of that guild.</p>
     {% else %}
       <p>You're <u>not</u> a member of that guild.</p>
     {% endif %}
-  {% endif %}
+  {% endif %}#}
 
   {% if view is defined and view == 'stash' %}
     {% include 'guild/_stash.html.twig' with {'stash': stash} %}
@@ -113,6 +118,106 @@
     {% include 'guild/_settings.html.twig' %}
   {% else %}
     {% include 'guild/_logs.html.twig' with {'logs': logs} %}
+
+    </div><!-- .container -->
+
+    {% if guild.introduction %}
+    <div id="guild-introduction">
+      <div class="wrap tac">
+        <p>{{guild.introduction|nl2br}}</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <div id="guild-preview">
+
+      <div class="wrap tac">
+
+        <h2>{% trans %}guild.preview.title{% endtrans %}</h2>
+
+        <p>{{ 'guild.preview.users'|trans({'%guild%': guild.name, '%total%': guild.guildmembers.members|length}) }}</p>
+        <p><em>{{ 'guild.preview.level'|trans({'%level%': guild.level}) }}</em></p>
+
+        {% set upgrades = 0 %}
+
+        <div class="upgrades-resume">
+
+          {% if guild.notary %}
+            {% set max = 7 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.notary{% endtrans %}</div>
+              <div class="amount">{{guild.notary}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.notary / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.tavern %}
+            {% set max = 26 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.tavern{% endtrans %}</div>
+              <div class="amount">{{guild.tavern}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.tavern / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.mine %}
+            {% set max = 15 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.mine{% endtrans %}</div>
+              <div class="amount">{{guild.mine}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.mine / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.workshop %}
+            {% set max = 33 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.workshop{% endtrans %}</div>
+              <div class="amount">{{guild.workshop}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.workshop / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.market %}
+            {% set max = 23 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.market{% endtrans %}</div>
+              <div class="amount">{{guild.market}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.market / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.arena %}
+            {% set max = 24 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.arena{% endtrans %}</div>
+              <div class="amount">{{guild.arena}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.arena / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+          {% if guild.warRoom %}
+            {% set max = 45 %}
+            <div class="progress-bar">
+              <div class="text">{% trans %}guild.war_room{% endtrans %}</div>
+              <div class="amount">{{guild.warRoom}}/{{max}}</div>
+              <div class="bar" style="width: {{( guild.warRoom / max * 100)|round(2)  }}%"></div>
+            </div>
+          {% endif %}
+
+        </div><!-- .upgrades-resume -->
+      </div>
+    </div>
+
+    {% if guild.chart %}
+    <div id="guild-chart">
+      <div class="wrap tac">
+        <h2>{% trans %}guild.chart{% endtrans %}</h2>
+        <p>{{guild.chart|nl2br}}</p>
+      </div>
+    </div>
+    {% endif %}
+
   {% endif %}
 
 {% endblock %}

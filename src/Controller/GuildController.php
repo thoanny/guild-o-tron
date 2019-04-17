@@ -9,6 +9,7 @@ use App\Entity\GuildMember;
 use App\Entity\GuildTreasury;
 use App\Form\GuildFormType;
 use App\Form\GuildSettingsFormType;
+use App\Form\GuildEditFormType;
 use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -115,16 +116,61 @@ class GuildController extends AbstractController
         $newGuild->setDisplayTreasury('members');
         $newGuild->setDisplayMembers('members');
         $newGuild->setDisplayInDirectory(0);
+        $newGuild->setNotary(0);
+        $newGuild->setTavern(0);
+        $newGuild->setMine(0);
+        $newGuild->setWorkshop(0);
+        $newGuild->setMarket(0);
+        $newGuild->setArena(0);
+        $newGuild->setWarRoom(0);
         $newGuild->setToken($token);
 
         $entityManager->persist($newGuild);
         $entityManager->flush();
 
-        $this->addFlash('notice', 'Guild created.');
+        $this->addFlash('success', 'Guild created.');
         return $this->redirectToRoute('guilds_show', ['slug' => $newGuild->getSlug()]);
       } else {
         return $this->render('guild/add.html.twig');
       }
+    }
+
+    /**
+     * @Route("/guilds/{slug}/edit", name="guilds_edit")
+     * @IsGranted("ROLE_USER")
+     */
+    public function edit(Request $request, Security $security, string $slug): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+      $user = $this->getUser();
+      if ($guild->getUser() !== $user) {
+        $this->addFlash('danger', 'You can\'t access this page.');
+        return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+      }
+
+      $form = $this->createForm(GuildEditFormType::class, $guild);
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+        $guild = $form->getData();
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Homepage saved.');
+        return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
+      }
+
+      $isMember = false;
+      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+        $isMember = true;
+      }
+
+      return $this->render('guild/edit.html.twig', [
+        'guild' => $guild,
+        'isMember' => $isMember,
+        'form' => $form->createView()
+      ]);
+
     }
 
     /**

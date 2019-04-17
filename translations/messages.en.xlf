@@ -329,6 +329,78 @@
         <source>guild.settings.button</source>
         <target state="translated">Update settings</target>
       </trans-unit>
+      <trans-unit id="QNL0QJY" resname="guild.home.edit.title">
+        <source>guild.home.edit.title</source>
+        <target state="translated">Edit homepage of "%name%"</target>
+      </trans-unit>
+      <trans-unit id="xUtzQUu" resname="guild.home.edit.button">
+        <source>guild.home.edit.button</source>
+        <target state="translated">Save homepage</target>
+      </trans-unit>
+      <trans-unit id="5.Og.B." resname="guild.home.edit.link">
+        <source>guild.home.edit.link</source>
+        <target state="translated">Edit</target>
+      </trans-unit>
+      <trans-unit id="a.8kZ_d" resname="guild.home.edit.cancel">
+        <source>guild.home.edit.cancel</source>
+        <target state="translated">Cancel</target>
+      </trans-unit>
+      <trans-unit id="hNoVCg9" resname="guild.home.edit.introduction">
+        <source>guild.home.edit.introduction</source>
+        <target state="translated">Introduction</target>
+      </trans-unit>
+      <trans-unit id="NgUWxx4" resname="guild.chart">
+        <source>guild.chart</source>
+        <target state="translated">Guild's chart</target>
+      </trans-unit>
+      <trans-unit id="v5nj2AI" resname="guild.notary">
+        <source>guild.notary</source>
+        <target state="translated">Notary</target>
+      </trans-unit>
+      <trans-unit id=".EYLMjA" resname="guild.tavern">
+        <source>guild.tavern</source>
+        <target state="translated">Tavern</target>
+      </trans-unit>
+      <trans-unit id="UCuui5e" resname="guild.mine">
+        <source>guild.mine</source>
+        <target state="translated">Mine</target>
+      </trans-unit>
+      <trans-unit id="eBsT81a" resname="guild.workshop">
+        <source>guild.workshop</source>
+        <target state="translated">Workshop</target>
+      </trans-unit>
+      <trans-unit id="bObQsDJ" resname="guild.market">
+        <source>guild.market</source>
+        <target state="translated">Market</target>
+      </trans-unit>
+      <trans-unit id="W3BEdVp" resname="guild.arena">
+        <source>guild.arena</source>
+        <target state="translated">Arena</target>
+      </trans-unit>
+      <trans-unit id="wASheW0" resname="guild.war_room">
+        <source>guild.war_room</source>
+        <target state="translated">War Room</target>
+      </trans-unit>
+      <trans-unit id="Y1r6RKd" resname="guild.preview.title">
+        <source>guild.preview.title</source>
+        <target state="translated">Guild's preview</target>
+      </trans-unit>
+      <trans-unit id="M3frVkT" resname="guild.preview.users">
+        <source>guild.preview.users</source>
+        <target state="translated">%guild% is composed of %total% members.</target>
+      </trans-unit>
+      <trans-unit id="mevnCYj" resname="guild.preview.level">
+        <source>guild.preview.level</source>
+        <target state="translated">The level of the guild is %level%.</target>
+      </trans-unit>
+      <trans-unit id="9E.j7YB" resname="guild.upgrade.any">
+        <source>guild.upgrade.any</source>
+        <target state="translated">Upgrades are not set.</target>
+      </trans-unit>
+      <trans-unit id="FmyEKRO" resname="guild.home.edit.chart">
+        <source>guild.home.edit.chart</source>
+        <target state="translated">Chart</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

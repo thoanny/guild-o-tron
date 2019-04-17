@@ -152,6 +152,51 @@ class Guild
      */
     private $checksum;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $introduction;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $chart;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $notary;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $tavern;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $mine;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $workshop;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $market;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $arena;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $war_room;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -497,6 +542,114 @@ class Guild
     public function setChecksum(string $checksum): self
     {
         $this->checksum = $checksum;
+
+        return $this;
+    }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
+    }
+
+    public function setIntroduction(?string $introduction): self
+    {
+        $this->introduction = $introduction;
+
+        return $this;
+    }
+
+    public function getChart(): ?string
+    {
+        return $this->chart;
+    }
+
+    public function setChart(?string $chart): self
+    {
+        $this->chart = $chart;
+
+        return $this;
+    }
+
+    public function getNotary(): ?int
+    {
+        return $this->notary;
+    }
+
+    public function setNotary(int $notary): self
+    {
+        $this->notary = $notary;
+
+        return $this;
+    }
+
+    public function getTavern(): ?int
+    {
+        return $this->tavern;
+    }
+
+    public function setTavern(int $tavern): self
+    {
+        $this->tavern = $tavern;
+
+        return $this;
+    }
+
+    public function getMine(): ?int
+    {
+        return $this->mine;
+    }
+
+    public function setMine(int $mine): self
+    {
+        $this->mine = $mine;
+
+        return $this;
+    }
+
+    public function getWorkshop(): ?int
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(int $workshop): self
+    {
+        $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    public function getMarket(): ?int
+    {
+        return $this->market;
+    }
+
+    public function setMarket(int $market): self
+    {
+        $this->market = $market;
+
+        return $this;
+    }
+
+    public function getArena(): ?int
+    {
+        return $this->arena;
+    }
+
+    public function setArena(int $arena): self
+    {
+        $this->arena = $arena;
+
+        return $this;
+    }
+
+    public function getWarRoom(): ?int
+    {
+        return $this->war_room;
+    }
+
+    public function setWarRoom(int $war_room): self
+    {
+        $this->war_room = $war_room;
 
         return $this;
     }
