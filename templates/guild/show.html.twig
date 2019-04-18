@@ -135,7 +135,7 @@
 
         <h2>{% trans %}guild.preview.title{% endtrans %}</h2>
 
-        <p>{{ 'guild.preview.users'|trans({'%guild%': guild.name, '%total%': guild.guildmembers.members|length}) }}</p>
+        <p>{{ 'guild.preview.users'|trans({'%guild%': guild.name, '%total%': members.members|length}) }}</p>
         <p><em>{{ 'guild.preview.level'|trans({'%level%': guild.level}) }}</em></p>
 
         {% set upgrades = 0 %}

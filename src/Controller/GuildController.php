@@ -569,6 +569,7 @@ class GuildController extends AbstractController
 
       return $this->render('guild/show.html.twig', [
         'guild' => $guild,
+        'members' => $members,
         'logs' => $logs,
         'isMember' => $isMember
       ]);

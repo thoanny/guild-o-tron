@@ -9,13 +9,13 @@
       <label for="inputToken">{% trans %}guilds.add.token.label{% endtrans %}</label>
       <input type="text" name="token" id="inputToken" value="" required />
 
-      <button type="button" name="check" id="buttonCheckApiKey">{% trans %}guilds.add.check.button{% endtrans %}</button>
+      <button type="button" name="check" id="buttonCheckApiKey" class="btn">{% trans %}guilds.add.check.button{% endtrans %}</button>
 
       <label for="selectGid">{% trans %}guilds.add.guilds.label{% endtrans %}</label>
       <select name="gid" id="selectGid" required>
         <option value="" disabled selected>-- {% trans %}guilds.add.guilds.placeholder{% endtrans %} --</option>
       </select>
 
-      <button type="submit" name="guild">{% trans %}guilds.add.button{% endtrans %}</button>
+      <button type="submit" name="guild" class="btn">{% trans %}guilds.add.button{% endtrans %}</button>
     </form>
 {% endblock %}

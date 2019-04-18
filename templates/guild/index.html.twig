@@ -6,7 +6,7 @@
 <h1>{% trans %}guilds.title{% endtrans %}</h1>
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-  <p><a href="{{ path('guilds_add') }}">{% trans %}guilds.add.button{% endtrans %}</a></p>
+  <p><a href="{{ path('guilds_add') }}" class="btn">{% trans %}guilds.add.button{% endtrans %}</a></p>
 {% endif %}
 
 {% if my_guilds %}

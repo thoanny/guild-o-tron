@@ -417,6 +417,10 @@
         <source>create.your.own.text</source>
         <target state="translated">Every guild's leader can create a guild page, in less than 5 minutes! Let's get started.</target>
       </trans-unit>
+      <trans-unit id="Qd.4YP8" resname="guild.treasury.complete">
+        <source>guild.treasury.complete</source>
+        <target state="translated">%guild% has completed all upgrades.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
