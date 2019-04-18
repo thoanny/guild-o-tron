@@ -197,6 +197,11 @@ class Guild
      */
     private $war_room;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $website;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -650,6 +655,18 @@ class Guild
     public function setWarRoom(int $war_room): self
     {
         $this->war_room = $war_room;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): self
+    {
+        $this->website = $website;
 
         return $this;
     }

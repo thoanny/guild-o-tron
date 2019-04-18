@@ -70,6 +70,7 @@ class GuildSettingsFormType extends AbstractType
         'multiple' => true,
         'expanded' => true
       ])
+      ->add('website', UrlType::class, ['required' => false])
       ->add('facebook', UrlType::class, ['required' => false])
       ->add('twitter', UrlType::class, ['required' => false])
       ->add('youtube', UrlType::class, ['required' => false])

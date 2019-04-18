@@ -421,6 +421,10 @@
         <source>guild.treasury.complete</source>
         <target state="translated">%guild% has completed all upgrades.</target>
       </trans-unit>
+      <trans-unit id="umBcZWu" resname="guild.settings.website.label">
+        <source>guild.settings.website.label</source>
+        <target state="translated">Website</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
