@@ -731,3 +731,52 @@ footer {
     font-weight: bold;
   }
 }
+
+#guild-create-your-own {
+  border: 2px solid $primary;
+  display: flex;
+  max-width: 720px;
+  border-radius: 4px;
+
+  h4 {
+    color: darken($primary, 40%);
+    margin-top: 0;
+  }
+
+  div {
+    padding: 2em;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.btn {
+  line-height: 1;
+  font-size:.8em;
+  font-family: inherit;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: .75em 1em;
+  border: 0;
+  color: inherit;
+  text-decoration: none;
+  margin: 0;
+  width: auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.015em;
+  border-radius: 3px;
+  background: $primary;
+  margin-bottom: .25em;
+  cursor: pointer;
+  color: darken($primary, 40%);
+  outline: 0;
+  white-space: nowrap;
+
+  &:hover, &:focus, &:active {
+    background: darken($primary, 40%);
+    color: #fff;
+  }
+}

@@ -409,6 +409,14 @@
         <source>made.with.by.for</source>
         <target state="translated">Made with %love% by %anthony% for %lebusmagique%.</target>
       </trans-unit>
+      <trans-unit id="_90lvXg" resname="create.your.own.title">
+        <source>create.your.own.title</source>
+        <target state="translated">Create your own guild's page!</target>
+      </trans-unit>
+      <trans-unit id="yAs4y0o" resname="create.your.own.text">
+        <source>create.your.own.text</source>
+        <target state="translated">Every guild's leader can create a guild page, in less than 5 minutes! Let's get started.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

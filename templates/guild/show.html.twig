@@ -220,4 +220,21 @@
 
   {% endif %}
 
+  <div class="wrap">
+    <div id="guild-create-your-own">
+      <div>
+        <h4>{% trans %}create.your.own.title{% endtrans %}</h4>
+        <p>{% trans %}create.your.own.text{% endtrans %}</p>
+      </div>
+      <div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <a href="{{ path('guilds_add') }}" class="btn">{% trans %}guilds.add.button{% endtrans %}</a>
+        {% else %}
+          <a href="{{ path('app_register') }}" class="btn">{% trans %}menu.register{% endtrans %}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
 {% endblock %}
