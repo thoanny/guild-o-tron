@@ -401,6 +401,14 @@
         <source>guild.home.edit.chart</source>
         <target state="translated">Chart</target>
       </trans-unit>
+      <trans-unit id="NKi.Fxi" resname="arenanet.copyright">
+        <source>arenanet.copyright</source>
+        <target state="translated">©2019 ArenaNet, LLC. All rights reserved. All trademarks are the property of their respective owners.</target>
+      </trans-unit>
+      <trans-unit id="9SxXMVz" resname="made.with.by.for">
+        <source>made.with.by.for</source>
+        <target state="translated">Made with %love% by %anthony% for %lebusmagique%.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

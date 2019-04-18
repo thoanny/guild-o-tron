@@ -57,5 +57,12 @@
     {% block javascripts %}
       {{ encore_entry_script_tags('app') }}
     {% endblock %}
+
+    <footer>
+      <div class="container">
+        <p>{% trans %}arenanet.copyright{% endtrans %}</p>
+        <p>{{ 'made.with.by.for'|trans({'%love%': '<i class="fas fa-heart"></i>', '%anthony%': '<a href="https://anthony-destenay.fr/lebusmagique/" target="_blank">Anthony.5487</a>', '%lebusmagique%': '<a href="https://www.lebusmagique.fr" target="_blank">Le Bus Magique</a>'})|raw }}</p>
+      </div>
+    </footer>
   </body>
 </html>
