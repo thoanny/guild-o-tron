@@ -21,9 +21,9 @@
 {% elseif log.type == 'stash' %}
   {% if log.data.coins > 0 %}
     {% if log.data.operation == 'deposit' %}
-      {{ 'guild.log.stash.coins.deposit'|trans({'%name%': log.username, '%coins%': log.data.coins|currency}) }}
+      {{ 'guild.log.stash.coins.deposit'|trans({'%name%': log.username, '%coins%': log.data.coins|currency})|raw }}
     {% elseif log.data.operation == 'withdraw' %}
-      {{ 'guild.log.stash.coins.withdraw'|trans({'%name%': log.username, '%coins%': log.data.coins|currency}) }}
+      {{ 'guild.log.stash.coins.withdraw'|trans({'%name%': log.username, '%coins%': log.data.coins|currency})|raw }}
     {% endif %}
   {% else %}
     {% if log.data.operation == 'deposit' %}

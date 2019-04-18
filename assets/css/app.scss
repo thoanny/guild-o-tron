@@ -312,10 +312,23 @@ button {
   white-space:nowrap;
 
   > span {
-    margin-right: .5em;
+    margin-right: .25em;
+    padding-right: calc(20px + .25em);
 
     &:last-of-type {
       margin-right: 0;
+    }
+
+    &.po {
+      background: url('../img/po.png') no-repeat center right;
+    }
+
+    &.pa {
+      background: url('../img/pa.png') no-repeat center right;
+    }
+
+    &.pc {
+      background: url('../img/pc.png') no-repeat center right;
     }
   }
 }
