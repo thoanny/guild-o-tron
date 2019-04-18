@@ -220,6 +220,8 @@
 
   {% endif %}
 
+  {% if (view is defined and view != 'settings') or view is not defined %}
+
   <div class="wrap">
     <div id="guild-create-your-own">
       <div>
@@ -235,6 +237,8 @@
       </div>
     </div>
   </div>
+
+  {% endif %}
 
 
 {% endblock %}

@@ -4,9 +4,10 @@
 
 {% block body %}
 
+<div class="wrap">
   <h2>{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}</h2>
 
-  <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}guild.home.edit.cancel{% endtrans %}</a></p>
+  <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}" class="btn"><i class="fas fa-angle-double-left"></i> {% trans %}guild.home.edit.cancel{% endtrans %}</a></p>
 
   {{ form_start(form) }}
 
@@ -42,5 +43,8 @@
   <button type="submit" class="btn">{% trans %}guild.home.edit.button{% endtrans %}</button>
 
   {{ form_end(form) }}
+</div>
+
+
 
 {% endblock %}

@@ -3,9 +3,11 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" autocomplete="off">
+
+<div class="wrap">
+  <form method="post" autocomplete="off">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     <h1>{% trans %}login.title{% endtrans %}</h1>
@@ -33,7 +35,8 @@
     <button class="btn btn-lg btn-primary" type="submit">
         {% trans %}login.button{% endtrans %}
     </button>
-</form>
+  </form>
 
-<p><a  href="{{ path('app_forgotten_password') }}">{% trans %}forgotten.password.link{% endtrans %}</a></p>
+  <p><a  href="{{ path('app_forgotten_password') }}">{% trans %}forgotten.password.link{% endtrans %}</a></p>
+</div>
 {% endblock %}

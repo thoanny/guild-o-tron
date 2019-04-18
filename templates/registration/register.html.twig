@@ -3,24 +3,27 @@
 {% block title %}{% trans %}register.title{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}register.title{% endtrans %}</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_label(registrationForm.email, 'register.email.label'|trans) }}
-        {{ form_widget(registrationForm.email) }}
+<div class="wrap">
+  <h1>{% trans %}register.title{% endtrans %}</h1>
 
-        {{ form_label(registrationForm.plainPassword, 'register.password.label'|trans) }}
-        {{ form_widget(registrationForm.plainPassword) }}
+  {{ form_start(registrationForm) }}
+    {{ form_label(registrationForm.email, 'register.email.label'|trans) }}
+    {{ form_widget(registrationForm.email) }}
 
-        {{ form_label(registrationForm.apiKey, 'register.apikey.label'|trans) }}
-        {{ form_widget(registrationForm.apiKey) }}
+    {{ form_label(registrationForm.plainPassword, 'register.password.label'|trans) }}
+    {{ form_widget(registrationForm.plainPassword) }}
 
-        {{ form_widget(registrationForm.gdpr) }}
-        {{ form_label(registrationForm.gdpr, 'register.gdpr.label'|trans) }}
+    {{ form_label(registrationForm.apiKey, 'register.apikey.label'|trans) }}
+    {{ form_widget(registrationForm.apiKey) }}
 
-        <div>
-          <button class="btn">{% trans %}register.button{% endtrans %}</button>
-        </div>
+    {{ form_widget(registrationForm.gdpr) }}
+    {{ form_label(registrationForm.gdpr, 'register.gdpr.label'|trans) }}
 
-    {{ form_end(registrationForm) }}
+    <div>
+      <button class="btn">{% trans %}register.button{% endtrans %}</button>
+    </div>
+  {{ form_end(registrationForm) }}
+</div>
+
 {% endblock %}

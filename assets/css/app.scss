@@ -737,6 +737,7 @@ footer {
   display: flex;
   max-width: 720px;
   border-radius: 4px;
+  margin-top: 3em;
 
   h4 {
     color: darken($primary, 40%);
@@ -778,5 +779,11 @@ footer {
   &:hover, &:focus, &:active {
     background: darken($primary, 40%);
     color: #fff;
+  }
+}
+
+form {
+  .btn {
+    margin-top: 2em;
   }
 }

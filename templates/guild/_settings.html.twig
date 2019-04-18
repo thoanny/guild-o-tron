@@ -1,6 +1,7 @@
-<h2>{% trans %}guild.settings.title{% endtrans %}</h2>
+<div class="wrap">
+  <h2>{% trans %}guild.settings.title{% endtrans %}</h2>
 
-{{ form_start(settings) }}
+  {{ form_start(settings) }}
 
     {{ form_label(settings.description, 'guild.settings.description.label'|trans) }}
     {{ form_widget(settings.description) }}
@@ -42,4 +43,5 @@
 
     <button type="submit" class="btn">{% trans %}guild.settings.button{% endtrans %}</button>
 
-{{ form_end(settings) }}
+  {{ form_end(settings) }}
+</div>
