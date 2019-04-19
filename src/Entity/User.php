@@ -52,6 +52,11 @@ class User implements UserInterface
      */
     private $account_name;
 
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $locale;
+
     public function __construct()
     {
         $this->guilds = new ArrayCollection();
@@ -184,6 +189,18 @@ class User implements UserInterface
     public function setAccountName(string $account_name): self
     {
         $this->account_name = $account_name;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

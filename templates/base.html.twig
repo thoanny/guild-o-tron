@@ -33,7 +33,12 @@
             <li class="red"><a href="{{ path('app_logout') }}">{% trans %}menu.logout{% endtrans %}</a></li>
             {% endif %}
 
-            <li class="red"><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>
+            <li><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>
+
+            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}">FR</a></li>
+            <li><a href="{{ path('setlocale', {'language': 'en'}) }}">EN</a></li>
+            <li><a href="{{ path('setlocale', {'language': 'de'}) }}">DE</a></li>
+            <li><a href="{{ path('setlocale', {'language': 'es'}) }}">ES</a></li>
           </ul>
         </nav>
       </div>
