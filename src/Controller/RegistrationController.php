@@ -42,6 +42,7 @@ class RegistrationController extends AbstractController
             }
 
             $user->setAccountName($account->name);
+            $user->setLocale($request->getSession()->get('_locale', 'en'));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
