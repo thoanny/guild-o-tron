@@ -80,25 +80,25 @@
     <nav>
       <ul>
         <li>
-          <a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}guild.submenu.home{% endtrans %}</a>
+          <a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}menu.home{% endtrans %}</a>
           {% if guild.getUser() == app.user %}
-             <small><a href="{{ path('guilds_edit', {'slug': guild.slug}) }}">({% trans %}guild.home.edit.link{% endtrans %})</a></small>
+             <small><a href="{{ path('guilds_edit', {'slug': guild.slug}) }}">({% trans %}menu.home.edit.link{% endtrans %})</a></small>
           {% endif %}
         </li>
         {% if (guild.getDisplayStash() == 'members' and isMember) or (guild.getDisplayStash() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayStash() == 'public' %}
-          <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">{% trans %}guild.submenu.stash{% endtrans %}</a></li>
+          <li><a href="{{ path('guilds_stash', {'slug': guild.slug}) }}">{% trans %}menu.stash{% endtrans %}</a></li>
         {% endif %}
         {% if (guild.getDisplayTreasury() == 'members' and isMember) or (guild.getDisplayTreasury() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayTreasury() == 'public' %}
-          <li><a href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">{% trans %}guild.submenu.treasury{% endtrans %}</a></li>
+          <li><a href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">{% trans %}menu.treasury{% endtrans %}</a></li>
         {% endif %}
-        <li>{% trans %}guild.submenu.scribe{% endtrans %}</li>
-        <li>{% trans %}guild.submenu.achievements{% endtrans %}</li>
-        <li><a href="{{ path('guilds_events', {'slug': guild.slug}) }}">{% trans %}guild.submenu.events{% endtrans %}</a></li>
+        <li>{% trans %}menu.scribe{% endtrans %}</li>
+        <li>{% trans %}menu.achievements{% endtrans %}</li>
+        <li><a href="{{ path('guilds_events', {'slug': guild.slug}) }}">{% trans %}menu.events{% endtrans %}</a></li>
         {% if (guild.getDisplayMembers() == 'members' and isMember) or (guild.getDisplayMembers() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayMembers() == 'public' %}
-          <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">{% trans %}guild.submenu.members{% endtrans %}</a></li>
+          <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">{% trans %}menu.members{% endtrans %}</a></li>
         {% endif %}
         {% if guild.getUser() == app.user %}
-          <li><a href="{{ path('guilds_settings', {'slug': guild.slug}) }}">{% trans %}guild.submenu.settings{% endtrans %}</a></li>
+          <li><a href="{{ path('guilds_settings', {'slug': guild.slug}) }}">{% trans %}menu.settings{% endtrans %}</a></li>
         {% endif %}
       </ul>
     </nav>
