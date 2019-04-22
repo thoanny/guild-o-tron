@@ -32,7 +32,7 @@ Step 7
 
 Step 8
 
-`rm -rf .git assets bin node_modules .htaccess .gitignore composer.json composer.lock package.json symfony.lock webpack.config.js yarn.lock var .env README.md`
+`rm -rf .git assets bin node_modules .htaccess .gitignore composer.json composer.lock package.json symfony.lock webpack.config.js yarn.lock var .env README.md translation-update.sh`
 
 Step 9
 
@@ -52,4 +52,8 @@ Delete `var/cache/prod` folder
 
 ## Translation
 
-Use `php bin/console translation:update {lang} --force` to generate new version of translation file.
+Launch `translation-update.sh` to generate **new version** of translation.
+
+Send `translations/messages.terms.json` to PoEditor. "Import terms" and check "Import terms only".
+
+Export each lang to JSON (key: value), with filename `messages.{lang}.json` (ie: messages.fr.json), overwrite files, commit and push.
