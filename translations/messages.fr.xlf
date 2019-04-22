@@ -115,7 +115,7 @@
       </trans-unit>
       <trans-unit id="BbRMXkG" resname="guilds.my.guilds">
         <source>guilds.my.guilds</source>
-        <target state="translated">Mes guildes&amp;nbsp;:</target>
+        <target state="translated"><![CDATA[Mes guildes&nbsp;:]]></target>
       </trans-unit>
       <trans-unit id="vYMTj4h" resname="guilds.any">
         <source>guilds.any</source>
@@ -175,11 +175,11 @@
       </trans-unit>
       <trans-unit id="_90lvXg" resname="create.your.own.title">
         <source>create.your.own.title</source>
-        <target state="translated">Créez votre propre page de guilde&amp;nbsp;!</target>
+        <target state="translated"><![CDATA[Créez votre propre page de guilde&nbsp;!]]></target>
       </trans-unit>
       <trans-unit id="yAs4y0o" resname="create.your.own.text">
         <source>create.your.own.text</source>
-        <target state="translated">Chaque maître de guilde peut créer une page de guilde, et ce, en moins de 5 minutes&amp;nbsp;! Allons-y.</target>
+        <target state="translated"><![CDATA[Chaque maître de guilde peut créer une page de guilde, et ce, en moins de 5 minutes&nbsp;! Allons-y.]]></target>
       </trans-unit>
       <trans-unit id="_g6qXrD" resname="guild.log.joined">
         <source>guild.log.joined</source>
@@ -207,7 +207,7 @@
       </trans-unit>
       <trans-unit id="BYxbgOa" resname="guild.log.treasury">
         <source>guild.log.treasury</source>
-        <target state="translated">%name% a entreposé %item% &amp;times;&amp;nbsp;%count% dans le Trésor.</target>
+        <target state="translated"><![CDATA[%name% a entreposé %item% &times;&nbsp;%count% dans le Trésor.]]></target>
       </trans-unit>
       <trans-unit id="7SSANiQ" resname="guild.log.stash.coins.deposit">
         <source>guild.log.stash.coins.deposit</source>
@@ -219,15 +219,15 @@
       </trans-unit>
       <trans-unit id="X7gDZ6F" resname="guild.log.stash.item.deposit">
         <source>guild.log.stash.item.deposit</source>
-        <target state="translated">%name% a déposé %item% &amp;times;&amp;nbsp;%count% dans la banque de guilde.</target>
+        <target state="translated"><![CDATA[%name% a déposé %item% &times;&nbsp;%count% dans la banque de guilde.]]></target>
       </trans-unit>
       <trans-unit id="sSXqRQ4" resname="guild.log.stash.item.withdraw">
         <source>guild.log.stash.item.withdraw</source>
-        <target state="translated">%name% a retiré %item% &amp;times;&amp;nbsp;%count% de la banque de guilde.</target>
+        <target state="translated"><![CDATA[%name% a retiré %item% &times;&nbsp;%count% de la banque de guilde.]]></target>
       </trans-unit>
       <trans-unit id="ZpV.NzL" resname="guild.log.stash.item.move">
         <source>guild.log.stash.item.move</source>
-        <target state="translated">%name% a déplacé %item% &amp;times;&amp;nbsp;%count% dans la banque de guilde.</target>
+        <target state="translated"><![CDATA[%name% a déplacé %item% &times;&nbsp;%count% dans la banque de guilde.]]></target>
       </trans-unit>
       <trans-unit id="fqMRpVM" resname="guild.log.upgrade.queued">
         <source>guild.log.upgrade.queued</source>
@@ -335,7 +335,7 @@
       </trans-unit>
       <trans-unit id="BcY6boP" resname="guild.stash.coins">
         <source>guild.stash.coins</source>
-        <target state="translated">Monnaie&amp;nbsp;:</target>
+        <target state="translated"><![CDATA[Monnaie&nbsp;:]]></target>
       </trans-unit>
       <trans-unit id="BWzMvIh" resname="guild.stash.any">
         <source>guild.stash.any</source>
@@ -359,11 +359,11 @@
       </trans-unit>
       <trans-unit id="eAaonCd" resname="dashboard.email.label">
         <source>dashboard.email.label</source>
-        <target state="translated">Adresse e-mail&amp;nbsp;:</target>
+        <target state="translated"><![CDATA[Adresse e-mail&nbsp;:]]></target>
       </trans-unit>
       <trans-unit id="Hj1vECs" resname="dashboard.account.label">
         <source>dashboard.account.label</source>
-        <target state="translated">Nom de compte&amp;nbsp;:</target>
+        <target state="translated"><![CDATA[Nom de compte&nbsp;:]]></target>
       </trans-unit>
       <trans-unit id="iSItoNa" resname="register.title">
         <source>register.title</source>
@@ -391,7 +391,7 @@
       </trans-unit>
       <trans-unit id="VRy0snh" resname="forgotten.password.title">
         <source>forgotten.password.title</source>
-        <target state="translated">Mot de passe oublié&amp;nbsp;?</target>
+        <target state="translated"><![CDATA[Mot de passe oublié&nbsp;?]]></target>
       </trans-unit>
       <trans-unit id="hH0QG2L" resname="forgotten.password.email.label">
         <source>forgotten.password.email.label</source>
@@ -419,7 +419,55 @@
       </trans-unit>
       <trans-unit id="RlDpa7F" resname="forgotten.password.link">
         <source>forgotten.password.link</source>
-        <target state="translated">Mot de passe oublié&amp;nbsp;?</target>
+        <target state="translated"><![CDATA[Mot de passe oublié&nbsp;?]]></target>
+      </trans-unit>
+      <trans-unit id="bHYWUbK" resname="menu.events">
+        <source>menu.events</source>
+        <target state="translated">Événements</target>
+      </trans-unit>
+      <trans-unit id="KJrEepp" resname="guild.events.add.title">
+        <source>guild.events.add.title</source>
+        <target state="translated">Ajouter un nouvel événement</target>
+      </trans-unit>
+      <trans-unit id="nJJkM6U" resname="guild.events.add.cancel">
+        <source>guild.events.add.cancel</source>
+        <target state="translated">Annuler</target>
+      </trans-unit>
+      <trans-unit id="MzH43Tm" resname="guild.event.name">
+        <source>guild.event.name</source>
+        <target state="translated">Nom</target>
+      </trans-unit>
+      <trans-unit id="w7oXe9v" resname="guild.event.description">
+        <source>guild.event.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="BHQKYxY" resname="guild.event.start_at">
+        <source>guild.event.start_at</source>
+        <target state="translated">Début</target>
+      </trans-unit>
+      <trans-unit id="867wtaG" resname="guild.event.duration">
+        <source>guild.event.duration</source>
+        <target state="translated">Durée</target>
+      </trans-unit>
+      <trans-unit id="8TyanTQ" resname="guild.event.group_size">
+        <source>guild.event.group_size</source>
+        <target state="translated">Taille du groupe</target>
+      </trans-unit>
+      <trans-unit id="Jk5Dy.4" resname="guild.event.type">
+        <source>guild.event.type</source>
+        <target state="translated">Type</target>
+      </trans-unit>
+      <trans-unit id="Ja3Poty" resname="guild.event.edit.button">
+        <source>guild.event.edit.button</source>
+        <target state="translated">Ajouter l'événement</target>
+      </trans-unit>
+      <trans-unit id="2OeaEDZ" resname="events.title">
+        <source>events.title</source>
+        <target state="translated">Événements</target>
+      </trans-unit>
+      <trans-unit id="ltUx0LJ" resname="guild.events.add.btn">
+        <source>guild.events.add.btn</source>
+        <target state="translated">Ajouter</target>
       </trans-unit>
     </body>
   </file>

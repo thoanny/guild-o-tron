@@ -425,6 +425,54 @@
         <source>guild.settings.website.label</source>
         <target state="translated">Website</target>
       </trans-unit>
+      <trans-unit id="bHYWUbK" resname="menu.events">
+        <source>menu.events</source>
+        <target state="translated">Events</target>
+      </trans-unit>
+      <trans-unit id="KJrEepp" resname="guild.events.add.title">
+        <source>guild.events.add.title</source>
+        <target state="translated">Add new event</target>
+      </trans-unit>
+      <trans-unit id="nJJkM6U" resname="guild.events.add.cancel">
+        <source>guild.events.add.cancel</source>
+        <target state="translated">Cancel</target>
+      </trans-unit>
+      <trans-unit id="MzH43Tm" resname="guild.event.name">
+        <source>guild.event.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="w7oXe9v" resname="guild.event.description">
+        <source>guild.event.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="BHQKYxY" resname="guild.event.start_at">
+        <source>guild.event.start_at</source>
+        <target state="translated">Start at</target>
+      </trans-unit>
+      <trans-unit id="867wtaG" resname="guild.event.duration">
+        <source>guild.event.duration</source>
+        <target state="translated">Duration</target>
+      </trans-unit>
+      <trans-unit id="8TyanTQ" resname="guild.event.group_size">
+        <source>guild.event.group_size</source>
+        <target state="translated">Group size</target>
+      </trans-unit>
+      <trans-unit id="Jk5Dy.4" resname="guild.event.type">
+        <source>guild.event.type</source>
+        <target state="translated">Type</target>
+      </trans-unit>
+      <trans-unit id="Ja3Poty" resname="guild.event.edit.button">
+        <source>guild.event.edit.button</source>
+        <target state="translated">Add event</target>
+      </trans-unit>
+      <trans-unit id="2OeaEDZ" resname="events.title">
+        <source>events.title</source>
+        <target state="translated">Events</target>
+      </trans-unit>
+      <trans-unit id="ltUx0LJ" resname="guild.events.add.btn">
+        <source>guild.events.add.btn</source>
+        <target state="translated">Add event</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -22,6 +22,7 @@
             <li><a href="{{ path('homepage') }}">{% trans %}menu.home{% endtrans %}</a></li>
 
             <li><a href="{{ path('guilds') }}">{% trans %}menu.guilds{% endtrans %}</a></li>
+            <li><a href="{{ path('events') }}">{% trans %}menu.events{% endtrans %}</a></li>
 
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
             <li><a href="{{ path('app_login') }}">{% trans %}menu.login{% endtrans %}</a></li>

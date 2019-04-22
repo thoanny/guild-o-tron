@@ -800,3 +800,37 @@ form {
     margin-top: 2em;
   }
 }
+
+.datetimepicker {
+  select {
+    display: inline-block;
+    width: auto;
+  }
+
+  > div {
+    display: inline-block;
+    margin-right: .75em;
+
+    &:last-of-type {
+      margin-right: 0;
+
+      select {
+        &:last-of-type {
+          margin-left: .25em;
+        }
+      }
+    }
+
+    select {
+      margin-right: .25em;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+#calendar {
+  margin-top: 2em;
+}

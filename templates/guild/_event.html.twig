@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <h2>{{event.name}}</h2>
+  <p>{{event.description|nl2br}}</p>
+
+  <dl>
+    <dt>Start At</dt>
+    <dd>{{event.startAt|date('d/m/y H:i')}}</dd>
+
+    <dt>Duration</dt>
+    <dd>{{event.duration}} hours</dd>
+
+    <dt>Group Size</dt>
+    <dd>{{event.groupSize}}</dd>
+
+    <dt>To Join</dt>
+    <dd>
+      {% if event.groupSize > 5 %}
+        <button type="button" name="button" class="btn">/join {{event.user.account.name}}</button>
+      {% else %}
+        <button type="button" name="button" class="btn">/sqjoin {{event.user.accountName}}</button>
+      {% endif %}
+    </dd>
+
+    <dt>Type</dt>
+    <dd>{{event.type}}</dd>
+  </dl>
+
+  <p>
+    <label>Short Link</label>
+    <input type="text" name="" value="{{ absolute_url(path('guilds_events_short', {'uid': event.uid})) }}">
+  </p>
+
+</div>

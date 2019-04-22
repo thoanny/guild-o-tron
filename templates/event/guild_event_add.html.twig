@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'guild.events.add.title'|trans }}{% endblock %}
+
+{% block body %}
+
+<div class="wrap">
+  <h2>{{ 'guild.events.add.title'|trans }}</h2>
+
+  <p><a href="{{ path('guilds_events', {'slug': guild.slug}) }}" class="btn"><i class="fas fa-angle-double-left"></i> {% trans %}guild.events.add.cancel{% endtrans %}</a></p>
+
+  {{ form_start(form) }}
+
+  {{ form_label(form.name, 'guild.event.name'|trans) }}
+  {{ form_widget(form.name) }}
+
+  {{ form_label(form.description, 'guild.event.description'|trans) }}
+  {{ form_widget(form.description) }}
+
+  {{ form_label(form.start_at, 'guild.event.start_at'|trans) }}
+  {{ form_widget(form.start_at) }}
+
+  {{ form_label(form.duration, 'guild.event.duration'|trans) }}
+  {{ form_widget(form.duration) }}
+
+  {{ form_label(form.group_size, 'guild.event.group_size'|trans) }}
+  {{ form_widget(form.group_size) }}
+
+  {{ form_label(form.type, 'guild.event.type'|trans) }}
+  {{ form_widget(form.type) }}
+
+  {{ form_widget(form) }}
+
+  <button type="submit" class="btn">{% trans %}guild.event.edit.button{% endtrans %}</button>
+
+  {{ form_end(form) }}
+</div>
+
+{% endblock %}

@@ -93,7 +93,7 @@
         {% endif %}
         <li>{% trans %}guild.submenu.scribe{% endtrans %}</li>
         <li>{% trans %}guild.submenu.achievements{% endtrans %}</li>
-        <li>{% trans %}guild.submenu.events{% endtrans %}</li>
+        <li><a href="{{ path('guilds_events', {'slug': guild.slug}) }}">{% trans %}guild.submenu.events{% endtrans %}</a></li>
         {% if (guild.getDisplayMembers() == 'members' and isMember) or (guild.getDisplayMembers() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayMembers() == 'public' %}
           <li><a href="{{ path('guilds_members', {'slug': guild.slug}) }}">{% trans %}guild.submenu.members{% endtrans %}</a></li>
         {% endif %}
@@ -125,6 +125,10 @@
     {% include 'guild/_members.html.twig' with {'members': members} %}
   {% elseif view is defined and view == 'settings' %}
     {% include 'guild/_settings.html.twig' %}
+  {% elseif view is defined and view == 'events' %}
+    {% include 'guild/_events.html.twig' %}
+  {% elseif view is defined and view == 'event' %}
+    {% include 'guild/_event.html.twig' %}
   {% else %}
     {% include 'guild/_logs.html.twig' with {'logs': logs} %}
 
