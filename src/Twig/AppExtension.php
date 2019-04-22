@@ -9,6 +9,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('currency', [$this, 'formatCurrency'], ['is_safe' => ['html']]),
+            new TwigFilter('anonymize', [$this, 'anonymizeAccountName']),
         ];
     }
 
@@ -36,5 +37,12 @@ class AppExtension extends AbstractExtension
       $currency = "<span class=\"currency\">{$currency}</span>";
 
       return $currency;
+    }
+
+    public function anonymizeAccountName($name) {
+      $name = explode('.', $name);
+      $name = $name[0];
+
+      return $name;
     }
 }
