@@ -36,10 +36,10 @@
 
             <li><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>
 
-            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}">FR</a></li>
-            <li><a href="{{ path('setlocale', {'language': 'en'}) }}">EN</a></li>
-            <li><a href="{{ path('setlocale', {'language': 'de'}) }}">DE</a></li>
-            <li><a href="{{ path('setlocale', {'language': 'es'}) }}">ES</a></li>
+            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}"><img src="{{ asset('build/fr.png') }}" class="flag" alt="FR" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'en'}) }}"><img src="{{ asset('build/de.png') }}" class="flag" alt="EN" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'de'}) }}"><img src="{{ asset('build/de.png') }}" class="flag" alt="DE" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'es'}) }}"><img src="{{ asset('build/es.png') }}" class="flag" alt="ES" /></a></li>
           </ul>
         </nav>
       </div>
@@ -68,6 +68,7 @@
       <div class="container">
         <p>{% trans %}arenanet.copyright{% endtrans %}</p>
         <p>{{ 'made.with.by.for'|trans({'%love%': '<i class="fas fa-heart"></i>', '%anthony%': '<a href="https://anthony-destenay.fr/lebusmagique/" target="_blank">Anthony.5487</a>', '%lebusmagique%': '<a href="https://www.lebusmagique.fr" target="_blank">Le Bus Magique</a>'})|raw }}</p>
+        <p>Flag icons by <a href="https://www.flaticon.com/packs/countrys-flags" title="Freepik" target="_blank">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</p>
       </div>
     </footer>
   </body>
