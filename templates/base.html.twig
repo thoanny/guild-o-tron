@@ -36,10 +36,10 @@
 
             <li><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>
 
-            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}"><img src="{{ asset('build/fr.png') }}" class="flag" alt="FR" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'en'}) }}"><img src="{{ asset('build/en.png') }}" class="flag" alt="EN" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'de'}) }}"><img src="{{ asset('build/de.png') }}" class="flag" alt="DE" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'es'}) }}"><img src="{{ asset('build/es.png') }}" class="flag" alt="ES" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}"><img src="{{ asset('build/fr.png') }}" class="flag{% if app.request.locale == 'fr' %} current{% endif %}" alt="FR" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'en'}) }}"><img src="{{ asset('build/en.png') }}" class="flag{% if app.request.locale == 'en' %} current{% endif %}" alt="EN" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'de'}) }}"><img src="{{ asset('build/de.png') }}" class="flag{% if app.request.locale == 'de' %} current{% endif %}" alt="DE" /></a></li>
+            <li><a href="{{ path('setlocale', {'language': 'es'}) }}"><img src="{{ asset('build/es.png') }}" class="flag{% if app.request.locale == 'es' %} current{% endif %}" alt="ES" /></a></li>
           </ul>
         </nav>
       </div>
