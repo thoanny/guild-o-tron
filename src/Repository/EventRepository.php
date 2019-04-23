@@ -38,8 +38,10 @@ class EventRepository extends ServiceEntityRepository
         ->join('e.guild', 'g')
         ->andWhere('e.start_at >= :start')
         ->andWhere('e.start_at <= :end')
+        ->andWhere('e.type = :type')
         ->setParameter('start', $start)
         ->setParameter('end', $end)
+        ->setParameter('type', 'public')
         ->getQuery()
         ->getResult();
     }
