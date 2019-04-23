@@ -134,13 +134,15 @@
 
     </div><!-- .container -->
 
-    {% if guild.introduction %}
     <div id="guild-introduction">
       <div class="wrap tac">
-        <p>{{guild.introduction|nl2br}}</p>
+        {% if guild.introduction %}
+          <p>{{guild.introduction|nl2br}}</p>
+        {% endif %}
+        {% if guild.activities %}<p><strong>{% trans %}activities{% endtrans %}</strong> {{guild.activities|join(', ')}}</p>{% endif %}
+        {% if guild.tags %}<p><strong>{% trans %}tags{% endtrans %}</strong> {{guild.tags|join(', ')}}</p>{% endif %}
       </div>
     </div>
-    {% endif %}
 
     <div id="guild-preview">
 

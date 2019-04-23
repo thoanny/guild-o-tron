@@ -112,5 +112,8 @@
     "menu.scribe": "Illustration",
     "menu.achievements": "Succès",
     "menu.members": "Membres",
-    "menu.settings": "Paramètres"
+    "menu.settings": "Paramètres",
+    "activities": "Activités&nbsp;:",
+    "tags": "Mots-clés&nbsp;:",
+    "more.infos": "Plus d'infos"
 }

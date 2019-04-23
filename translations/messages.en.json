@@ -112,5 +112,8 @@
     "menu.scribe": "Scribe",
     "menu.achievements": "Achievements",
     "menu.members": "Members",
-    "menu.settings": "Settings"
+    "menu.settings": "Settings",
+    "activities": "Activities:",
+    "tags": "Tags:",
+    "more.infos": "More"
 }
