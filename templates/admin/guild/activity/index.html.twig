@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Activités{% endblock %}
+{% block subtitle %}Liste des activités{% endblock %}
+
+{% block body %}
+
+  <p class="tac"><a href="{{ path('admin_guilds_activities_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter un mot-clé</a></p>
+
+</div>
+
+  <table class="pure-table pure-table-horizontal" align="center">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>FR</th>
+        <th>EN</th>
+        <th>DE</th>
+        <th>ES</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for activity in activities %}
+        <tr>
+          <td>{{activity.uid}}</td>
+          <td>{{activity.fr}}</td>
+          <td>{{activity.en}}</td>
+          <td>{{activity.de}}</td>
+          <td>{{activity.de}}</td>
+          <td><a href="{{ path('admin_guilds_activities_edit', {'id': activity.id}) }}" class="pure-button button-small"><i class="fas fa-edit"></i> Modif.</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="content">
+
+{% endblock %}
