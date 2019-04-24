@@ -1,0 +1,34 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Mots-clés{% endblock %}
+{% block subtitle %}Ajouter/Modifier un mot clé{% endblock %}
+
+{% block body %}
+
+{{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked form-500px', 'autocomplete': 'off'}}) }}
+
+  <p>
+    {{ form_label(form.uid, 'Identifiant unique (UID)') }}
+    {{ form_widget(form.uid, {'attr': {"class": 'pure-input-1'}}) }}
+    <span class="pure-form-message-inline">Uniquement des minuscules (a-z) et underscores (_).</span>
+  </p>
+
+  <p>{{ form_label(form.fr, 'Mot-clé en français') }}
+  {{ form_widget(form.fr, {'attr': {"class": 'pure-input-1'}}) }}</p>
+
+  <p>{{ form_label(form.en, 'Mot-clé en anglais') }}
+  {{ form_widget(form.en, {'attr': {"class": 'pure-input-1'}}) }}</p>
+
+  <p>{{ form_label(form.de, 'Mot-clé en allemand') }}
+  {{ form_widget(form.de, {'attr': {"class": 'pure-input-1'}}) }}</p>
+
+  <p>{{ form_label(form.es, 'Mot-clé en espagnol') }}
+  {{ form_widget(form.es, {'attr': {"class": 'pure-input-1'}}) }}</p>
+
+  {{ form_widget(form) }}
+
+  <p><button type="submit" class="pure-button pure-button-primary">Enregistrer</button></p>
+
+{{ form_end(form) }}
+
+{% endblock %}

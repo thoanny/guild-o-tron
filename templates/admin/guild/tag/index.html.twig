@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Mots-clés{% endblock %}
+{% block subtitle %}Liste des mots-clés{% endblock %}
+
+{% block body %}
+
+  <p class="tac"><a href="{{ path('admin_guilds_tags_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter un mot-clé</a></p>
+
+</div>
+
+  <table class="pure-table pure-table-horizontal" align="center">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>FR</th>
+        <th>EN</th>
+        <th>DE</th>
+        <th>ES</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in tags %}
+        <tr>
+          <td>{{tag.uid}}</td>
+          <td>{{tag.fr}}</td>
+          <td>{{tag.en}}</td>
+          <td>{{tag.de}}</td>
+          <td>{{tag.de}}</td>
+          <td><a href="{{ path('admin_guilds_tags_edit', {'id': tag.id}) }}" class="pure-button button-small"><i class="fas fa-edit"></i> Modif.</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="content">
+
+{% endblock %}
