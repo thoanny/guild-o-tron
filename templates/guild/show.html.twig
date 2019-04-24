@@ -139,8 +139,16 @@
         {% if guild.introduction %}
           <p>{{guild.introduction|nl2br}}</p>
         {% endif %}
-        {% if guild.activities %}<p><strong>{% trans %}activities{% endtrans %}</strong> {{guild.activities|join(', ')}}</p>{% endif %}
-        {% if guild.tags %}<p><strong>{% trans %}tags{% endtrans %}</strong> {{guild.tags|join(', ')}}</p>{% endif %}
+        {% if guild.guildActivities %}
+          <p class="guild-activities">
+            <strong>{% trans %}activities{% endtrans %}</strong> {% for act in guild.guildActivities %}<span>{{ attribute(act, app.request.locale) }}</span>{% endfor %}
+          </p>
+        {% endif %}
+        {% if guild.guildTags %}
+          <p class="guild-tags">
+            <strong>{% trans %}tags{% endtrans %}</strong> {% for tag in guild.guildTags %}<span>{{ attribute(tag, app.request.locale) }}</span>{% endfor %}
+          </p>
+        {% endif %}
       </div>
     </div>
 

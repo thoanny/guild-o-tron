@@ -123,16 +123,6 @@ class Guild
     private $twitch;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $activities = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $tags = [];
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $level;
@@ -207,10 +197,22 @@ class Guild
      */
     private $events;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\GuildTag", inversedBy="guilds")
+     */
+    private $guild_tags;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\GuildActivity", inversedBy="guilds")
+     */
+    private $guild_activities;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->guild_tags = new ArrayCollection();
+        $this->guild_activities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -485,30 +487,6 @@ class Guild
         return $this;
     }
 
-    public function getActivities(): ?array
-    {
-        return $this->activities;
-    }
-
-    public function setActivities(?array $activities): self
-    {
-        $this->activities = $activities;
-
-        return $this;
-    }
-
-    public function getTags(): ?array
-    {
-        return $this->tags;
-    }
-
-    public function setTags(?array $tags): self
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
     public function getLevel(): ?int
     {
         return $this->level;
@@ -703,6 +681,58 @@ class Guild
             if ($event->getGuild() === $this) {
                 $event->setGuild(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuildTag[]
+     */
+    public function getGuildTags(): Collection
+    {
+        return $this->guild_tags;
+    }
+
+    public function addGuildTag(GuildTag $guildTag): self
+    {
+        if (!$this->guild_tags->contains($guildTag)) {
+            $this->guild_tags[] = $guildTag;
+        }
+
+        return $this;
+    }
+
+    public function removeGuildTag(GuildTag $guildTag): self
+    {
+        if ($this->guild_tags->contains($guildTag)) {
+            $this->guild_tags->removeElement($guildTag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuildActivity[]
+     */
+    public function getGuildActivities(): Collection
+    {
+        return $this->guild_activities;
+    }
+
+    public function addGuildActivity(GuildActivity $guildActivity): self
+    {
+        if (!$this->guild_activities->contains($guildActivity)) {
+            $this->guild_activities[] = $guildActivity;
+        }
+
+        return $this;
+    }
+
+    public function removeGuildActivity(GuildActivity $guildActivity): self
+    {
+        if ($this->guild_activities->contains($guildActivity)) {
+            $this->guild_activities->removeElement($guildActivity);
         }
 
         return $this;

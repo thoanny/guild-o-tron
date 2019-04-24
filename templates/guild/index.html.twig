@@ -13,7 +13,7 @@
   <ul id="my-guilds">
     <li><strong>{% trans %}guilds.my.guilds{% endtrans %}</strong></li>
     {% for guild in my_guilds %}
-      <li><a href="{{ path('guilds_show', {'slug': guild.guild.slug}) }}"><small>[{{guild.guild.tag}}]</small> {{guild.guild.name}}</a></li>
+      <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}"><small>[{{guild.tag}}]</small> {{guild.name}}</a></li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -37,8 +37,16 @@
           <h3><small>[{{guild.tag}}]</small> {{guild.name}}</h3>
           {% if guild.description %}<h4>{{guild.description}}</h4>{% endif %}
           {% if guild.introduction %}<p>{{guild.introduction|nl2br}}</p>{% endif %}
-          {% if guild.activities %}<p><strong>{% trans %}activities{% endtrans %}</strong> {{guild.activities|join(', ')}}</p>{% endif %}
-          {% if guild.tags %}<p><strong>{% trans %}tags{% endtrans %}</strong> {{guild.tags|join(', ')}}</p>{% endif %}
+          {% if guild.guildActivities %}
+            <p class="guild-activities">
+              <strong>{% trans %}activities{% endtrans %}</strong> {% for act in guild.guildActivities %}<span>{{ attribute(act, app.request.locale) }}</span>{% endfor %}
+            </p>
+          {% endif %}
+          {% if guild.guildTags %}
+            <p class="guild-tags">
+              <strong>{% trans %}tags{% endtrans %}</strong> {% for tag in guild.guildTags %}<span>{{ attribute(tag, app.request.locale) }}</span>{% endfor %}
+            </p>
+          {% endif %}
           <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}" class="btn"><i class="fas fa-angle-double-right"></i> {% trans %}more.infos{% endtrans %}</a></p>
         </div>
 

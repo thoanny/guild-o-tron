@@ -847,3 +847,17 @@ form {
 #calendar {
   margin-top: 2em;
 }
+
+.guild-tags, .guild-activities {
+  span {
+    &:after {
+      content: ', ';
+    }
+
+    &:last-of-type {
+      &:after {
+        content: '.';
+      }
+    }
+  }
+}

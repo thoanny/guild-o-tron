@@ -3,15 +3,27 @@
 namespace App\Form;
 
 use App\Entity\Guild;
+use App\Entity\GuildTag;
+use App\Entity\GuildActivity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class GuildSettingsFormType extends AbstractType
 {
+
+  protected $requestStack;
+
+  public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
 
   private $displayChoices = [
     'Hide' => 'hide',
@@ -47,6 +59,9 @@ class GuildSettingsFormType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
+
+    $request = $this->requestStack->getCurrentRequest();
+
     $builder
       ->add('description', TextType::class, [
         'required' => false,
@@ -60,15 +75,19 @@ class GuildSettingsFormType extends AbstractType
           'No' => false
         ]
       ])
-      ->add('activities', ChoiceType::class, [
-        'choices' => $this->activitiesChoices,
+      ->add('guild_activities', EntityType::class, [
+        'class' => GuildActivity::class,
+        'choice_label' => $request->getLocale(),
+        'choice_value' => 'uid',
         'multiple' => true,
-        'expanded' => true
+        'expanded' => true,
       ])
-      ->add('tags', ChoiceType::class, [
-        'choices' => $this->tagsChoices,
+      ->add('guild_tags', EntityType::class, [
+        'class' => GuildTag::class,
+        'choice_label' => $request->getLocale(),
+        'choice_value' => 'uid',
         'multiple' => true,
-        'expanded' => true
+        'expanded' => true,
       ])
       ->add('website', UrlType::class, ['required' => false])
       ->add('facebook', UrlType::class, ['required' => false])

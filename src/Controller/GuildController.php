@@ -28,12 +28,12 @@ class GuildController extends AbstractController
     {
 
       $repository = $this->getDoctrine()->getRepository(Guild::class);
-      $guilds = $repository->findBy(['display_in_directory' => 1]);
+      $guilds = $repository->findGuildForDirectory();
       $user = $security->getUser();
 
       $myGuilds = null;
       if($user) {
-        $myGuilds = $this->getDoctrine()->getRepository(GuildMember::class)->findMyGuilds($user);
+        $myGuilds = $repository->findMyGuilds($user->getAccountName());
       }
 
       return $this->render('guild/index.html.twig', [

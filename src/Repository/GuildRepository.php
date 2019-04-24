@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Guild;
+use App\Entity\GuildMember;
+use App\Entity\GuildTag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +19,31 @@ class GuildRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Guild::class);
+    }
+
+    public function findGuildForDirectory() {
+      return $this->createQueryBuilder('g')
+          // ->select('g.tag', 'g.name', 'g.description', 'g.slug', 'g.emblem', 'g.introduction', 'g.guild_tags')
+          // ->leftJoin(GuildTag::class, 'gt', 'WITH', 'gt.guild_id = g.id')
+          ->andWhere('g.display_in_directory = :directory')
+          ->setParameter('directory', 1)
+          ->orderBy('g.id', 'DESC')
+          ->setMaxResults(10)
+          ->getQuery()
+          ->getResult()
+      ;
+    }
+
+    public function findMyGuilds($name) {
+      return $this->createQueryBuilder('g')
+          ->select('g.tag', 'g.name', 'g.slug')
+          ->leftJoin(GuildMember::class, 'gm', 'WITH', 'gm.guild = g.id')
+          ->andWhere("gm.members LIKE :name")
+          ->setParameter('name', "%{$name}%")
+          ->orderBy('g.name', 'ASC')
+          ->getQuery()
+          ->getResult()
+      ;
     }
 
     // /**
