@@ -560,11 +560,12 @@ class GuildController extends AbstractController
       $user = $this->getUser();
 
       $members = $this->getGuildMembersFromAPI($guild);
-      $logs = $this->getGuildLogsFromAPI($guild);
+      $logs = [];
 
       $isMember = false;
       if( $user && $members && $this->searchUserByAccountName( $user->getAccountName(), $members->getMembers() ) >= 0 ) {
         $isMember = true;
+        $logs = $this->getGuildLogsFromAPI($guild);
       }
 
       return $this->render('guild/show.html.twig', [
