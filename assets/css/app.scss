@@ -10,7 +10,7 @@ body {
   line-height: 1.4;
 }
 
-h1, h2, h3, h4, h5, h6, .title {
+h1, h2, h3, h4, h5, h6, .title, .cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6 {
   font-family: 'PT Serif', serif;
 
   small {
@@ -633,6 +633,10 @@ header {
 
     .details {
       width: calc(100% - #{$w} - (#{$p} * 2) - 2em);
+
+      h3 a {
+        color: darken($primary, 33%);
+      }
     }
 
     h3 + h4 {

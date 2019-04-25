@@ -63,10 +63,6 @@
       </div>
     </div>
 
-    {% block javascripts %}
-      {{ encore_entry_script_tags('app') }}
-    {% endblock %}
-
     <footer>
       <div class="container">
         <p>{% trans %}arenanet.copyright{% endtrans %}</p>
@@ -74,5 +70,9 @@
         <p>Flag icons by <a href="https://www.flaticon.com/packs/countrys-flags" title="Freepik" target="_blank">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</p>
       </div>
     </footer>
+
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
   </body>
 </html>

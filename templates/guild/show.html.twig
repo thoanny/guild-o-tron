@@ -138,7 +138,7 @@
     <div id="guild-introduction">
       <div class="wrap tac">
         {% if guild.introduction %}
-          <p>{{guild.introduction|nl2br}}</p>
+          <p>{{guild.introduction|markdown('light')}}</p>
         {% endif %}
         {% if guild.guildActivities %}
           <p class="guild-activities">

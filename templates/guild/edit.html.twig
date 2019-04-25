@@ -2,6 +2,32 @@
 
 {% block title %}{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}{% endblock %}
 
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+  <script>
+
+    var introduction = new EasyMDE({
+      element: document.getElementById('guild_edit_form_introduction'),
+      spellChecker: false,
+      promptURLs: true,
+      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+    });
+    var chart = new EasyMDE({
+      element: document.getElementById('guild_edit_form_chart'),
+      spellChecker: false,
+      spellChecker: false,
+      promptURLs: true,
+      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+    });
+  </script>
+{% endblock %}
+
 {% block body %}
 
 <div class="wrap">

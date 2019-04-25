@@ -34,9 +34,8 @@
         </div>
         {% endif %}
         <div class="details">
-          <h3><small>[{{guild.tag}}]</small> {{guild.name}}</h3>
+          <h3><small>[{{guild.tag}}]</small> <a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{{guild.name}}</a></h3>
           {% if guild.description %}<h4>{{guild.description}}</h4>{% endif %}
-          {% if guild.introduction %}<p>{{guild.introduction|nl2br}}</p>{% endif %}
           {% if guild.guildActivities %}
             <p class="guild-activities">
               <strong>{% trans %}activities{% endtrans %}</strong> {% for act in guild.guildActivities %}<span>{{ attribute(act, app.request.locale) }}</span>{% endfor %}
