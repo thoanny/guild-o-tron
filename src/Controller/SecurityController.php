@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
             $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
 
             if ($user === null) {
-              $this->addFlash('danger', 'Email Inconnu');
+              // $this->addFlash('danger', 'Email Inconnu');
               return $this->redirectToRoute('homepage');
             }
 
@@ -80,7 +80,7 @@ class SecurityController extends AbstractController
 
             $mailer->send($message);
 
-            $this->addFlash('notice', 'Email sent!');
+            $this->addFlash('success', 'flash.forgottenpassword.email.sent');
 
             return $this->redirectToRoute('homepage');
         }
@@ -101,7 +101,7 @@ class SecurityController extends AbstractController
             /* @var $user User */
 
             if ($user === null) {
-                $this->addFlash('danger', 'Token Inconnu');
+                $this->addFlash('danger', 'flash.forgottenpassword.token.notfound');
                 return $this->redirectToRoute('homepage');
             }
 
@@ -109,7 +109,7 @@ class SecurityController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             $entityManager->flush();
 
-            $this->addFlash('notice', 'Mot de passe mis à jour');
+            $this->addFlash('success', 'flash.forgottenpassword.password.updated');
 
             return $this->redirectToRoute('app_login');
         }else {

@@ -115,5 +115,18 @@
     "menu.settings": "Paramètres",
     "activities": "Activités&nbsp;:",
     "tags": "Mots-clés&nbsp;:",
-    "more.infos": "Plus d'infos"
+    "more.infos": "Plus d'infos",
+    "flash.guild.settings.saved": "Les paramètres ont bien été enregistrés.",
+    "flash.unauthorized": "Vous n'êtes pas autorisé·e a afficher cette page.",
+    "flash.event.notfound": "Événement introuvable.",
+    "flash.apikeyandguild.required": "La clé d'API GW2 ainsi qu'une guilde sont requis&nbsp;!",
+    "flash.guild.exists": "La guilde est déjà présente dans l'annuaire.",
+    "flash.guild.notleader": "Vous n'êtes le/la chef·fe d'aucune guilde ou de cette guilde.",
+    "flash.guild.nodata": "Impossible d'accéder aux données de la guilde.",
+    "flash.guild.created": "La guilde a bien été créée.",
+    "flash.guild.home.saved": "Les modifications de la page d'accueil ont été enregistrées.",
+    "flash.api.nodata": "L'API n'est pas disponible ou la clé n'est pas correcte.",
+    "flash.forgottenpassword.email.sent": "Un e-mail contenant un lien de réinitialisation vient de vous être envoyé.",
+    "flash.forgottenpassword.token.notfound": "Lien de réinitialisation incorrect.",
+    "flash.forgottenpassword.password.updated": "Votre mot de passe a bien été mis à jour."
 }

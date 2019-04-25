@@ -42,7 +42,7 @@ class AdminGuildActivityController extends AbstractController
           $entityManager->persist($activity);
           $entityManager->flush();
 
-          $this->addFlash('success', 'Activity created.');
+          $this->addFlash('success', 'Activité de guilde ajoutée.');
           return $this->redirectToRoute('admin_guilds_activities');
         }
 
@@ -60,7 +60,7 @@ class AdminGuildActivityController extends AbstractController
           $activity->setUid($savedUid);
           $entityManager->flush();
 
-          $this->addFlash('success', 'Activity saved.');
+          $this->addFlash('success', 'Activité de guilde enregistrée.');
           return $this->redirectToRoute('admin_guilds_activities');
         }
 

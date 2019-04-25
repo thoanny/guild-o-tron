@@ -55,7 +55,7 @@ class GuildController extends AbstractController
         $gid = $request->request->get('gid');
 
         if(!$token || !$gid) {
-          $this->addFlash('error', 'GW2 Api key and guild are both required!');
+          $this->addFlash('error', 'flash.apikeyandguild.required');
           return $this->redirectToRoute('guilds_add');
         }
 
@@ -64,7 +64,7 @@ class GuildController extends AbstractController
         $guild = $entityManager->getRepository(Guild::class)->findOneByGid($gid);
 
         if ($guild !== null) {
-          $this->addFlash('danger', 'Guild already exists.');
+          $this->addFlash('danger', 'flash.guild.exists');
           return $this->redirectToRoute('guilds');
         }
 
@@ -76,12 +76,12 @@ class GuildController extends AbstractController
         if($account) {
 
           if(!isset($account->guild_leader)) {
-            $this->addFlash('danger', 'Your are not a leader...');
+            $this->addFlash('danger', 'flash.guild.notleader');
             return $this->redirectToRoute('guilds');
           }
 
           if(!in_array($gid, $account->guild_leader)) {
-            $this->addFlash('danger', 'Your are not the leader of that guild.');
+            $this->addFlash('danger', 'flash.guild.notleader');
             return $this->redirectToRoute('guilds');
           }
 
@@ -90,7 +90,7 @@ class GuildController extends AbstractController
         $guild = $api->get('/guild/:id', $token, ['id' => $gid]);
 
         if(!$guild) {
-          $this->addFlash('danger', 'We can\'t access to the guild informations.');
+          $this->addFlash('danger', 'flash.guild.nodata');
           return $this->redirectToRoute('guilds');
         }
 
@@ -128,7 +128,7 @@ class GuildController extends AbstractController
         $entityManager->persist($newGuild);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Guild created.');
+        $this->addFlash('success', 'flash.guild.created');
         return $this->redirectToRoute('guilds_show', ['slug' => $newGuild->getSlug()]);
       } else {
         return $this->render('guild/add.html.twig');
@@ -146,7 +146,7 @@ class GuildController extends AbstractController
 
       $user = $this->getUser();
       if ($guild->getUser() !== $user) {
-        $this->addFlash('danger', 'You can\'t access this page.');
+        $this->addFlash('danger', 'flash.unauthorized');
         return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
       }
 
@@ -156,7 +156,7 @@ class GuildController extends AbstractController
         $guild = $form->getData();
         $entityManager->flush();
 
-        $this->addFlash('success', 'Homepage saved.');
+        $this->addFlash('success', 'flash.guild.home.saved');
         return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
       }
 
@@ -694,7 +694,7 @@ class GuildController extends AbstractController
 
     $user = $this->getUser();
     if ($guild->getUser() !== $user) {
-      $this->addFlash('danger', 'You can\'t access this page.');
+      $this->addFlash('danger', 'flash.unauthorized');
       return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
     }
 
@@ -704,7 +704,7 @@ class GuildController extends AbstractController
       $guild = $form->getData();
       $entityManager->flush();
 
-      $this->addFlash('success', 'Settings saved.');
+      $this->addFlash('success', 'flash.guild.settings.saved');
       return $this->redirectToRoute('guilds_settings', ['slug' => $slug]);
     }
 

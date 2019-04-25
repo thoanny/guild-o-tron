@@ -42,7 +42,7 @@ class AdminGuildTagController extends AbstractController
           $entityManager->persist($tag);
           $entityManager->flush();
 
-          $this->addFlash('success', 'Tag created.');
+          $this->addFlash('success', 'Mot-clé de guilde ajouté.');
           return $this->redirectToRoute('admin_guilds_tags');
         }
 
@@ -60,7 +60,7 @@ class AdminGuildTagController extends AbstractController
           $tag->setUid($savedUid);
           $entityManager->flush();
 
-          $this->addFlash('success', 'Tag saved.');
+          $this->addFlash('success', 'Mot-clé de guilde enregistré.');
           return $this->redirectToRoute('admin_guilds_tags');
         }
 

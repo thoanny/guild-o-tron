@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
             $account = $api->get('/account', $form->get('apiKey')->getData());
 
             if(!$account) {
-              $this->addFlash('danger', 'API offline or wrong API key. Please try again.');
+              $this->addFlash('danger', 'flash.api.nodata');
               return $this->redirectToRoute('app_register');
             }
 

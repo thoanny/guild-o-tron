@@ -44,7 +44,7 @@ class EventController extends AbstractController
 
       $user = $this->getUser();
       if ($guild->getUser() !== $user) {
-        $this->addFlash('danger', 'You can\'t access this page.');
+        $this->addFlash('danger', 'flash.unauthorized');
         return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
       }
 
@@ -69,7 +69,7 @@ class EventController extends AbstractController
 
       $user = $this->getUser();
       if ($guild->getUser() !== $user) {
-        $this->addFlash('danger', 'You can\'t access this page.');
+        $this->addFlash('danger', 'flash.unauthorized');
         return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
       }
 
@@ -89,7 +89,7 @@ class EventController extends AbstractController
         $entityManager->persist($event);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Event added.');
+        $this->addFlash('success', 'flash.event.added');
         return $this->redirectToRoute('guilds_events', ['slug' => $slug]);
       }
 
@@ -203,7 +203,7 @@ class EventController extends AbstractController
       ]);
 
       if($guild && !$event) {
-        $this->addFlash('error', 'Event not found.');
+        $this->addFlash('danger', 'flash.event.notfound');
         return $this->redirectToRoute('guilds_events', ['slug' => $slug]);
       }
 

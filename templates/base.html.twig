@@ -51,10 +51,10 @@
     <div id="content">
       <div class="container">
 
-        {% for type, messages in app.session.flashbag.all() %}
+        {% for type, messages in app.flashes %}
           {% for message in messages %}
           <div class="flash-message">
-            <div class="flash-{{type}}"><a href="#!" class="flash-close">&times;</a>{{message}}</div>
+            <div class="flash-{{type}}"><a href="#!" class="flash-close">&times;</a>{{message|trans}}</div>
           </div>
           {% endfor %}
         {% endfor %}
