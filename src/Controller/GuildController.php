@@ -165,7 +165,7 @@ class GuildController extends AbstractController
         $isMember = true;
       }
 
-      return $this->render('guild/edit.html.twig', [
+      return $this->render('guild/home/edit.html.twig', [
         'guild' => $guild,
         'isMember' => $isMember,
         'form' => $form->createView()
@@ -568,7 +568,7 @@ class GuildController extends AbstractController
         $logs = $this->getGuildLogsFromAPI($guild);
       }
 
-      return $this->render('guild/show.html.twig', [
+      return $this->render('guild/home/index.html.twig', [
         'guild' => $guild,
         'members' => $members,
         'logs' => $logs,
@@ -603,11 +603,10 @@ class GuildController extends AbstractController
      // Update/Get Treasury
      $treasury = $this->getGuildTreasuryFromAPI($guild);
 
-     return $this->render('guild/show.html.twig', [
+     return $this->render('guild/treasury/index.html.twig', [
        'guild' => $guild,
        'treasury' => $treasury,
        'isMember' => $isMember,
-       'view' => 'treasury'
      ]);
    }
 
@@ -641,11 +640,10 @@ class GuildController extends AbstractController
         $this->getGuildStashFromAPI($guild);
       }
 
-      return $this->render('guild/show.html.twig', [
+      return $this->render('guild/stash/index.html.twig', [
         'guild' => $guild,
         'stash' => $stash,
         'isMember' => $isMember,
-        'view' => 'stash'
       ]);
     }
 
@@ -675,11 +673,10 @@ class GuildController extends AbstractController
      // Updates Members
      $members = $this->getGuildMembersFromAPI($guild);
 
-     return $this->render('guild/show.html.twig', [
+     return $this->render('guild/members/index.html.twig', [
        'guild' => $guild,
        'members' => $members,
        'isMember' => $isMember,
-       'view' => 'members'
      ]);
    }
 
@@ -712,6 +709,12 @@ class GuildController extends AbstractController
     if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
       $isMember = true;
     }
+
+    return $this->render('guild/settings/index.html.twig', [
+      'guild' => $guild,
+      'isMember' => $isMember,
+      'settings' => $form->createView()
+    ]);
 
     return $this->render('guild/show.html.twig', [
       'view' => 'settings',

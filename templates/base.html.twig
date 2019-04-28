@@ -10,64 +10,66 @@
   </head>
   <body>
 
-    <header>
-      <div class="container">
-        <div id="logo">
-          <img src="{{ asset('build/logo.png') }}" />
-          <span class="site-title">Guild-O-Tron</span>
-        </div>
-
-        <nav>
-          <ul>
-            <li><a href="{{ path('homepage') }}">{% trans %}menu.home{% endtrans %}</a></li>
-
-            <li><a href="{{ path('guilds') }}">{% trans %}menu.guilds{% endtrans %}</a></li>
-            <li><a href="{{ path('events') }}">{% trans %}menu.events{% endtrans %}</a></li>
-
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path('app_login') }}">{% trans %}menu.login{% endtrans %}</a></li>
-            <li><a href="{{ path('app_register') }}">{% trans %}menu.register{% endtrans %}</a></li>
-            {% endif %}
-
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path('dashboard') }}">{% trans %}menu.dashboard{% endtrans %}</a></li>
-            {% if is_granted('ROLE_ADMIN') %}
-              <li><a href="{{ path('admin') }}">{% trans %}menu.admin{% endtrans %}</a></li>
-            {% endif %}
-            <li class="red"><a href="{{ path('app_logout') }}">{% trans %}menu.logout{% endtrans %}</a></li>
-            {% endif %}
-
-            <li><a href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank" style="color: #3498db;">BUG</a></li>
-
-            <li><a href="{{ path('setlocale', {'language': 'fr'}) }}"><img src="{{ asset('build/fr.png') }}" class="flag{% if app.request.locale == 'fr' %} current{% endif %}" alt="FR" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'en'}) }}"><img src="{{ asset('build/en.png') }}" class="flag{% if app.request.locale == 'en' %} current{% endif %}" alt="EN" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'de'}) }}"><img src="{{ asset('build/de.png') }}" class="flag{% if app.request.locale == 'de' %} current{% endif %}" alt="DE" /></a></li>
-            <li><a href="{{ path('setlocale', {'language': 'es'}) }}"><img src="{{ asset('build/es.png') }}" class="flag{% if app.request.locale == 'es' %} current{% endif %}" alt="ES" /></a></li>
-          </ul>
-        </nav>
+    <div class="ui top fixed menu">
+      <div class="item">
+        <img src="{{ asset('build/logo.png') }}">
+        <span class="site-title">Guild-O-Tron</span>
       </div>
-    </header>
+      <a class="red item" href="{{ path('homepage') }}"><i class="fas fa-home icon"></i>{% trans %}menu.home{% endtrans %}</a>
+      <a class="item" href="{{ path('guilds') }}"><i class="fas fa-shield-alt icon"></i>{% trans %}menu.guilds{% endtrans %}</a>
+      <a class="item" href="{{ path('events') }}"><i class="fas fa-calendar-alt icon"></i>{% trans %}menu.events{% endtrans %}</a>
+      <div class="right menu">
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="item" href="{{ path('app_login') }}">{% trans %}menu.login{% endtrans %}</a>
+        <a class="item" href="{{ path('app_register') }}">{% trans %}menu.register{% endtrans %}</a>
+        {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="item" href="{{ path('dashboard') }}"><i class="fas fa-tachometer-alt icon"></i>{% trans %}menu.dashboard{% endtrans %}</a>
+          {% if is_granted('ROLE_ADMIN') %}
+            <a class="item" href="{{ path('admin') }}"><i class="fas fa-cogs icon"></i>{% trans %}menu.admin{% endtrans %}</a>
+          {% endif %}
+        <a class="item" style="color: #db2828;" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt icon"></i>{% trans %}menu.logout{% endtrans %}</a>
+        {% endif %}
+        <a class="item" style="color: #3498db;" href="https://bitbucket.org/anthony-d/guild-o-tron/issues?status=new&status=open" target="_blank"><i class="fas fa-bug icon"></i>BUG</a>
+
+        <div class="ui simple dropdown item">
+          {% if app.request.locale == 'fr' %}<i class="fr flag"></i>{% endif %}
+          {% if app.request.locale == 'en' %}<i class="bg uk flag"></i>{% endif %}
+          {% if app.request.locale == 'de' %}<i class="de flag"></i>{% endif %}
+          {% if app.request.locale == 'es' %}<i class="es flag"></i>{% endif %}
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {% if app.request.locale != 'fr' %}<a class="item" href="{{ path('setlocale', {'language': 'fr'}) }}"><i class="fr flag"></i> Français</a>{% endif %}
+            {% if app.request.locale != 'en' %}<a class="item" href="{{ path('setlocale', {'language': 'en'}) }}"><i class="gb uk flag"></i> English</a>{% endif %}
+            {% if app.request.locale != 'de' %}<a class="item" href="{{ path('setlocale', {'language': 'de'}) }}"><i class="de flag"></i> Deutsch</a>{% endif %}
+            {% if app.request.locale != 'es' %}<a class="item" href="{{ path('setlocale', {'language': 'es'}) }}"><i class="es flag"></i> Español</a>{% endif %}
+          </div>
+        </div>
+      </div>
+
+    </div>
 
     <div id="content">
-      <div class="container">
-
-        {% for type, messages in app.flashes %}
-          {% for message in messages %}
-          <div class="flash-message">
-            <div class="flash-{{type}}"><a href="#!" class="flash-close">&times;</a>{{message|trans}}</div>
-          </div>
-          {% endfor %}
+      {% for type, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="flash-message">
+          <div class="flash-{{type}}"><a href="#!" class="flash-close">&times;</a>{{message|trans}}</div>
+        </div>
         {% endfor %}
+      {% endfor %}
 
-        {% block body %}{% endblock %}
-      </div>
+      {% block body %}{% endblock %}
     </div>
 
     <footer>
-      <div class="container">
-        <p>{% trans %}arenanet.copyright{% endtrans %}</p>
-        <p>{{ 'made.with.by.for'|trans({'%love%': '<i class="fas fa-heart"></i>', '%anthony%': '<a href="https://anthony-destenay.fr/lebusmagique/" target="_blank">Anthony.5487</a>', '%lebusmagique%': '<a href="https://www.lebusmagique.fr" target="_blank">Le Bus Magique</a>'})|raw }}</p>
-        <p>Flag icons by <a href="https://www.flaticon.com/packs/countrys-flags" title="Freepik" target="_blank">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</p>
+      <div class="ui grid container">
+        <div class="row">
+          <div class="column center aligned">
+            <p>{% trans %}arenanet.copyright{% endtrans %}</p>
+            <p>{{ 'made.with.by.for'|trans({'%love%': '<i class="fas fa-heart"></i>', '%anthony%': '<a href="https://anthony-destenay.fr/lebusmagique/" target="_blank">Anthony.5487</a>', '%lebusmagique%': '<a href="https://www.lebusmagique.fr" target="_blank">Le Bus Magique</a>'})|raw }}</p>
+            <p>Flag icons by <a href="https://www.flaticon.com/packs/countrys-flags" title="Freepik" target="_blank">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</p>
+          </div>
+        </div>
       </div>
     </footer>
 

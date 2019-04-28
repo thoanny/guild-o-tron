@@ -3,19 +3,33 @@
 {% block title %}{% trans %}guilds.add.title{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}guilds.add.title{% endtrans %}</h1>
 
-    <form method="post" autocomplete="off">
-      <label for="inputToken">{% trans %}guilds.add.token.label{% endtrans %}</label>
-      <input type="text" name="token" id="inputToken" value="" required />
+  <div class="ui grid two column centered container stackable">
+    <div class="column">
 
-      <button type="button" name="check" id="buttonCheckApiKey" class="btn">{% trans %}guilds.add.check.button{% endtrans %}</button>
+      <h1>{% trans %}guilds.add.title{% endtrans %}</h1>
 
-      <label for="selectGid">{% trans %}guilds.add.guilds.label{% endtrans %}</label>
-      <select name="gid" id="selectGid" required>
-        <option value="" disabled selected>-- {% trans %}guilds.add.guilds.placeholder{% endtrans %} --</option>
-      </select>
+      <form method="post" class="ui form" autocomplete="off">
 
-      <button type="submit" name="guild" class="btn">{% trans %}guilds.add.button{% endtrans %}</button>
-    </form>
+        <div class="field">
+          <label for="inputToken">{% trans %}guilds.add.token.label{% endtrans %}</label>
+          <input type="text" name="token" id="inputToken" value="" required />
+        </div>
+
+        <p><button type="button" name="check" id="buttonCheckApiKey" class="ui icon button green"><i class="check icon"></i> {% trans %}guilds.add.check.button{% endtrans %}</button></p>
+
+        <div class="field">
+          <label for="selectGid">{% trans %}guilds.add.guilds.label{% endtrans %}</label>
+          <select name="gid" id="selectGid" class="dropdown" required>
+            <option value="" disabled selected>-- {% trans %}guilds.add.guilds.placeholder{% endtrans %} --</option>
+          </select>
+        </div>
+
+        <button type="submit" name="guild" class="ui icon button"><i class="plus icon"></i> {% trans %}guilds.add{% endtrans %}</button>
+      </form>
+
+    </div>
+  </div>
+
+
 {% endblock %}

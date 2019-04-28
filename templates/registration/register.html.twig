@@ -4,26 +4,46 @@
 
 {% block body %}
 
-<div class="wrap">
-  <h1>{% trans %}register.title{% endtrans %}</h1>
+  <div class="ui grid two column centered container stackable">
+    <div class="column">
+      <h1>{% trans %}register.title{% endtrans %}</h1>
 
-  {{ form_start(registrationForm) }}
-    {{ form_label(registrationForm.email, 'register.email.label'|trans) }}
-    {{ form_widget(registrationForm.email) }}
+      {{ form_start(registrationForm, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
 
-    {{ form_label(registrationForm.plainPassword, 'register.password.label'|trans) }}
-    {{ form_widget(registrationForm.plainPassword) }}
+        <div class="field">
+          {{ form_label(registrationForm.email, 'register.email.label'|trans) }}
+          <div class="ui left icon input">
+            {{ form_widget(registrationForm.email) }}
+            <i class="envelope icon"></i>
+          </div>
+        </div>
 
-    {{ form_label(registrationForm.apiKey, 'register.apikey.label'|trans) }}
-    {{ form_widget(registrationForm.apiKey) }}
+        <div class="field">
+          {{ form_label(registrationForm.plainPassword, 'register.password.label'|trans) }}
+          <div class="ui left icon input">
+            {{ form_widget(registrationForm.plainPassword) }}
+            <i class="lock icon"></i>
+          </div>
+        </div>
 
-    {{ form_widget(registrationForm.gdpr) }}
-    {{ form_label(registrationForm.gdpr, 'register.gdpr.label'|trans) }}
+        <div class="field">
+          {{ form_label(registrationForm.apiKey, 'register.apikey.label'|trans) }}
+          <div class="ui left icon input">
+            {{ form_widget(registrationForm.apiKey) }}
+            <i class="key icon"></i>
+          </div>
+        </div>
 
-    <div>
-      <button class="btn">{% trans %}register.button{% endtrans %}</button>
+        <div class="inline field">
+          <div class="ui checkbox">
+            {{ form_widget(registrationForm.gdpr) }}
+            {{ form_label(registrationForm.gdpr, 'register.gdpr.label'|trans) }}
+          </div>
+        </div>
+
+        <button class="ui button green">{% trans %}register.button{% endtrans %}</button>
+      {{ form_end(registrationForm) }}
     </div>
-  {{ form_end(registrationForm) }}
-</div>
+  </div>
 
 {% endblock %}

@@ -4,8 +4,11 @@
 
 {% block body %}
 
-  <h1>{% trans %}events.title{% endtrans %}</h1>
-
-  <div id="calendar"></div>
+<div class="ui grid container">
+  <div class="column">
+    <h1>{% trans %}events.title{% endtrans %}</h1>
+    <div id="calendar"></div>
+  </div>
+</div>
 
 {% endblock %}

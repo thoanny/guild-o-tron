@@ -1,0 +1,109 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{parent()}}
+
+  <div class="ui grid two column centered container stackable">
+    <div class="column">
+      <h2>{% trans %}guild.settings.title{% endtrans %}</h2>
+
+      {{ form_start(settings, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
+
+      <h4 class="ui dividing header">{% trans %}general{% endtrans %}</h4>
+
+      <div class="inline field">
+        <div class="ui toggle checkbox">
+          {{ form_widget(settings.display_in_directory) }}
+          {{ form_label(settings.display_in_directory, 'guild.settings.display_in_directory.label'|trans) }}
+        </div>
+      </div>
+
+      <div class="field">
+        {{ form_label(settings.description, 'guild.settings.description.label'|trans) }}
+        {{ form_widget(settings.description) }}
+      </div>
+
+      <div class="field">
+        {{ form_label(settings.guild_activities, 'guild.settings.activities.label'|trans) }}
+        {{ form_widget(settings.guild_activities) }}
+      </div>
+
+      <div class="field">
+        {{ form_label(settings.guild_tags, 'guild.settings.tags.label'|trans) }}
+        {{ form_widget(settings.guild_tags) }}
+      </div>
+
+      <h4 class="ui dividing header">{% trans %}guild.links{% endtrans %}</h4>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.website, {'attr': {'placeholder': 'guild.settings.website.label'|trans}}) }}
+          <i class="linkify icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.facebook) }}
+          <i class="facebook f icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.twitter) }}
+          <i class="twitter icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.youtube) }}
+          <i class="youtube icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.twitch) }}
+          <i class="twitch icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="ui left icon input">
+          {{ form_widget(settings.discord) }}
+          <i class="discord icon"></i>
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">{% trans %}display.options{% endtrans %}</h4>
+
+      <div class="fields">
+        <div class="field eight wide">
+          {{ form_label(settings.display_stash, 'guild.settings.display_stash.label'|trans) }}
+          {{ form_widget(settings.display_stash) }}
+        </div>
+        <div class="field eight wide">
+          {{ form_label(settings.display_treasury, 'guild.settings.display_treasury.label'|trans) }}
+          {{ form_widget(settings.display_treasury) }}
+        </div>
+      </div>
+
+      <div class="fields">
+        <div class="field eight wide">
+          {{ form_label(settings.display_members, 'guild.settings.display_members.label'|trans) }}
+          {{ form_widget(settings.display_members) }}
+        </div>
+      </div>
+
+      {{ form_widget(settings) }}
+
+      <h4 class="ui dividing header">{% trans %}save{% endtrans %}</h4>
+
+      <button type="submit" class="ui green button">{% trans %}save{% endtrans %}</button>
+
+      {{ form_end(settings) }}
+    </div>
+  </div>
+
+{% endblock %}

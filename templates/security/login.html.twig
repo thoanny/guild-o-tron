@@ -1,42 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{% trans %}login.title{% endtrans %}{% endblock %}
 
 {% block body %}
 
-<div class="wrap">
-  <form method="post" autocomplete="off">
-    {% if error %}
-      <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
+<div class="ui grid two column centered container stackable">
+  <div class="column">
     <h1>{% trans %}login.title{% endtrans %}</h1>
 
-    <label for="email">{% trans %}login.email.label{% endtrans %}</label>
-    <input type="email" value="{{ last_username }}" name="email" id="email" required autofocus>
-    <label for="password">{% trans %}login.password.label{% endtrans %}</label>
-    <input type="password" name="password" id="password" required>
+    {% if error %}
+      <div class="ui segment red inverted">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+    <form method="post" class="ui form" autocomplete="off">
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+      <div class="field">
+        <label for="email">{% trans %}login.email.label{% endtrans %}</label>
+        <div class="ui left icon input">
+          <input type="email" value="{{ last_username }}" name="email" id="email" required autofocus>
+          <i class="envelope icon"></i>
         </div>
-    #}
+      </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        {% trans %}login.button{% endtrans %}
-    </button>
-  </form>
+      <div class="field">
+        <label for="password">{% trans %}login.password.label{% endtrans %}</label>
+        <div class="ui left icon input">
+          <input type="password" name="password" id="password" required>
+          <i class="lock icon"></i>
+        </div>
+      </div>
 
-  <p><a  href="{{ path('app_forgotten_password') }}">{% trans %}forgotten.password.link{% endtrans %}</a></p>
+      <input type="hidden" name="_csrf_token"
+             value="{{ csrf_token('authenticate') }}"
+      >
+
+      {#
+          Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+          See https://symfony.com/doc/current/security/remember_me.html
+
+          <div class="checkbox mb-3">
+              <label>
+                  <input type="checkbox" name="_remember_me"> Remember me
+              </label>
+          </div>
+      #}
+
+      <button class="ui button green" type="submit">
+          {% trans %}login.button{% endtrans %}
+      </button>
+
+      <a  href="{{ path('app_forgotten_password') }}" class="ui button right floated">{% trans %}forgotten.password{% endtrans %}</a>
+    </form>
+
+  </div>
 </div>
+
 {% endblock %}

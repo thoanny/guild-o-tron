@@ -1,0 +1,38 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{parent()}}
+
+  <div class="ui grid container">
+    <div class="column center aligned">
+      <h2>{% trans %}guild.members.title{% endtrans %}</h2>
+    </div>
+  </div>
+
+  {% if members %}
+    <div class="ui grid three column centered container stackable">
+      <div class="column">
+        <div class="ui list relaxed divided">
+          {% for member in members.members %}
+            <div class="item">
+              <div class="right floated content">
+                <span class="ui teal label small">{{member.rank}}</span>
+              </div>
+              <img class="ui avatar mini image" src="https://api.adorable.io/avatars/35/{{member.name|md5}}.png">
+              <div class="content">
+                <div class="header">{{member.name|anonymize}}</div>
+                <div class="description">{{ member.joined|localizeddate('long', 'none') }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="ui grid container">
+      <div class="column center aligned">
+        <p>{% trans %}guild.members.any{% endtrans %}</p>
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock %}

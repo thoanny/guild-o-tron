@@ -1,0 +1,147 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{parent()}}
+
+  {% include 'guild/_parts/logs.html.twig' with {'logs': logs} %}
+
+  <div id="guild-introduction">
+
+    <div class="ui grid two column centered container stackable">
+      <div class="column center aligned">
+        {% if guild.introduction %}
+          {{guild.introduction|markdown('light')}}
+        {% endif %}
+      </div>
+    </div>
+
+    {% if guild.guildActivities %}
+      <div class="ui grid container">
+        <div class="column center aligned">
+          {% for act in guild.guildActivities %}
+            <span class="ui label black">{{ attribute(act, app.request.locale) }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if guild.guildTags %}
+      <div class="ui grid container">
+        <div class="column center aligned">
+          <div class="ui tag labels">
+            {% for tag in guild.guildTags %}<span class="ui label black">{{ attribute(tag, app.request.locale) }}</span>{% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+  <div id="guild-preview">
+
+    <div class="ui grid container">
+      <div class="column center aligned">
+        <h2>{% trans %}guild.preview.title{% endtrans %}</h2>
+        <p>{{ 'guild.preview.users'|trans({'%guild%': guild.name, '%total%': members.members|length}) }}</p>
+        <p><em>{{ 'guild.preview.level'|trans({'%level%': guild.level}) }}</em></p>
+      </div>
+    </div>
+
+    {% set upgrades = 0 %}
+
+    <div class="ui grid container stackable">
+
+      {% if guild.notary %}
+        {% set max = 7 %}
+        {% set pc = (guild.notary / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.notary{% endtrans %} <small>({{guild.notary}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.tavern %}
+        {% set max = 26 %}
+        {% set pc = (guild.tavern / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.tavern{% endtrans %} <small>({{guild.tavern}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.mine %}
+        {% set max = 15 %}
+        {% set pc = (guild.mine / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.mine{% endtrans %} <small>({{guild.mine}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.workshop %}
+        {% set max = 33 %}
+        {% set pc = (guild.workshop / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.workshop{% endtrans %} <small>({{guild.workshop}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.market %}
+        {% set max = 23 %}
+        {% set pc = (guild.market / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.market{% endtrans %} <small>({{guild.market}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.arena %}
+        {% set max = 24 %}
+        {% set pc = (guild.arena / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.arena{% endtrans %} <small>({{guild.arena}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if guild.warRoom %}
+        {% set max = 24 %}
+        {% set pc = (guild.warRoom / max * 100)|round(2) %}
+        <div class="column eight wide">
+          <div class="ui small progress yellow{% if pc == 100 %} success{% endif %}">
+            <div class="bar" style="width: {{ pc }}%"></div>
+            <div class="label">{% trans %}guild.war_room{% endtrans %} <small>({{guild.warRoom}}/{{max}})</small></div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div><!-- #guild-preview -->
+
+  {% if guild.chart %}
+    <div id="guild-chart">
+      <div class="ui grid container">
+        <div class="column center aligned">
+          <h2>{% trans %}guild.chart{% endtrans %}</h2>
+          <p>{{guild.chart|nl2br}}</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% include 'guild/_parts/ad.html.twig' %}
+
+{% endblock %}

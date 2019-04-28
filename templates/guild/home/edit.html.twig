@@ -1,0 +1,111 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block title %}{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}{% endblock %}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+  <script>
+
+    var introduction = new EasyMDE({
+      element: document.getElementById('guild_edit_form_introduction'),
+      spellChecker: false,
+      promptURLs: true,
+      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+    });
+    var chart = new EasyMDE({
+      element: document.getElementById('guild_edit_form_chart'),
+      spellChecker: false,
+      spellChecker: false,
+      promptURLs: true,
+      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+    });
+  </script>
+{% endblock %}
+
+{% block body %} {{ parent() }}
+
+
+  <div class="ui grid container two column centered">
+    <div class="column">
+      <h2>{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}</h2>
+
+      {{ form_start(form, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
+
+      <h4 class="ui dividing header">{% trans %}general{% endtrans %}</h4>
+
+      <div class="field">
+        {{ form_label(form.introduction, 'guild.home.edit.introduction'|trans) }}
+        {{ form_widget(form.introduction) }}
+      </div>
+
+      <div class="field">
+        {{ form_label(form.chart, 'guild.home.edit.chart'|trans) }}
+        {{ form_widget(form.chart) }}
+      </div>
+
+      <h4 class="ui dividing header">{% trans %}guild.upgrades.title{% endtrans %}</h4>
+
+      <div class="fields">
+        <div class="field eight wide">
+          {{ form_label(form.notary, 'guild.notary'|trans) }}
+          {{ form_widget(form.notary) }}
+        </div>
+
+        <div class="field eight wide">
+          {{ form_label(form.tavern, 'guild.tavern'|trans) }}
+          {{ form_widget(form.tavern) }}
+        </div>
+
+      </div>
+      <div class="fields">
+
+        <div class="field eight wide">
+          {{ form_label(form.mine, 'guild.mine'|trans) }}
+          {{ form_widget(form.mine) }}
+        </div>
+
+        <div class="field eight wide">
+          {{ form_label(form.workshop, 'guild.workshop'|trans) }}
+          {{ form_widget(form.workshop) }}
+        </div>
+      </div>
+
+      <div class="fields">
+        <div class="field eight wide">
+          {{ form_label(form.market, 'guild.market'|trans) }}
+          {{ form_widget(form.market) }}
+        </div>
+
+        <div class="field eight wide">
+          {{ form_label(form.arena, 'guild.arena'|trans) }}
+          {{ form_widget(form.arena) }}
+        </div>
+
+      </div>
+      <div class="fields">
+
+        <div class="field eight wide">
+          {{ form_label(form.war_room, 'guild.war_room'|trans) }}
+          {{ form_widget(form.war_room) }}
+        </div>
+      </div>
+
+      {{ form_widget(form) }}
+
+      <h4 class="ui dividing header">{% trans %}save{% endtrans %}</h4>
+
+      <button type="submit" class="ui button green">{% trans %}save{% endtrans %}</button>
+      <a href="{{ path('guilds_show', {'slug': guild.slug}) }}" class="ui button right floated">{% trans %}cancel{% endtrans %}</a>
+
+      {{ form_end(form) }}
+
+    </div>
+  </div>
+
+{% endblock %}

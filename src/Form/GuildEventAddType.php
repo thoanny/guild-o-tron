@@ -21,7 +21,8 @@ class GuildEventAddType extends AbstractType
                 'class' => 'datetimepicker'
               ],
               'minutes' => [0, 15, 30, 45],
-              'years' => [ date('Y'), date('Y')+1 ]
+              'years' => [ date('Y'), date('Y')+1 ],
+              'attr' => ['class' => 'dropdown']
             ])
             ->add('duration', ChoiceType::class, [
               'choices' => [
@@ -30,7 +31,7 @@ class GuildEventAddType extends AbstractType
                 '3 hours' => 3,
                 '4 hours' => 4
               ],
-              'expanded' => true
+              'attr' => ['class' => 'dropdown']
             ])
             ->add('group_size', ChoiceType::class, [
               'choices' => [
@@ -39,7 +40,7 @@ class GuildEventAddType extends AbstractType
                 'Squad (50)' => 50,
                 'Multi-squad (50+)' => 99
               ],
-              'expanded' => true
+              'attr' => ['class' => 'dropdown']
             ])
             ->add('type', ChoiceType::class, [
               'choices' => [
@@ -47,7 +48,7 @@ class GuildEventAddType extends AbstractType
                 // @todo : Guild allience event (inter)
                 'Public event' => 'public'
               ],
-              'expanded' => true
+              'attr' => ['class' => 'dropdown']
             ])
         ;
     }

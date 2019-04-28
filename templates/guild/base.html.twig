@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{guild.name}}{% endblock %}
+
+{% block body %}
+
+  <div id="guild-header">
+
+    <div class="ui grid container">
+
+      {% if guild.emblem %}
+        <div class="row">
+          <div class="column center aligned">
+            <div class="emblem">
+              <div style="filter: brightness(1)">
+                <div style="filter: grayscale(100%);">
+                  <img src="{{guild.emblem}}" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="column center aligned">
+          <h1><small>[{{guild.tag}}]</small> {{guild.name}}</h1>
+          {% if guild.description %}<p class="guild-description">{{guild.description}}</p>{% endif %}
+        </div>
+      </div>
+
+      {% if guild.website or guild.facebook or guild.twitter or guild.youtube or guild.twitch or guild.discord %}
+        <div class="row">
+          <div class="column center aligned">
+            {% if guild.website %}
+              <a class="ui compact icon button" href="{{ guild.website }}" target="_blank">
+                <i class="linkify icon"></i>
+              </a>
+            {% endif %}
+            {% if guild.facebook %}
+              <a class="ui compact icon facebook button" href="{{ guild.facebook }}" target="_blank">
+                <i class="facebook f icon"></i>
+              </a>
+            {% endif %}
+            {% if guild.twitter %}
+              <a class="ui compact icon twitter button" href="{{ guild.twitter }}" target="_blank">
+                <i class="twitter icon"></i>
+              </a>
+            {% endif %}
+            {% if guild.youtube %}
+              <a class="ui compact icon youtube button" href="{{ guild.youtube }}" target="_blank">
+                <i class="youtube icon"></i>
+              </a>
+            {% endif %}
+            {% if guild.twitch %}
+              <a class="ui compact icon twitch button" href="{{ guild.twitch }}" target="_blank">
+                <i class="twitch icon"></i>
+              </a>
+            {% endif %}
+            {% if guild.discord %}
+              <a class="ui compact icon discord button" href="{{ guild.discord }}" target="_blank">
+                <i class="discord icon"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+    </div><!-- .ui.grid.container -->
+
+  </div>
+
+  <div class="ui centered grid" id="guild-menu">
+    <div class="center aligned column">
+      <div class="ui compact menu stackable">
+        <a class="item" href="{{ path('guilds_show', {'slug': guild.slug}) }}">{% trans %}menu.home{% endtrans %}</a>
+        {% if guild.getUser() == app.user %}
+          <a class="item" href="{{ path('guilds_edit', {'slug': guild.slug}) }}"><i class="edit icon"></i></a>
+        {% endif %}
+        {% if (guild.getDisplayStash() == 'members' and isMember) or (guild.getDisplayStash() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayStash() == 'public' %}
+          <a class="item" href="{{ path('guilds_stash', {'slug': guild.slug}) }}">{% trans %}menu.stash{% endtrans %}</a>
+        {% endif %}
+        {% if (guild.getDisplayTreasury() == 'members' and isMember) or (guild.getDisplayTreasury() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayTreasury() == 'public' %}
+          <a class="item" href="{{ path('guilds_treasury', {'slug': guild.slug}) }}">{% trans %}menu.treasury{% endtrans %}</a>
+        {% endif %}
+        <div class="item"><em>{% trans %}menu.scribe{% endtrans %}</em></div>
+        <div class="item"><em>{% trans %}menu.achievements{% endtrans %}</em></div>
+        <div class="item"><em>{% trans %}menu.raids{% endtrans %}</em></div>
+        <a class="item" href="{{ path('guilds_events', {'slug': guild.slug}) }}">{% trans %}menu.events{% endtrans %}</a>
+        {% if (guild.getDisplayMembers() == 'members' and isMember) or (guild.getDisplayMembers() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayMembers() == 'public' %}
+          <a class="item" href="{{ path('guilds_members', {'slug': guild.slug}) }}">{% trans %}menu.members{% endtrans %}</a>
+        {% endif %}
+        {% if guild.getUser() == app.user %}
+          <a class="item" href="{{ path('guilds_settings', {'slug': guild.slug}) }}">{% trans %}menu.settings{% endtrans %}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

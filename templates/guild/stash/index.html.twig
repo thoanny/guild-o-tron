@@ -1,0 +1,52 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{ parent() }}
+
+  {% if stash %}
+
+  <div class="ui grid container">
+    <div class="row">
+      <div class="column center aligned">
+        <h2>{% trans %}guild.stash.title{% endtrans %}</h2>
+      </div>
+    </div>
+
+      {% for st in stash.getStash().stash %}
+        <div class="row">
+          <div class="column center aligned">
+            <h3>{{stash.getStash()._upgrades[st.upgrade_id].name}}</h3>
+            <h4>{{st.coins|currency}}</h4>
+
+            {% if st.note is defined %}
+              <p><em>{{st.note}}</em></p>
+            {% endif %}
+
+            <ul class="guild-stash">
+              {% for inv in st.inventory %}
+                {% if inv %}
+                  <li data-tippy-arrow="true" data-tippy="{{inv.count}}&nbsp;&times; {{stash.getStash()._items[inv.id].name}}">
+                    <span class="item border rarity-{{stash.getStash()._items[inv.id].rarity}}"><img src="{{stash.getStash()._items[inv.id].icon}}" /></span>
+                    <div class="ui top right attached label inverted black tiny">{{inv.count}}</div>
+                  </li>
+                {% else %}
+                  <li><span class="item empty"></span></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+
+  <div class="ui grid container">
+    <div class="column center aligned">
+      <h2>{% trans %}guild.stash.title{% endtrans %}</h2>
+      <p>{% trans %}guild.stash.any{% endtrans %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+{% endblock %}

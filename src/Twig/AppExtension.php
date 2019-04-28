@@ -10,6 +10,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('currency', [$this, 'formatCurrency'], ['is_safe' => ['html']]),
             new TwigFilter('anonymize', [$this, 'anonymizeAccountName']),
+            new TwigFilter('md5', [$this, 'stringToMd5']),
         ];
     }
 
@@ -43,6 +44,10 @@ class AppExtension extends AbstractExtension
       $name = explode('.', $name);
       $name = $name[0];
 
-      return $name;
+      return ucfirst($name);
+    }
+
+    public function stringToMd5($string) {
+      return md5($string);
     }
 }

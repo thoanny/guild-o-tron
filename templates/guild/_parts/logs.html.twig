@@ -1,0 +1,64 @@
+{% if logs %}
+  <div id="guild-logs-marquee" class="marquee" data-pauseOnHover="false" data-speed="150">
+    <ul id="guild-logs">
+      {% for log in logs %}
+        {% if log.getData().type != 'motd' %}
+          <li>
+            <span class="ui label small">{{ log.getCreatedAt()|localizeddate('short', 'short') }}</span>
+            {% if log.type == 'joined' %}
+              {{ 'guild.log.joined'|trans({'%name%': log.username|anonymize}) }}
+            {% elseif log.type == 'invited' %}
+              {{ 'guild.log.invited'|trans({'%name%': log.username|anonymize, '%by%': log.data.invited_by|anonymize }) }}
+            {% elseif log.type == 'kick' %}
+              {% if log.username == log.data.kicked_by %}
+                {{ 'guild.log.kick.itself'|trans({'%name%': log.username|anonymize}) }}
+              {% else %}
+                {{ 'guild.log.kick'|trans({'%name%': log.username|anonymize, '%by%': log.data.kicked_by|anonymize}) }}
+              {% endif %}
+            {% elseif log.type == 'rank_change' %}
+              {% if log.data.changed_by is defined %}
+                {{ 'guild.log.rank_change'|trans({'%by%': log.data.changed_by|anonymize, '%name%': log.username|anonymize, '%rank%': log.data.new_rank}) }}
+              {% else %}
+                {{ 'guild.log.rank_change.itself'|trans({'%name%': log.username|anonymize, '%rank%': log.data.new_rank}) }}
+              {% endif %}
+            {% elseif log.type == 'treasury' %}
+              {{ 'guild.log.treasury'|trans({'%name%': log.username|anonymize, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~ '</span>'})|raw }}
+            {% elseif log.type == 'stash' %}
+              {% if log.data.coins > 0 %}
+                {% if log.data.operation == 'deposit' %}
+                  {{ 'guild.log.stash.coins.deposit'|trans({'%name%': log.username|anonymize, '%coins%': log.data.coins|currency})|raw }}
+                {% elseif log.data.operation == 'withdraw' %}
+                  {{ 'guild.log.stash.coins.withdraw'|trans({'%name%': log.username|anonymize, '%coins%': log.data.coins|currency})|raw }}
+                {% endif %}
+              {% else %}
+                {% if log.data.operation == 'deposit' %}
+                  {{ 'guild.log.stash.item.deposit'|trans({'%name%': log.username|anonymize, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+                {% elseif log.data.operation == 'withdraw' %}
+                  {{ 'guild.log.stash.item.withdraw'|trans({'%name%': log.username|anonymize, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+                {% elseif log.data.operation == 'move' %}
+                  {{ 'guild.log.stash.item.move'|trans({'%name%': log.username|anonymize, '%count%': log.data.count, '%item%': '<span data-item-id="' ~ log.data.item_id ~'">' ~ log.data.item_id ~'</span>' })|raw }}
+                {% endif %}
+              {% endif %}
+            {% elseif log.type == 'upgrade' %}
+              {#  queued, cancelled, completed, sped_up  #}
+              {% if log.data.action == 'queued' %}
+                {{ 'guild.log.upgrade.queued'|trans({'%name%': log.username|anonymize, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+              {% elseif log.data.action == 'cancelled' %}
+                {{ 'guild.log.upgrade.cancelled'|trans({'%name%': log.username|anonymize, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+              {% elseif log.data.action == 'completed' %}
+                {{ 'guild.log.upgrade.completed'|trans({'%name%': log.username|anonymize, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+              {% elseif log.data.action == 'sped_up' %}
+                {{ 'guild.log.upgrade.sped_up'|trans({'%name%': log.username|anonymize, '%upgrade%': '<span data-upgrade-id="' ~ log.data.upgrade_id ~'">' ~ log.data.upgrade_id ~'</span>'})|raw }}
+              {% endif %}
+              {# @todo: {% if log.data.recipe_id is defined %}({{log.data.recipe_id}}){% endif %} #}
+            {% elseif log.type == 'invite_declined' %}
+              {{ 'guild.log.invite.declined'|trans({'%name%': log.username|anonymize}) }}
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <p>No logs.</p>
+{% endif %}

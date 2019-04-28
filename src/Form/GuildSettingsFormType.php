@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -69,40 +70,50 @@ class GuildSettingsFormType extends AbstractType
           'maxlength' => 255
         ]
       ])
-      ->add('display_in_directory', ChoiceType::class, [
-        'choices' => [
-          'Yes' => true,
-          'No' => false
-        ]
-      ])
+      ->add('display_in_directory', CheckboxType::class)
       ->add('guild_activities', EntityType::class, [
         'class' => GuildActivity::class,
         'choice_label' => $request->getLocale(),
         'choice_value' => 'uid',
         'multiple' => true,
-        'expanded' => true,
+        'expanded' => false,
+        'attr' => [
+          'class' => 'ui dropdown'
+        ]
       ])
       ->add('guild_tags', EntityType::class, [
         'class' => GuildTag::class,
         'choice_label' => $request->getLocale(),
         'choice_value' => 'uid',
         'multiple' => true,
-        'expanded' => true,
+        'expanded' => false,
+        'attr' => [
+          'class' => 'ui dropdown'
+        ]
       ])
       ->add('website', UrlType::class, ['required' => false])
-      ->add('facebook', UrlType::class, ['required' => false])
-      ->add('twitter', UrlType::class, ['required' => false])
-      ->add('youtube', UrlType::class, ['required' => false])
-      ->add('twitch', UrlType::class, ['required' => false])
-      ->add('discord', UrlType::class, ['required' => false])
+      ->add('facebook', UrlType::class, ['required' => false, 'attr' => ['placeholder' => 'Facebook']])
+      ->add('twitter', UrlType::class, ['required' => false, 'attr' => ['placeholder' => 'Twitter']])
+      ->add('youtube', UrlType::class, ['required' => false, 'attr' => ['placeholder' => 'YouTube']])
+      ->add('twitch', UrlType::class, ['required' => false, 'attr' => ['placeholder' => 'Twitch']])
+      ->add('discord', UrlType::class, ['required' => false, 'attr' => ['placeholder' => 'Discord']])
       ->add('display_stash', ChoiceType::class, [
-        'choices' => $this->displayChoices
+        'choices' => $this->displayChoices,
+        'attr' => [
+          'class' => 'dropdown'
+        ]
       ])
       ->add('display_treasury', ChoiceType::class, [
-        'choices' => $this->displayChoices
+        'choices' => $this->displayChoices,
+        'attr' => [
+          'class' => 'dropdown'
+        ]
       ])
       ->add('display_members', ChoiceType::class, [
-        'choices' => $this->displayChoices
+        'choices' => $this->displayChoices,
+        'attr' => [
+          'class' => 'dropdown'
+        ]
       ])
     ;
   }

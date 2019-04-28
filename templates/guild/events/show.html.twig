@@ -1,0 +1,136 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{ parent() }}
+
+<div id="guild-event">
+  <div class="ui grid container stackable">
+    <div class="row">
+      <div class="column ten wide">
+        <h2>{{event.name}}</h2>
+        <p>{{event.description|nl2br}}</p>
+
+        <h3>Inscrits (@todo)</h3>
+
+        <table class="ui table">
+          <thead>
+            <tr>
+              <th>Nom de compte</th>
+              <th>Rôle</th>
+              <th>Inscription</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="positive">
+              <td><i class="icon checkmark"></i> Azerty.1234</td>
+              <td>DPS</td>
+              <td>{{ "now"|localizeddate('short', 'short') }}</td>
+            </tr>
+            <tr class="negative">
+              <td><i class="icon close"></i> Azerty.1234</td>
+              <td>DPS</td>
+              <td>{{ "now"|localizeddate('short', 'short') }}</td>
+            </tr>
+            <tr class="warning">
+              <td><i class="question icon"></i> Azerty.1234</td>
+              <td>DPS</td>
+              <td>{{ "now"|localizeddate('short', 'short') }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column six wide">
+
+        <div class="ui segment">
+          <div class="ui header">
+            {% trans %}event.details{% endtrans %}
+          </div>
+          <div class="ui divided relaxed list">
+            <div class="item">
+              <i class="calendar alt icon"></i>
+              {{event.startAt|localizeddate('medium', 'short')}}
+            </div>
+
+            <div class="item">
+              <i class="hourglass half icon"></i>
+              {{ 'event.duration'|trans({'%time%': event.duration}) }}
+            </div>
+            <div class="item">
+              <i class="users icon"></i>
+              {{ 'event.group.size.'~event.groupSize|trans }}
+            </div>
+            <div class="item">
+              <i class="arrow alternate circle right icon"></i>
+              {{ 'event.type.'~event.type|trans }}
+            </div>
+            <div class="item">
+              <i class="code icon"></i>
+              {% if event.groupSize > 5 %}
+                /join {{event.user.accountName}}
+              {% else %}
+                /sqjoin {{event.user.accountName}}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="ui segment">
+          <div class="ui header">
+            {% trans %}event.share{% endtrans %}
+          </div>
+          <div class="ui fluid action input small">
+            <input type="text" value="{{ absolute_url(path('guilds_events_short', {'uid': event.uid})) }}">
+            <button class="ui icon button"><i class="clipboard icon"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <h3>Commentaires (@todo)</h3>
+
+        <div class="ui minimal comments">
+          <div class="comment">
+            <a class="avatar">
+              <img src="https://api.adorable.io/avatars/35/{{'user1'|md5}}.png">
+            </a>
+            <div class="content">
+              <a class="author">UserOne.1234</a>
+              <div class="metadata">
+                <div class="date">{{'now'|localizeddate('medium', 'short')}}</div>
+              </div>
+              <div class="text">
+                <p>The hours, minutes and seconds stand as visible reminders that your effort put them all there.<br />Preserve until your next run, when the watch lets you see how Impermanent your efforts are.</p>
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <a class="avatar">
+              <img src="https://api.adorable.io/avatars/35/{{'user2'|md5}}.png">
+            </a>
+            <div class="content">
+              <a class="author">UserTwo.1234</a>
+              <div class="metadata">
+                <div class="date">{{'now'|localizeddate('medium', 'short')}}</div>
+              </div>
+              <div class="text">
+                I re-tweeted this.
+              </div>
+            </div>
+          </div>
+          <form class="ui reply form">
+            <div class="field">
+              <textarea></textarea>
+            </div>
+            <div class="ui primary submit labeled icon button">
+              <i class="icon edit"></i> Add Comment
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

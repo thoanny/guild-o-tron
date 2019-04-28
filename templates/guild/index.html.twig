@@ -3,57 +3,74 @@
 {% block title %}{% trans %}guilds.title{% endtrans %}{% endblock %}
 
 {% block body %}
-<h1>{% trans %}guilds.title{% endtrans %}</h1>
-
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-  <p><a href="{{ path('guilds_add') }}" class="btn">{% trans %}guilds.add.button{% endtrans %}</a></p>
-{% endif %}
-
-{% if my_guilds %}
-  <ul id="my-guilds">
-    <li><strong>{% trans %}guilds.my.guilds{% endtrans %}</strong></li>
-    {% for guild in my_guilds %}
-      <li><a href="{{ path('guilds_show', {'slug': guild.slug}) }}"><small>[{{guild.tag}}]</small> {{guild.name}}</a></li>
-    {% endfor %}
-  </ul>
-{% endif %}
-
-{% if guilds %}
-  <div id="guilds-directory">
-    {% for guild in guilds %}
-      <div class="guild">
-        {% if guild.emblem %}
-        <div class="emblem">
-          <div style="filter: invert(100%);">
-            <div style="filter: brightness(0)">
-              <div style="filter: grayscale(100%);">
-                <img src="{{guild.emblem}}" />
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="ui grid container">
+    <div class="row">
+      <div class="column">
+        <h1>{% trans %}guilds.title{% endtrans %}</h1>
+      </div><!-- .column -->
+    </div><!-- .row -->
+    <div class="row">
+      <div class="column">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <p><a href="{{ path('guilds_add') }}" class="ui button green"><i class="fas fa-plus icon"></i>{% trans %}guilds.add{% endtrans %}</a></p>
         {% endif %}
-        <div class="details">
-          <h3><small>[{{guild.tag}}]</small> <a href="{{ path('guilds_show', {'slug': guild.slug}) }}">{{guild.name}}</a></h3>
-          {% if guild.description %}<h4>{{guild.description}}</h4>{% endif %}
-          {% if guild.guildActivities %}
-            <p class="guild-activities">
-              <strong>{% trans %}activities{% endtrans %}</strong> {% for act in guild.guildActivities %}<span>{{ attribute(act, app.request.locale) }}</span>{% endfor %}
-            </p>
-          {% endif %}
-          {% if guild.guildTags %}
-            <p class="guild-tags">
-              <strong>{% trans %}tags{% endtrans %}</strong> {% for tag in guild.guildTags %}<span>{{ attribute(tag, app.request.locale) }}</span>{% endfor %}
-            </p>
-          {% endif %}
-          <p><a href="{{ path('guilds_show', {'slug': guild.slug}) }}" class="btn"><i class="fas fa-angle-double-right"></i> {% trans %}more.infos{% endtrans %}</a></p>
-        </div>
-
-      </div>
-    {% endfor %}
-  </div>
-{% else %}
-  <p>{% trans %}guilds.any{% endtrans %}</p>
-{% endif %}
-
+      </div><!-- .column -->
+    </div><!-- .row -->
+    <div class="row">
+      <div class="column">
+        {% if my_guilds %}
+          <div class="ui small horizontal list">
+            <div class="item">
+              <strong>{% trans %}guilds.my.guilds{% endtrans %}</strong>
+            </div>
+            {% for guild in my_guilds %}
+              <div class="item">
+                <a class="ui label" href="{{ path('guilds_show', {'slug': guild.slug}) }}">
+                  <small>[{{guild.tag}}]</small> {{guild.name}}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div><!-- .column -->
+    </div><!-- .row -->
+    <div class="row">
+      <div class="column">
+        {% if guilds %}
+          <div class="ui link three stackable cards">
+            {% for guild in guilds %}
+              <a class="card" href="{{ path('guilds_show', {'slug': guild.slug}) }}">
+                <div class="image">
+                  <div class="ui right corner label green">
+                    <i class="fas fa-user-plus icon"></i>
+                  </div>
+                  {% if guild.emblem %}
+                    <div class="emblem">
+                      <div style="filter: invert(100%);">
+                        <div style="filter: brightness(0)">
+                          <div style="filter: grayscale(100%);">
+                            <img src="{{guild.emblem}}" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="content center aligned">
+                  <div class="header"><small>[{{guild.tag}}]</small> {{guild.name}}</div>
+                  {% if guild.description %}<div class="description"><strong>{{guild.description}}</strong></div>{% endif %}
+                  {% if guild.description %}<div class="description"><strong>{{guild.description}}</strong></div>{% endif %}
+                </div>
+                <div class="extra content center aligned ">
+                  <i class="fas fa-user-friends"></i>&nbsp; {{'guild.members.count'|trans({'total': guild.guildMembers.members|length})}}
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>{% trans %}guilds.any{% endtrans %}</p>
+        {% endif %}
+      </div><!-- .column -->
+    </div><!-- .row -->
+  </div><!-- .ui.grid.container -->
 {% endblock %}

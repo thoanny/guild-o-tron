@@ -1,0 +1,11 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{parent()}}
+
+  <div class="ui grid container">
+    <div class="column">
+      <div id="calendar" data-calendar-type="guild" data-guild-slug="{{guild.slug}}" data-add-event="{% trans %}guild.events.add.btn{% endtrans %}"></div>
+    </div>
+  </div>
+
+{% endblock %}

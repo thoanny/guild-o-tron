@@ -53,8 +53,7 @@ class EventController extends AbstractController
         $isMember = true;
       }
 
-      return $this->render('guild/show.html.twig', [
-          'view' => 'events',
+      return $this->render('guild/events/index.html.twig', [
           'guild' => $guild,
           'isMember' => $isMember
       ]);
@@ -98,7 +97,7 @@ class EventController extends AbstractController
         $isMember = true;
       }
 
-      return $this->render('event/guild_event_add.html.twig', [
+      return $this->render('guild/events/add.html.twig', [
         'guild' => $guild,
         'isMember' => $isMember,
         'form' => $form->createView()
@@ -213,11 +212,10 @@ class EventController extends AbstractController
         $isMember = true;
       }
 
-      return $this->render('guild/show.html.twig', [
+      return $this->render('guild/events/show.html.twig', [
         'guild' => $guild,
         'event' => $event,
         'isMember' => $isMember,
-        'view' => 'event'
       ]);
     }
 

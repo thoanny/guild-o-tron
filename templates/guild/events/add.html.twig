@@ -1,0 +1,56 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block title %}{{ 'guild.events.add.title'|trans }}{% endblock %}
+
+{% block body %} {{ parent() }}
+
+<div class="ui grid two column centered container stackable">
+  <div class="column">
+    <h2>{{ 'guild.events.add.title'|trans }}</h2>
+
+    {{ form_start(form, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
+
+    <div class="field">
+      {{ form_label(form.name, 'guild.event.name'|trans) }}
+      {{ form_widget(form.name) }}
+    </div>
+
+    <div class="field">
+      {{ form_label(form.description, 'guild.event.description'|trans) }}
+      {{ form_widget(form.description) }}
+    </div>
+
+    <div class="field datetime">
+      {{ form_label(form.start_at, 'guild.event.start_at'|trans) }}
+      {{ form_widget(form.start_at) }}
+    </div>
+
+    <div class="fields">
+      <div class="field eight wide">
+        {{ form_label(form.duration, 'guild.event.duration'|trans) }}
+        {{ form_widget(form.duration) }}
+      </div>
+      <div class="field eight wide">
+        {{ form_label(form.group_size, 'guild.event.group_size'|trans) }}
+        {{ form_widget(form.group_size) }}
+      </div>
+    </div>
+
+    <div class="fields">
+      <div class="field eight wide">
+        {{ form_label(form.type, 'guild.event.type'|trans) }}
+        {{ form_widget(form.type) }}
+      </div>
+    </div>
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="ui button green">{% trans %}add{% endtrans %}</button>
+    <a href="{{ path('guilds_events', {'slug': guild.slug}) }}" class="ui button right floated">{% trans %}cancel{% endtrans %}</a>
+
+    {{ form_end(form) }}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -3,11 +3,16 @@
 {% block title %}{% trans %}dashboard.title{% endtrans %}{% endblock %}
 
 {% block body %}
-<h1>{% trans %}dashboard.title{% endtrans %}</h1>
 
-  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <p>{% trans %}dashboard.email.label{% endtrans %} {{ app.user.email }}</p>
-    <p>{% trans %}dashboard.account.label{% endtrans %} {{ app.user.accountName }}</p>
-  {% endif %}
+  <div class="ui grid container">
+    <div class="column">
+      <h1>{% trans %}dashboard.title{% endtrans %}</h1>
+
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p>{% trans %}dashboard.email.label{% endtrans %} {{ app.user.email }}</p>
+        <p>{% trans %}dashboard.account.label{% endtrans %} {{ app.user.accountName }}</p>
+      {% endif %}
+    </div>
+  </div>
 
 {% endblock %}
