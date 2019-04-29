@@ -1,5 +1,10 @@
 {% extends 'guild/base.html.twig' %}
 
+{% block javascripts %} {{parent()}}
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  <script> new ClipboardJS('.ui.button.share'); </script>
+{% endblock %}
+
 {% block body %} {{ parent() }}
 
 <div id="guild-event">
@@ -79,8 +84,8 @@
             {% trans %}event.share{% endtrans %}
           </div>
           <div class="ui fluid action input small">
-            <input type="text" value="{{ absolute_url(path('guilds_events_short', {'uid': event.uid})) }}">
-            <button class="ui icon button"><i class="clipboard icon"></i></button>
+            <input type="text" value="{{ absolute_url(path('guilds_events_short', {'uid': event.uid})) }}" id="event-{{event.uid}}-share-url">
+            <button class="ui icon button share" data-clipboard-target="#event-{{event.uid}}-share-url"><i class="clipboard icon"></i></button>
           </div>
         </div>
 

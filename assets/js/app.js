@@ -11,7 +11,6 @@ require('../css/app.scss');
 require('semantic-ui-css/semantic.min.css');
 require('semantic-ui-css/semantic.min.js');
 
-
 require('../js/jquery.marquee.js');
 require('../js/jquery.easing.js');
 require('../js/jquery.pause.js');
