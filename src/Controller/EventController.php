@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Utils\Uid;
 use App\Entity\Guild;
 use App\Entity\Event;
+use App\Entity\EventRegistration;
 use App\Form\GuildEventAddType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -212,10 +214,19 @@ class EventController extends AbstractController
         $isMember = true;
       }
 
+      $isRegistered = null;
+      if($user) {
+        $isRegistered = $entityManager->getRepository(EventRegistration::class)->findOneBy([
+          'event' => $event,
+          'user' => $user
+        ]);
+      }
+
       return $this->render('guild/events/show.html.twig', [
         'guild' => $guild,
         'event' => $event,
         'isMember' => $isMember,
+        'isRegistered' => $isRegistered
       ]);
     }
 
@@ -228,6 +239,57 @@ class EventController extends AbstractController
       $event = $entityManager->getRepository(Event::class)->findOneByUid($uid);
 
       return $this->redirectToRoute('guilds_events_show', ['slug' => $event->getGuild()->getSlug(), 'uid' => $uid]);
+    }
+
+    /**
+     * @Route("/guilds/{slug}/events/{uid}/registration", name="guilds_events_registration")
+     * @IsGranted("ROLE_USER")
+     */
+    function guilds_events_registration(string $slug, string $uid) {
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+      $event = $entityManager->getRepository(Event::class)->findOneBy([
+        'uid' => $uid,
+        'guild' => $guild
+      ]);
+
+      if($guild && !$event) {
+        $this->addFlash('danger', 'flash.event.notfound');
+        return $this->redirectToRoute('guilds_events', ['slug' => $slug]);
+      }
+
+      $user = $this->getUser();
+      $isMember = false;
+      if( $user && $this->searchUserByAccountName( $user->getAccountName(), $guild->getGuildMembers()->getMembers() ) >= 0 ) {
+        $isMember = true;
+      }
+
+      $registration = $entityManager->getRepository(EventRegistration::class)->findOneBy([
+        'event' => $event,
+        'user' => $user
+      ]);
+
+      if($registration) {
+        $this->addFlash('danger', 'flash.event.registration.already');
+        return $this->redirectToRoute('guilds_events_show', ['slug' => $slug, 'uid' => $uid]);
+      }
+
+      if($event->getType() == 'intra' && !$isMember) {
+        $this->addFlash('danger', 'flash.event.notfound');
+        return $this->redirectToRoute('guilds_events', ['slug' => $slug]);
+      }
+
+      $registration = new EventRegistration();
+      $registration->setUser($user);
+      $registration->setEvent($event);
+      $entityManager->persist($registration);
+      $entityManager->flush();
+
+      $this->addFlash('success', 'flash.event.registration.added');
+      return $this->redirectToRoute('guilds_events_show', ['slug' => $slug, 'uid' => $uid]);
+
     }
 
 

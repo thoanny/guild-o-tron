@@ -57,9 +57,15 @@ class User implements UserInterface
      */
     private $locale;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventRegistration", mappedBy="user")
+     */
+    private $eventRegistrations;
+
     public function __construct()
     {
         $this->guilds = new ArrayCollection();
+        $this->eventRegistrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +207,37 @@ class User implements UserInterface
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventRegistration[]
+     */
+    public function getEventRegistrations(): Collection
+    {
+        return $this->eventRegistrations;
+    }
+
+    public function addEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if (!$this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations[] = $eventRegistration;
+            $eventRegistration->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if ($this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations->removeElement($eventRegistration);
+            // set the owning side to null (unless already changed)
+            if ($eventRegistration->getUser() === $this) {
+                $eventRegistration->setUser(null);
+            }
+        }
 
         return $this;
     }

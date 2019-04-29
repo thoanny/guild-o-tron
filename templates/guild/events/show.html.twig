@@ -9,34 +9,35 @@
         <h2>{{event.name}}</h2>
         <p>{{event.description|nl2br}}</p>
 
-        <h3>Inscrits (@todo)</h3>
+        <h3>{% trans %}event.registrations{% endtrans %}</h3>
 
-        <table class="ui table">
-          <thead>
-            <tr>
-              <th>Nom de compte</th>
-              <th>Rôle</th>
-              <th>Inscription</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="positive">
-              <td><i class="icon checkmark"></i> Azerty.1234</td>
-              <td>DPS</td>
-              <td>{{ "now"|localizeddate('short', 'short') }}</td>
-            </tr>
-            <tr class="negative">
-              <td><i class="icon close"></i> Azerty.1234</td>
-              <td>DPS</td>
-              <td>{{ "now"|localizeddate('short', 'short') }}</td>
-            </tr>
-            <tr class="warning">
-              <td><i class="question icon"></i> Azerty.1234</td>
-              <td>DPS</td>
-              <td>{{ "now"|localizeddate('short', 'short') }}</td>
-            </tr>
-          </tbody>
-        </table>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') and not isRegistered %}
+          <p><a href="{{ path('guilds_events_registration', {'slug': guild.slug, 'uid': event.uid}) }}" class="ui button green">{% trans %}event.register{% endtrans %}</a></p>
+        {% endif %}
+
+        {% if event.registrations|length > 0 %}
+
+          <table class="ui table">
+            <thead>
+              <tr>
+                <th>{% trans %}account.name{% endtrans %}</th>
+                {#<th>Rôle</th>#}
+                <th>{% trans %}event.registration.date{% endtrans %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for reg in event.getRegistrations() %}
+                <tr>
+                  <td>{{reg.user.accountName}}</td>
+                  <td>{{ reg.createdAt|localizeddate('short', 'short') }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          {% else %}
+            <p>{% trans %}event.registrations.any{% endtrans %}</p>
+          {% endif %}
       </div>
       <div class="column six wide">
 
