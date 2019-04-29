@@ -89,45 +89,46 @@
 
     <div class="row">
       <div class="column">
-        <h3>Commentaires (@todo)</h3>
+        <h3>{% trans %}comments{% endtrans %}</h3>
 
         <div class="ui minimal comments">
-          <div class="comment">
-            <a class="avatar">
-              <img src="https://api.adorable.io/avatars/35/{{'user1'|md5}}.png">
-            </a>
-            <div class="content">
-              <a class="author">UserOne.1234</a>
-              <div class="metadata">
-                <div class="date">{{'now'|localizeddate('medium', 'short')}}</div>
+
+          {% if event.comments|length > 0 %}
+            {% for comment in event.comments %}
+              <div class="comment">
+                <a class="avatar">
+                  <img src="https://api.adorable.io/avatars/35/{{comment.user.accountName|md5}}.png">
+                </a>
+                <div class="content">
+                  <a class="author">{{comment.user.accountName}}</a>
+                  <div class="metadata">
+                    <div class="date">{{comment.createdAt|localizeddate('medium', 'short')}}</div>
+                  </div>
+                  <div class="text">
+                    <p>{{comment.content|nl2br}}</p>
+                  </div>
+                </div>
               </div>
-              <div class="text">
-                <p>The hours, minutes and seconds stand as visible reminders that your effort put them all there.<br />Preserve until your next run, when the watch lets you see how Impermanent your efforts are.</p>
+            {% endfor %}
+          {% endif %}
+
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ form_start(form, {'attr': {'class': 'ui reply form', 'autocomplete': 'off'}}) }}
+
+              <div class="field">
+                {{ form_widget(form.content) }}
               </div>
-            </div>
-          </div>
-          <div class="comment">
-            <a class="avatar">
-              <img src="https://api.adorable.io/avatars/35/{{'user2'|md5}}.png">
-            </a>
-            <div class="content">
-              <a class="author">UserTwo.1234</a>
-              <div class="metadata">
-                <div class="date">{{'now'|localizeddate('medium', 'short')}}</div>
-              </div>
-              <div class="text">
-                I re-tweeted this.
-              </div>
-            </div>
-          </div>
-          <form class="ui reply form">
-            <div class="field">
-              <textarea></textarea>
-            </div>
-            <div class="ui primary submit labeled icon button">
-              <i class="icon edit"></i> Add Comment
-            </div>
-          </form>
+
+              {{ form_widget(form) }}
+
+              <button type="submit" name="button" class="ui primary submit labeled icon button">
+                <i class="icon edit"></i> {% trans %}comment.add{% endtrans %}
+              </button>
+
+            {{ form_end(form) }}
+
+          {% endif %}
+
         </div>
       </div>
     </div>

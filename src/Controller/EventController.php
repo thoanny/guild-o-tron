@@ -6,7 +6,9 @@ use App\Utils\Uid;
 use App\Entity\Guild;
 use App\Entity\Event;
 use App\Entity\EventRegistration;
+use App\Entity\EventComment;
 use App\Form\GuildEventAddType;
+use App\Form\EventCommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
@@ -193,7 +195,7 @@ class EventController extends AbstractController
     /**
      * @Route("/guilds/{slug}/events/{uid}", name="guilds_events_show")
      */
-    function guilds_events_show(string $slug, string $uid): Response {
+    function guilds_events_show(string $slug, string $uid, Request $request): Response {
 
       $entityManager = $this->getDoctrine()->getManager();
       $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
@@ -222,11 +224,31 @@ class EventController extends AbstractController
         ]);
       }
 
+      /**
+       * Comment
+       */
+
+       $comment = new EventComment();
+       $form = $this->createForm(EventCommentType::class, $comment);
+       $form->handleRequest($request);
+       if ($form->isSubmitted() && $form->isValid()) {
+         $comment = $form->getData();
+         $comment->setUser($user);
+         $comment->setEvent($event);
+         $entityManager->persist($comment);
+         $entityManager->flush();
+
+         $this->addFlash('success', 'flash.event.comment.saved');
+         return $this->redirectToRoute('guilds_events_show', ['slug' => $slug, 'uid' => $uid]);
+       }
+
+
       return $this->render('guild/events/show.html.twig', [
         'guild' => $guild,
         'event' => $event,
         'isMember' => $isMember,
-        'isRegistered' => $isRegistered
+        'isRegistered' => $isRegistered,
+        'form' => $form->createView()
       ]);
     }
 
@@ -291,6 +313,5 @@ class EventController extends AbstractController
       return $this->redirectToRoute('guilds_events_show', ['slug' => $slug, 'uid' => $uid]);
 
     }
-
 
 }

@@ -70,9 +70,15 @@ class Event
      */
     private $registrations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventComment", mappedBy="event")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +219,37 @@ class Event
             // set the owning side to null (unless already changed)
             if ($registration->getEvent() === $this) {
                 $registration->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventComment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(EventComment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(EventComment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getEvent() === $this) {
+                $comment->setEvent(null);
             }
         }
 
