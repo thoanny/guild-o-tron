@@ -2,32 +2,6 @@
 
 {% block title %}{{ 'guild.home.edit.title'|trans({'%name%': guild.name}) }}{% endblock %}
 
-{% block stylesheets %}
-  {{parent()}}
-  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
-{% endblock %}
-
-{% block javascripts %}
-  {{parent()}}
-  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
-  <script>
-
-    var introduction = new EasyMDE({
-      element: document.getElementById('guild_edit_form_introduction'),
-      spellChecker: false,
-      promptURLs: true,
-      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
-    });
-    var chart = new EasyMDE({
-      element: document.getElementById('guild_edit_form_chart'),
-      spellChecker: false,
-      spellChecker: false,
-      promptURLs: true,
-      toolbar: ["bold", "italic", "heading", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
-    });
-  </script>
-{% endblock %}
-
 {% block body %} {{ parent() }}
 
 
@@ -42,11 +16,13 @@
       <div class="field">
         {{ form_label(form.introduction, 'guild.home.edit.introduction'|trans) }}
         {{ form_widget(form.introduction) }}
+        <div><small>{% trans %}markdown.field{% endtrans %}</small></div>
       </div>
 
       <div class="field">
         {{ form_label(form.chart, 'guild.home.edit.chart'|trans) }}
         {{ form_widget(form.chart) }}
+        <div><small>{% trans %}markdown.field{% endtrans %}</small></div>
       </div>
 
       <h4 class="ui dividing header">{% trans %}guild.upgrades.title{% endtrans %}</h4>
