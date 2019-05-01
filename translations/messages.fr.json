@@ -138,5 +138,6 @@
     "event.group.size.10": "Petite escouade (10)",
     "event.group.size.50": "Escouade (50)",
     "event.group.size.99": "Plusieurs escouades (50+)",
-    "flash.event.registration.added": "Votre inscription a bien été enregistrée."
+    "flash.event.registration.added": "Votre inscription a bien été enregistrée.",
+    "guild.event.activity": "Activité"
 }

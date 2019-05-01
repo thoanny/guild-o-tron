@@ -60,6 +60,23 @@
               <i class="hourglass half icon"></i>
               {{ 'event.duration'|trans({'%time%': event.duration}) }}
             </div>
+
+            <div class="item">
+              <i class="arrow alternate circle right icon"></i>
+              {% if event.type == 'intra' %}
+                {{ 'event.type.intra'|trans }}
+              {% else %}
+                {{ 'event.type.public'|trans }}
+              {% endif %}
+            </div>
+
+            {% if event.activity %}
+              <div class="item">
+                <i class="folder open icon"></i>
+                {{ attribute(event.activity, app.request.locale) }}
+              </div>
+            {% endif %}
+
             <div class="item">
               <i class="users icon"></i>
               {% if event.groupSize == 5 %}
@@ -72,14 +89,7 @@
                 {{ 'event.group.size.99'|trans }}
               {% endif %}
             </div>
-            <div class="item">
-              <i class="arrow alternate circle right icon"></i>
-              {% if event.type == 'intra' %}
-                {{ 'event.type.intra'|trans }}
-              {% else %}
-                {{ 'event.type.public'|trans }}
-              {% endif %}
-            </div>
+
             <div class="item">
               <i class="code icon"></i>
               {% if event.groupSize > 5 %}
@@ -88,6 +98,7 @@
                 /sqjoin {{event.user.accountName}}
               {% endif %}
             </div>
+
           </div>
         </div>
 

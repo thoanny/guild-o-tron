@@ -16,6 +16,11 @@
     </div>
 
     <div class="field">
+      {{ form_label(form.activity, 'guild.event.activity'|trans) }}
+      {{ form_widget(form.activity) }}
+    </div>
+
+    <div class="field">
       {{ form_label(form.description, 'guild.event.description'|trans) }}
       {{ form_widget(form.description) }}
       <div><small>{% trans %}markdown.field{% endtrans %}</small></div>

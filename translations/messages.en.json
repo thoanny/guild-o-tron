@@ -122,5 +122,22 @@
     "guild.links": "Links",
     "display.options": "Display",
     "forgotten.password": "Forgot your password ?",
-    "reset.password": "Reset my password"
+    "reset.password": "Reset my password",
+    "flash.event.added": "Your event have been added.",
+    "markdown.field": "You can use Markdown in that field.",
+    "event.registrations": "Registrations",
+    "event.register": "Registrer",
+    "account.name": "Account name",
+    "event.registration.date": "Registration date",
+    "event.registrations.any": "No registration.",
+    "comments": "Comments",
+    "comment.add": "Add comment",
+    "event.type.intra": "Guild event",
+    "event.type.public": "Public event",
+    "event.group.size.5": "Group (5)",
+    "event.group.size.10": "Little squad (10)",
+    "event.group.size.50": "Squad (50)",
+    "event.group.size.99": "Multi-squad (50+)",
+    "flash.event.registration.added": "Your registration have been saved.",
+    "guild.event.activity": "Activity"
 }

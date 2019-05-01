@@ -75,6 +75,11 @@ class Event
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\GuildActivity")
+     */
+    private $activity;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -252,6 +257,18 @@ class Event
                 $comment->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActivity(): ?GuildActivity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?GuildActivity $activity): self
+    {
+        $this->activity = $activity;
 
         return $this;
     }

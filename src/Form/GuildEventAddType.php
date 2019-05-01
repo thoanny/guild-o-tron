@@ -3,18 +3,43 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\GuildActivity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class GuildEventAddType extends AbstractType
 {
+
+    protected $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $request = $this->requestStack->getCurrentRequest();
+
         $builder
             ->add('name')
+            ->add('activity', EntityType::class, [
+              'class' => GuildActivity::class,
+              'choice_label' => $request->getLocale(),
+              'choice_value' => 'uid',
+              'multiple' => false,
+              'expanded' => false,
+              'attr' => [
+                'class' => 'ui dropdown'
+              ],
+              'required' => false
+            ])
             ->add('description')
             ->add('start_at', DateTimeType::class, [
               'attr' => [
