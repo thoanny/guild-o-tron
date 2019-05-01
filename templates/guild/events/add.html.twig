@@ -18,6 +18,7 @@
     <div class="field">
       {{ form_label(form.description, 'guild.event.description'|trans) }}
       {{ form_widget(form.description) }}
+      <div><small>{% trans %}markdown.field{% endtrans %}</small></div>
     </div>
 
     <div class="field datetime">
