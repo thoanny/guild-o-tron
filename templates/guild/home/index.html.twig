@@ -136,7 +136,7 @@
       <div class="ui grid container">
         <div class="column center aligned">
           <h2>{% trans %}guild.chart{% endtrans %}</h2>
-          <p>{{guild.chart|nl2br}}</p>
+          <p>{{guild.chart|markdown('light')}}</p>
         </div>
       </div>
     </div>
