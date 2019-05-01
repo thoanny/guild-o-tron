@@ -59,7 +59,6 @@
                 <div class="content center aligned">
                   <div class="header"><small>[{{guild.tag}}]</small> {{guild.name}}</div>
                   {% if guild.description %}<div class="description"><strong>{{guild.description}}</strong></div>{% endif %}
-                  {% if guild.description %}<div class="description"><strong>{{guild.description}}</strong></div>{% endif %}
                 </div>
                 <div class="extra content center aligned ">
                   <i class="fas fa-user-friends"></i>&nbsp; {{'guild.members.count'|trans({'%total%': guild.guildMembers.members|length})}}
