@@ -122,5 +122,21 @@
     "guild.links": "Liens",
     "display.options": "Visibilité",
     "forgotten.password": "Mot de passe oublié ?",
-    "reset.password": "Réinitialiser mon mot de passe"
+    "reset.password": "Réinitialiser mon mot de passe",
+    "flash.event.added": "Votre événement a bien été ajouté.",
+    "markdown.field": "Vous pouvez utiliser Markdown dans le champ ce-dessus.",
+    "event.registrations": "Inscriptions à cet événement",
+    "event.register": "M'inscrire",
+    "account.name": "Nom de compte",
+    "event.registration.date": "Date d'inscription",
+    "event.registrations.any": "Aucune inscription.",
+    "comments": "Commentaires",
+    "comment.add": "Ajouter un commentaire",
+    "event.type.intra": "Événement de guilde",
+    "event.type.public": "Événement public",
+    "event.group.size.5": "Groupe (5)",
+    "event.group.size.10": "Petite escouade (10)",
+    "event.group.size.50": "Escouade (50)",
+    "event.group.size.99": "Plusieurs escouades (50+)",
+    "flash.event.registration.added": "Votre inscription a bien été enregistrée."
 }

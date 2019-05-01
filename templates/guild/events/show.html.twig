@@ -62,11 +62,23 @@
             </div>
             <div class="item">
               <i class="users icon"></i>
-              {{ 'event.group.size.'~event.groupSize|trans }}
+              {% if event.groupSize == 5 %}
+                {{ 'event.group.size.5'|trans }}
+              {% elseif event.groupSize == 10 %}
+                {{ 'event.group.size.10'|trans }}
+              {% elseif event.groupSize == 50 %}
+                {{ 'event.group.size.50'|trans }}
+              {% else %}
+                {{ 'event.group.size.99'|trans }}
+              {% endif %}
             </div>
             <div class="item">
               <i class="arrow alternate circle right icon"></i>
-              {{ 'event.type.'~event.type|trans }}
+              {% if event.type == 'intra' %}
+                {{ 'event.type.intra'|trans }}
+              {% else %}
+                {{ 'event.type.public'|trans }}
+              {% endif %}
             </div>
             <div class="item">
               <i class="code icon"></i>
