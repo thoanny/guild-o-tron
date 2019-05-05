@@ -11,6 +11,7 @@ use App\Form\GuildFormType;
 use App\Form\GuildSettingsFormType;
 use App\Form\GuildEditFormType;
 use App\Utils\Gw2Api;
+use App\Utils\Uid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,6 +103,8 @@ class GuildController extends AbstractController
         }
 
         $user = $security->getUser();
+        $uid = new Uid();
+        $uid = $uid->generate(20);
 
         $newGuild = new Guild;
         $newGuild->setUser($user);
@@ -124,6 +127,7 @@ class GuildController extends AbstractController
         $newGuild->setArena(0);
         $newGuild->setWarRoom(0);
         $newGuild->setToken($token);
+        $newGuild->setUid($uid);
 
         $entityManager->persist($newGuild);
         $entityManager->flush();

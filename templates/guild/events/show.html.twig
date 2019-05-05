@@ -3,6 +3,7 @@
 {% block javascripts %} {{parent()}}
   <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
   <script> new ClipboardJS('.ui.button.share'); </script>
+  <script> new ClipboardJS('.ui.button.copy'); </script>
 {% endblock %}
 
 {% block body %} {{ parent() }}
@@ -20,6 +21,10 @@
           <p><a href="{{ path('guilds_events_registration', {'slug': guild.slug, 'uid': event.uid}) }}" class="ui button green">{% trans %}event.register{% endtrans %}</a></p>
         {% endif %}
 
+        {% if event.guild.discordGuildId %}
+          <p>Vous pouvez utiliser la commande <a class="ui button tiny icon copy" data-clipboard-text="$lbm rsvp {{event.uid}}"><i class="clipboard icon"></i> $lbm rsvp {{event.uid}}</a> pour vous inscrire.</p>
+        {% endif %}
+
         {% if event.registrations|length > 0 %}
 
           <table class="ui table">
@@ -33,7 +38,7 @@
             <tbody>
               {% for reg in event.getRegistrations() %}
                 <tr>
-                  <td>{{reg.user.accountName}}</td>
+                  <td>{% if reg.user %}<i class="gamepad icon"></i>{{reg.user.accountName}}{% else %}<i class="discord icon"></i>{{reg.discordUserName}}{% endif %}</td>
                   <td>{{ reg.createdAt|localizeddate('short', 'short') }}</td>
                 </tr>
               {% endfor %}

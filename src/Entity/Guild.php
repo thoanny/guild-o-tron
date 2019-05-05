@@ -207,6 +207,16 @@ class Guild
      */
     private $guild_activities;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uid;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $discord_guild_id;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -737,4 +747,29 @@ class Guild
 
         return $this;
     }
+
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    public function setUid(string $uid): self
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    public function getDiscordGuildId(): ?int
+    {
+        return $this->discord_guild_id;
+    }
+
+    public function setDiscordGuildId(?int $discord_guild_id): self
+    {
+        $this->discord_guild_id = $discord_guild_id;
+
+        return $this;
+    }
+
 }

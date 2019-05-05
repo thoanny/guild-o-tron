@@ -124,6 +124,13 @@ $(document).ready(function() {
     .checkbox()
   ;
 
+  $('.ui.button.settings.discord').on('click', function(e) {
+    e.preventDefault();
+    $('.ui.modal.settings.discord')
+      .modal('show')
+    ;
+  })
+
   _init_gw2_items();
   _init_gw2_upgrades();
 

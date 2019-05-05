@@ -25,7 +25,7 @@ class EventRegistration
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="eventRegistrations")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -33,6 +33,16 @@ class EventRegistration
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $discord_user_name;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $discord_user_id;
 
     public function getId(): ?int
     {
@@ -82,5 +92,29 @@ class EventRegistration
     public function onPrePersist()
     {
         $this->created_at = new \DateTime("now");
+    }
+
+    public function getDiscordUserName(): ?string
+    {
+        return $this->discord_user_name;
+    }
+
+    public function setDiscordUserName(?string $discord_user_name): self
+    {
+        $this->discord_user_name = $discord_user_name;
+
+        return $this;
+    }
+
+    public function getDiscordUserId(): ?int
+    {
+        return $this->discord_user_id;
+    }
+
+    public function setDiscordUserId(?int $discord_user_id): self
+    {
+        $this->discord_user_id = $discord_user_id;
+
+        return $this;
     }
 }

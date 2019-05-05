@@ -1,5 +1,10 @@
 {% extends 'guild/base.html.twig' %}
 
+{% block javascripts %} {{parent()}}
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  <script> new ClipboardJS('.ui.button.copy'); </script>
+{% endblock %}
+
 {% block body %} {{parent()}}
 
   <div class="ui grid two column centered container stackable">
@@ -98,11 +103,34 @@
 
       {{ form_widget(settings) }}
 
+      <h4 class="ui dividing header">Discord</h4>
+
+      <p>
+        <a href="#!" class="ui button settings discord">{% trans %}configure{% endtrans %}</a>
+        {% if guild.discordGuildId %}Discord is connected!{% endif %}
+      </p>
+
       <h4 class="ui dividing header">{% trans %}save{% endtrans %}</h4>
 
       <button type="submit" class="ui green button">{% trans %}save{% endtrans %}</button>
 
       {{ form_end(settings) }}
+    </div>
+  </div>
+
+  <div class="ui tiny modal settings discord">
+    <i class="close icon"></i>
+    <div class="header">
+      {% trans %}configure.discord{% endtrans %}
+    </div>
+    <div class="content">
+      <div class="description">
+        <ol>
+          <li>First, <a href="https://discordapp.com/oauth2/authorize?client_id=522011594532716564&scope=bot&permissions=8" target="_blank">invite Le Bot Magique</a> on your guild's Discord</li>
+          <li>Next, in a private channel, send that command:<br /><a class="ui button tiny icon copy" data-clipboard-text="$lbm sync {{guild.uid}}"><i class="clipboard icon"></i> $lbm sync {{guild.uid}}</a></li>
+          <li>And done!</li>
+        </ol>
+      </div>
     </div>
   </div>
 
