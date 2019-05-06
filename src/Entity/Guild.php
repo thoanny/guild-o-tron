@@ -217,6 +217,11 @@ class Guild
      */
     private $discord_guild_id;
 
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $discord_events_notifications_channel;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -768,6 +773,18 @@ class Guild
     public function setDiscordGuildId(?int $discord_guild_id): self
     {
         $this->discord_guild_id = $discord_guild_id;
+
+        return $this;
+    }
+
+    public function getDiscordEventsNotificationsChannel(): ?int
+    {
+        return $this->discord_events_notifications_channel;
+    }
+
+    public function setDiscordEventsNotificationsChannel(?int $discord_events_notifications_channel): self
+    {
+        $this->discord_events_notifications_channel = $discord_events_notifications_channel;
 
         return $this;
     }

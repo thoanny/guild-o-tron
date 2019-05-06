@@ -111,4 +111,37 @@ class DiscordController extends AbstractController
       $response = new JsonResponse(['message' => 'Discord\'s guild synced with Guild-O-Tron']);
       return $response;
     }
+
+
+    /**
+     * @Route("/discord/events-notifs/{token}", name="discord_events_notifs")
+     */
+    public function discord_events_notifs(Request $request, $token)
+    {
+
+      list($uid, $channel, $guild) = explode(';', base64_decode($token));
+
+      if(!$uid || !$channel || !$guild) {
+        return new JsonResponse([
+            'error' => 'Bad request'
+        ], 400);
+      }
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $guild = $entityManager->getRepository(Guild::class)->findOneByUid( $uid );
+
+      if(!$guild) {
+        return new JsonResponse([
+            'error' => 'Guild not found'
+        ], 404);
+      }
+
+      $channel = str_replace(['<#', '>'], ['', ''], $channel);
+
+      $guild->setDiscordEventsNotificationsChannel($channel);
+      $entityManager->flush();
+
+      $response = new JsonResponse(['message' => 'Discord\'s events notifications saved on Guild-O-Tron.']);
+      return $response;
+    }
 }

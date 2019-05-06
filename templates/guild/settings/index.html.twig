@@ -105,32 +105,38 @@
 
       <h4 class="ui dividing header">Discord</h4>
 
-      <p>
-        <a href="#!" class="ui button settings discord">{% trans %}configure{% endtrans %}</a>
-        {% if guild.discordGuildId %}Discord is connected!{% endif %}
-      </p>
+      <table class="ui table">
+        <thead>
+          <tr>
+            <th width="1">&nbsp;</th>
+            <th>Description</th>
+            <th width="1">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="ui button icon tiny" href="https://discordapp.com/oauth2/authorize?client_id=522011594532716564&scope=bot&permissions=8" target="_blank"><i class="linkify icon"></i></a></td>
+            <td>Invite <strong>Le Bot Magique</strong> on your Discord guild.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="ui button tiny icon copy" data-clipboard-text="$lbm sync {{guild.uid}}"><i class="clipboard icon"></i></a></td>
+            <td>Sync Discord with Guild-O-Tron.</td>
+            <td style="text-align:center;">{% if guild.discordGuildId %}<i class="check icon green"></i>{% else %}<span><i class="times icon grey"></i></span>{% endif %}</td>
+          </tr>
+          <tr>
+            <td><a class="ui button tiny icon copy" data-clipboard-text="$lbm events-notifs {{guild.uid}} <channel>"><i class="clipboard icon"></i></a></td>
+            <td>Set the events notifications channel.<br />Replace &lt;channel&gt; with the name of the channel (ie: #events)</td>
+            <td style="text-align:center;">{% if guild.discordEventsNotificationsChannel %}<i class="check icon green"></i>{% else %}<span><i class="times icon grey"></i></span>{% endif %}</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h4 class="ui dividing header">{% trans %}save{% endtrans %}</h4>
 
       <button type="submit" class="ui green button">{% trans %}save{% endtrans %}</button>
 
       {{ form_end(settings) }}
-    </div>
-  </div>
-
-  <div class="ui tiny modal settings discord">
-    <i class="close icon"></i>
-    <div class="header">
-      {% trans %}configure.discord{% endtrans %}
-    </div>
-    <div class="content">
-      <div class="description">
-        <ol>
-          <li>First, <a href="https://discordapp.com/oauth2/authorize?client_id=522011594532716564&scope=bot&permissions=8" target="_blank">invite Le Bot Magique</a> on your guild's Discord</li>
-          <li>Next, in a private channel, send that command:<br /><a class="ui button tiny icon copy" data-clipboard-text="$lbm sync {{guild.uid}}"><i class="clipboard icon"></i> $lbm sync {{guild.uid}}</a></li>
-          <li>And done!</li>
-        </ol>
-      </div>
     </div>
   </div>
 
