@@ -22,7 +22,22 @@
         <table class="ui celled table" id="guild-raids" width="100%">
           <thead>
             <tr>
-              <th style="white-space: nowrap;">{% trans %}menu.raids{% endtrans %} \ {% trans %}menu.members{% endtrans %}</th>
+              <th>{% trans %}menu.raids{% endtrans %} &rarr;</th>
+              {% for raid in raids %}
+                {% for wing in raid.wings %}
+                  {% set counter = 0 %}
+                  {% for event in wing.events %}
+                    {% if event.type == 'Boss' %}
+                      {% set counter = counter + 1 %}
+                    {% endif %}
+                  {% endfor %}
+                  <th class="center aligned" colspan="{{counter}}">{{wing.id|transraids}}</th>
+                {% endfor %}
+              {% endfor %}
+            </tr>
+
+            <tr>
+                <th>&darr; {% trans %}menu.members{% endtrans %}</th>
               {% for raid in raids %}
                 {% for wing in raid.wings %}
                   {% for event in wing.events %}
@@ -31,7 +46,7 @@
                           <a href="https://www.lebusmagique.fr/guild-o-tron/raids/{{event.id|replace({'_':'-'})}}/" target="_blank">
                             <img
                               class="ui rounded image"
-                              style="margin-left: 2.5px; width: 20px;"
+                              style="margin: 0 auto; width: 20px;"
                               src="{{asset('build/raids_'~ event.id ~ '.jpg')}}"
                               onerror="if (this.src != '{{asset('build/raids.png')}}') this.src = '{{asset('build/raids.png')}}';"
                               data-tippy-arrow="true"
@@ -66,8 +81,6 @@
                 {% endfor %}
               {% endfor %}
             </tr>
-
-
 
           </tbody>
         </table>
