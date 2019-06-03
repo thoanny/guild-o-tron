@@ -25,7 +25,7 @@
               {% for inv in st.inventory %}
                 {% if inv %}
                   <li data-tippy-arrow="true" data-tippy="{{inv.count}}&nbsp;&times; {{stash.getStash()._items[inv.id].name}}">
-                    <span class="item border rarity-{{stash.getStash()._items[inv.id].rarity}}"><img src="{{stash.getStash()._items[inv.id].icon}}" /></span>
+                    <span class="item border rarity-{{stash.getStash()._items[inv.id].rarity}}"><img src="{{stash.getStash()._items[inv.id].icon}}" onerror="if (this.src != '{{asset('build/no-icon.png')}}') this.src = '{{asset('build/no-icon.png')}}';" /></span>
                     <div class="ui top right attached label inverted black tiny">{{inv.count}}</div>
                   </li>
                 {% else %}

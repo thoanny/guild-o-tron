@@ -27,7 +27,7 @@
             <ul>
               {% for tr in treasury.treasury.treasury %}
                 <li data-tippy-arrow="true" data-tippy="{{tr.count}}/{{tr.needed_total}}&nbsp;&times; {{treasury.treasury._items[tr.item_id].name}}" data-complete="{{tr.total}}">
-                  <span class="item"><img src="{{treasury.treasury._items[tr.item_id].icon}}" /></span>
+                  <span class="item"><img src="{{treasury.treasury._items[tr.item_id].icon}}" onerror="if (this.src != '{{asset('build/no-icon.png')}}') this.src = '{{asset('build/no-icon.png')}}';" /></span>
                   <div class="ui tiny progress yellow{% if tr.total == 100 %} success{% elseif tr.total == 0 %} error{% endif %}">
                     <div class="bar" style="width: {{tr.total}}%;"></div>
                     <div class="label">{{tr.count}}/{{tr.needed_total}}</div>
@@ -56,7 +56,7 @@
                   <div class="ui feed">
                     <div class="event">
                       <div class="label">
-                        <img src="{{upgrade.icon}}">
+                        <img src="{{upgrade.icon}}" onerror="if (this.src != '{{asset('build/no-icon.png')}}') this.src = '{{asset('build/no-icon.png')}}';" />
                       </div>
                       <div class="content">
                         <div class="header">{{upgrade.name}}</div>
@@ -74,7 +74,7 @@
                       <div class="ui segment">
                         <div class="ui list horizontal">
                           <div class="item">
-                            {% if cost.type == 'Item' %}<img class="ui mini image" src="{{treasury.treasury._items[cost.item_id].icon}}" />{% endif %}
+                            {% if cost.type == 'Item' %}<img class="ui mini image" src="{{treasury.treasury._items[cost.item_id].icon}}" onerror="if (this.src != '{{asset('build/no-icon.png')}}') this.src = '{{asset('build/no-icon.png')}}';" />{% endif %}
                             <div class="middle aligned content">
                               {% if cost.type == 'Collectible' %}
                                 {{treasury.treasury.favor}}/{{cost.count}}&nbsp;&times; {{cost.name}}
