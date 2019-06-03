@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AccountFormType;
+use App\Utils\Gw2Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -117,6 +120,39 @@ class SecurityController extends AbstractController
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
         }
 
+    }
+
+    /**
+     * @Route("/account", name="app_account")
+     * @IsGranted("ROLE_USER")
+     */
+
+    public function account(Request $request) {
+
+      $user = $this->getUser();
+      $form = $this->createForm(AccountFormType::class, $user);
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+
+        $api = new Gw2Api();
+        $account = $api->get('/account', $form->get('api_key')->getData());
+
+        if(!$account) {
+          $this->addFlash('danger', 'flash.api.nodata');
+          return $this->redirectToRoute('app_account');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        // $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_account');
+      }
+
+      return $this->render('security/account.html.twig', [
+          'form' => $form->createView(),
+      ]);
     }
 
 }

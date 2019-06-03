@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
             );
 
             $api = new Gw2Api();
-            $account = $api->get('/account', $form->get('apiKey')->getData());
+            $account = $api->get('/account', $form->get('api_key')->getData());
 
             if(!$account) {
               $this->addFlash('danger', 'flash.api.nodata');

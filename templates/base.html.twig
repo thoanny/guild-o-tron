@@ -25,6 +25,7 @@
         {% endif %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <a class="item" href="{{ path('dashboard') }}"><i class="fas fa-tachometer-alt icon"></i>{% trans %}menu.dashboard{% endtrans %}</a>
+        <a class="item" href="{{ path('app_account') }}"><i class="fas fa-user icon"></i>{% trans %}menu.account{% endtrans %}</a>
           {% if is_granted('ROLE_ADMIN') %}
             <a class="item" href="{{ path('admin') }}"><i class="fas fa-cogs icon"></i>{% trans %}menu.admin{% endtrans %}</a>
           {% endif %}

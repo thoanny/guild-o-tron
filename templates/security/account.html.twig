@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}menu.account{% endtrans %}{% endblock %}
+
+{% block body %}
+
+  <div class="ui grid two column centered container stackable">
+    <div class="column">
+      <h1>{% trans %}menu.account{% endtrans %}</h1>
+
+      {{ form_start(form, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
+
+        <div class="field">
+          {{ form_label(form.email, 'register.email.label'|trans) }}
+          <div class="ui left icon input">
+            {{ form_widget(form.email) }}
+            <i class="envelope icon"></i>
+          </div>
+        </div>
+
+        <div class="field">
+          {{ form_label(form.api_key, 'register.apikey.label'|trans) }}
+          <div class="ui left icon input">
+            {{ form_widget(form.api_key) }}
+            <i class="key icon"></i>
+          </div>
+        </div>
+
+        {{ form_widget(form) }}
+
+        <button class="ui button green">{% trans %}save{% endtrans %}</button>
+
+      {{ form_end(form) }}
+
+    </div>
+  </div>
+
+{% endblock %}

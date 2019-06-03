@@ -35,8 +35,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('apiKey', TextType::class, [
-              'mapped' => false,
+            ->add('api_key', TextType::class, [
               'constraints' => new NotBlank([
                 'message' => 'Please enter an API key'
               ]),
