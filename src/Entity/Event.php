@@ -80,6 +80,11 @@ class Event
      */
     private $activity;
 
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $discord_message_id;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -269,6 +274,18 @@ class Event
     public function setActivity(?GuildActivity $activity): self
     {
         $this->activity = $activity;
+
+        return $this;
+    }
+
+    public function getDiscordMessageId(): ?int
+    {
+        return $this->discord_message_id;
+    }
+
+    public function setDiscordMessageId(?int $discord_message_id): self
+    {
+        $this->discord_message_id = $discord_message_id;
 
         return $this;
     }

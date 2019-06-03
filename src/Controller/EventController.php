@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Utils\Uid;
+use App\Utils\Discord;
 use App\Entity\Guild;
 use App\Entity\Event;
 use App\Entity\EventRegistration;
@@ -91,6 +92,14 @@ class EventController extends AbstractController
         $event->setUid($uid);
         $entityManager->persist($event);
         $entityManager->flush();
+
+        if(($channel = $event->getGuild()->getDiscordEventsNotificationsChannel())) {
+          $discord = new Discord();
+          $messageId = $discord->post_event($channel, $event, $this->generateUrl('guilds_events_short', array('uid' => $event->getUid()), false));
+
+          $event->setDiscordMessageId($messageId);
+          $entityManager->flush();
+        }
 
         $this->addFlash('success', 'flash.event.added');
         return $this->redirectToRoute('guilds_events', ['slug' => $slug]);
