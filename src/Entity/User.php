@@ -67,10 +67,16 @@ class User implements UserInterface
      */
     private $api_key;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GuildRaid", mappedBy="user")
+     */
+    private $guildRaids;
+
     public function __construct()
     {
         $this->guilds = new ArrayCollection();
         $this->eventRegistrations = new ArrayCollection();
+        $this->guildRaids = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +261,37 @@ class User implements UserInterface
     public function setApiKey(string $api_key): self
     {
         $this->api_key = $api_key;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuildRaid[]
+     */
+    public function getGuildRaids(): Collection
+    {
+        return $this->guildRaids;
+    }
+
+    public function addGuildRaid(GuildRaid $guildRaid): self
+    {
+        if (!$this->guildRaids->contains($guildRaid)) {
+            $this->guildRaids[] = $guildRaid;
+            $guildRaid->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuildRaid(GuildRaid $guildRaid): self
+    {
+        if ($this->guildRaids->contains($guildRaid)) {
+            $this->guildRaids->removeElement($guildRaid);
+            // set the owning side to null (unless already changed)
+            if ($guildRaid->getUser() === $this) {
+                $guildRaid->setUser(null);
+            }
+        }
 
         return $this;
     }

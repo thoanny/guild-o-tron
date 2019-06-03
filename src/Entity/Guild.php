@@ -222,12 +222,18 @@ class Guild
      */
     private $discord_events_notifications_channel;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GuildRaid", mappedBy="guild")
+     */
+    private $guildRaids;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->guild_tags = new ArrayCollection();
         $this->guild_activities = new ArrayCollection();
+        $this->guildRaids = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -785,6 +791,37 @@ class Guild
     public function setDiscordEventsNotificationsChannel(?int $discord_events_notifications_channel): self
     {
         $this->discord_events_notifications_channel = $discord_events_notifications_channel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuildRaid[]
+     */
+    public function getGuildRaids(): Collection
+    {
+        return $this->guildRaids;
+    }
+
+    public function addGuildRaid(GuildRaid $guildRaid): self
+    {
+        if (!$this->guildRaids->contains($guildRaid)) {
+            $this->guildRaids[] = $guildRaid;
+            $guildRaid->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuildRaid(GuildRaid $guildRaid): self
+    {
+        if ($this->guildRaids->contains($guildRaid)) {
+            $this->guildRaids->removeElement($guildRaid);
+            // set the owning side to null (unless already changed)
+            if ($guildRaid->getGuild() === $this) {
+                $guildRaid->setGuild(null);
+            }
+        }
 
         return $this;
     }

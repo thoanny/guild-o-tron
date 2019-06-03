@@ -1,0 +1,81 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block body %} {{parent()}}
+
+  <div class="ui grid container">
+    <div class="row">
+      <div class="column">
+        <h2>{% trans %}menu.raids{% endtrans %}</h2>
+        {% if isMember %}
+          {% if hasJoined %}
+            <p><a href="{{path('guilds_raids_leave', {'slug': guild.slug})}}" class="ui button red">{% trans %}raids.leave{% endtrans %}</a></p>
+          {% else %}
+            <p><a href="{{path('guilds_raids_join', {'slug': guild.slug})}}" class="ui button green">{% trans %}raids.join{% endtrans %}</a></p>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        {% if raids %}
+        <table class="ui celled table" id="guild-raids" width="100%">
+          <thead>
+            <tr>
+              <th style="white-space: nowrap;">{% trans %}menu.raids{% endtrans %} \ {% trans %}menu.members{% endtrans %}</th>
+              {% for raid in raids %}
+                {% for wing in raid.wings %}
+                  {% for event in wing.events %}
+                    {% if event.type == 'Boss' %}
+                        <th class="center aligned">
+                          <a href="https://www.lebusmagique.fr/guild-o-tron/raids/{{event.id|replace({'_':'-'})}}/" target="_blank">
+                            <img
+                              class="ui rounded image"
+                              style="margin-left: 2.5px; width: 20px;"
+                              src="{{asset('build/raids_'~ event.id ~ '.jpg')}}"
+                              onerror="if (this.src != '{{asset('build/raids.png')}}') this.src = '{{asset('build/raids.png')}}';"
+                              data-tippy-arrow="true"
+                              data-tippy="{{event.id|transraids}}"
+                            />
+                          </a>
+                        </td>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for roster in guild.getGuildRaids %}
+            <tr>
+              <td>{{roster.user.accountName|anonymize}}</td>
+                {% for raid in raids %}
+                  {% for wing in raid.wings %}
+                    {% for event in wing.events %}
+                      {% if event.type == 'Boss' %}
+                          {% for roster in guild.getGuildRaids %}
+                            {% if event.id in roster.data %}
+                              <td class="center aligned positive"><i class="checkmark icon"></i></td>
+                            {% else %}
+                              <td class="center aligned error"><i class="close icon"></i></td>
+                            {% endif %}
+                          {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                {% endfor %}
+              {% endfor %}
+            </tr>
+
+
+
+          </tbody>
+        </table>
+        {% else %}
+          <p>raids.no.data</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -85,7 +85,7 @@
         {% endif %}
         <div class="item"><em>{% trans %}menu.scribe{% endtrans %}</em></div>
         <div class="item"><em>{% trans %}menu.achievements{% endtrans %}</em></div>
-        <div class="item"><em>{% trans %}menu.raids{% endtrans %}</em></div>
+        <a href="{{path('guilds_raids', {'slug': guild.slug})}}" class="item">{% trans %}menu.raids{% endtrans %}</a>
         <a class="item" href="{{ path('guilds_events', {'slug': guild.slug}) }}">{% trans %}menu.events{% endtrans %}</a>
         {% if (guild.getDisplayMembers() == 'members' and isMember) or (guild.getDisplayMembers() == 'logged' and is_granted('IS_AUTHENTICATED_FULLY')) or guild.getDisplayMembers() == 'public' %}
           <a class="item" href="{{ path('guilds_members', {'slug': guild.slug}) }}">{% trans %}menu.members{% endtrans %}</a>
