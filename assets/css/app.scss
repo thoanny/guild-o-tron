@@ -480,3 +480,119 @@ footer {
     font-weight: bold;
   }
 }
+
+#guild-achievements {
+  tr.category {
+    cursor: pointer;
+
+    td {
+      &:before {
+        content: '\f0fe';
+        margin-right: .5em;
+        font-family: "Font Awesome 5 Free";
+        font-weight: bold;
+      }
+    }
+
+    &.open {
+      td {
+        &:before {
+          content: '\f146';
+        }
+      }
+    }
+  }
+
+  tr.achievement.has-bits {
+
+    td:first-of-type {
+
+      strong {
+        cursor: pointer;
+      }
+
+      &:before {
+        content: '\f0fe';
+        margin-right: .25em;
+        font-family: "Font Awesome 5 Free";
+        font-weight: bold;
+      }
+
+    }
+
+    &.open {
+      td:first-of-type {
+        &:before {
+          content: '\f146';
+        }
+      }
+    }
+  }
+
+  tr.bit {
+    td {
+
+      &:first-of-type {
+        padding-left: 2.5em;
+      }
+
+      a {
+        color: inherit;
+        border-bottom: 1px dotted #999;
+
+        img {
+          height: 1.33em;
+          margin-right: .25em;
+          vertical-align: bottom;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+
+  tr.achievement, tr.bit {
+    display: none;
+  }
+
+  thead tr {
+    background: white;
+  }
+
+  thead tr th, tr.category td {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 54px;
+    z-index: 999;
+    background: white;
+    white-space: nowrap;
+    background: inherit;
+  }
+  tr.category td {
+    top: 100px;
+  }
+
+  .label {
+    font-weight: bold;
+
+    &.mastery {
+      text-transform: uppercase;
+
+      &.Tyria {
+        background: #DB2828;
+        color: #fff;
+      }
+      &.Maguuma {
+        background: #21BA45;
+        color: #fff;
+      }
+      &.Desert {
+        background: #E03997;
+        color: #fff;
+      }
+    }
+  }
+
+  .orange {
+    color: #f2711c;
+  }
+}

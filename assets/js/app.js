@@ -134,4 +134,18 @@ $(document).ready(function() {
   _init_gw2_items();
   _init_gw2_upgrades();
 
+
+  $('#guild-achievements .has-bits strong').on('click', function() {
+    var $ach = $(this).parents('.has-bits');
+    $ach.toggleClass('open');
+    $ach.nextUntil('.achievement, .category').toggle();
+  });
+
+  $('#guild-achievements .category').on('click', function() {
+    var $ach = $(this);
+    $ach.toggleClass('open');
+    $ach.nextUntil('.category').filter(':not(.bit)').removeClass('open').toggle();
+    $ach.nextUntil('.category').filter('.bit').hide();
+  });
+
 });

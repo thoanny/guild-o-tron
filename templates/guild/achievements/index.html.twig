@@ -1,0 +1,166 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block title %}Hello GuildAchievementController!{% endblock %}
+
+{% block body %} {{ parent() }}
+
+
+
+  {% if achievements %}
+
+  <div class="ui grid container">
+    <div class="row">
+      <div class="column">
+        <h2>{% trans %}menu.achievements{% endtrans %}</h2>
+
+        {% if isMember %}
+          {% if hasJoined %}
+            <p><a href="{{path('guilds_achievements_leave', {'slug': guild.slug})}}" class="ui button red">{% trans %}achievements.leave{% endtrans %}</a></p>
+          {% else %}
+            <p><a href="{{path('guilds_achievements_join', {'slug': guild.slug})}}" class="ui button green">{% trans %}achievements.join{% endtrans %}</a></p>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="ui grid">
+    <div class="row">
+      <div class="column">
+        <table class="ui selectable celled table" id="guild-achievements">
+          <thead>
+            <tr>
+              <th>{% trans %}menu.achievements{% endtrans %}</th>
+              {% for name, member in members %}
+                <th class="center aligned">{{name}}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for group in achievements.categories %}
+
+              {% for category in group %}
+
+                {% if category.achievements %}
+                  <tr class="category active">
+                    <td colspan="{{members|length + 1}}">{{category.name}}</td>
+                  </tr>
+
+                  {% for achievement in category.achievements %}
+
+                    {% set ach = achievements.achievements[achievement] %}
+
+                    <tr class="achievement{% if ach.bits is defined %} has-bits{% endif %}">
+                      <td>
+                        <strong>{{ach.name}}</strong>
+
+                        {% if ach.rewards is defined %}
+                          {% for reward in ach.rewards %}
+                            {% if reward.type == 'Mastery' %}
+                              <span class="ui tiny label mastery {{reward.region}}">{% trans %}mp{% endtrans %}</span>
+                            {% endif %}
+                            {% if reward.type == 'Title' %}
+                              <span class="ui tiny yellow label">{% if achievements.titles[reward.id] is defined %}<em>{{achievements.titles[reward.id].name}}</em>{% else %}T{% endif %}</span>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+
+                        {% if ach.tiers is defined %}
+                          {% set points = 0 %}
+                          {% for tier in ach.tiers %}
+                            {% set points = tier.points + points %}
+                          {% endfor %}
+
+                          {% if points > 0 %}
+                            <em>({{ 'pts'|transchoice(points) }})</em>
+                          {% endif %}
+                        {% endif %}
+
+                      </td>
+                      {% for name, member in members %}
+                        <td class="center aligned">
+                          {% if member[ach.id] is defined %}
+                            {% if member[ach.id].done %}
+                              <i class="check green icon"></i>
+
+                              {% if member[ach.id].repeated is defined %}
+                                <span class="repeated">&times;&nbsp;{{member[ach.id].repeated}}</span>
+                              {% endif %}
+                            {% elseif member[ach.id].max is defined and member[ach.id].current > 0 %}
+                              <span class="orange"><strong>{{member[ach.id].current}}</strong><small>/{{member[ach.id].max}}</small></span>
+                            {% else %}
+                              <i class="times red icon"></i>
+                            {% endif %}
+                          {% else %}
+                            <i class="times red icon"></i>
+                          {% endif %}
+                        </td>
+                      {% endfor %}
+                    </tr>
+
+                    {% if ach.bits is defined %}
+                      {% for b, bit in ach.bits %}
+                        <tr class="bit">
+                          <td>
+                            &mdash;
+                            {% if bit.type == 'Text' %}
+                              {{bit.text}}
+                            {% elseif bit.type == 'Item' %}
+                              {% if bit.count is defined %}{{bit.count}} &times; {% endif %}
+                              {% if achievements.items[bit.id] is defined %}
+                                <a href="https://wiki-fr.guildwars2.com/wiki/{{achievements.items[bit.id].name}}" target="_blank"><img src="{{achievements.items[bit.id].icon}}" />{{achievements.items[bit.id].name}}</a>
+                              {% else %}
+                                <a href="https://db.gw2.fr/item/{{bit.id}}" target="_blank">Objet {{bit.id}} <em>(aucune donnée API)</em></a>
+                              {% endif %}
+                            {% elseif bit.type == 'Skin' %}
+                              {% if achievements.skins[bit.id] is defined %}
+                                <a href="https://wiki-fr.guildwars2.com/wiki/{{achievements.skins[bit.id].name}}" target="_blank"><img src="{{achievements.skins[bit.id].icon}}" />{{achievements.skins[bit.id].name}}</a>
+                              {% else %}
+                                Skin {{bit.id}}
+                              {% endif %}
+                            {% elseif bit.type == 'Minipet' %}
+                              {% if achievements.minis[bit.id] is defined %}
+                                <a href="https://wiki-fr.guildwars2.com/wiki/{{achievements.minis[bit.id].name}}" target="_blank"><img src="{{achievements.minis[bit.id].icon}}" />{{achievements.minis[bit.id].name}}</a>
+                              {% else %}
+                                Skin {{bit.id}}
+                              {% endif %}
+                            {% else %}
+                              {{bit.type}}
+                            {% endif %}
+                          </td>
+
+                          {% for name, member in members %}
+                            <td class="center aligned">
+                              {% if member[ach.id] is defined %}
+                                {% if member[ach.id].done or b in member[ach.id].bits %}
+                                  <i class="check green icon"></i>
+                                {% else %}
+                                  <i class="times red icon"></i>
+                                {% endif %}
+                              {% else %}
+                                <i class="times red icon"></i>
+                              {% endif %}
+                            </td>
+                          {% endfor %}
+                        </tr>
+                      {% endfor %} {# bits #}
+                    {% endif %} {# bits is defined #}
+
+                  {% endfor %} {# achievements #}
+                {% endif %}
+              {% endfor %} {# categories #}
+
+            {% endfor %} {# groups #}
+
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+
+{% endblock %}
