@@ -32,7 +32,7 @@
             <tr>
               <th colspan="2">{% trans %}menu.achievements{% endtrans %}</th>
               {% for name, member in members %}
-                <th class="center aligned">{{name}}</th>
+                <th class="center aligned">{{name|anonymize}}</th>
               {% endfor %}
             </tr>
           </thead>
@@ -55,13 +55,14 @@
                       <td>
                         <strong>{{ach.name}}</strong>
 
+
                         {% if ach.rewards is defined %}
                           {% for reward in ach.rewards %}
                             {% if reward.type == 'Mastery' %}
                               <span class="ui tiny label mastery {{reward.region}}">{% trans %}mp{% endtrans %}</span>
                             {% endif %}
                             {% if reward.type == 'Title' %}
-                              <span class="ui tiny yellow label">{% if achievements.titles[reward.id] is defined %}<em>{{achievements.titles[reward.id].name}}</em>{% else %}T{% endif %}</span>
+                              <span class="ui tiny orange label">{% if achievements.titles[reward.id] is defined %}<em>{{achievements.titles[reward.id].name}}</em>{% else %}T{% endif %}</span>
                             {% endif %}
                           {% endfor %}
                         {% endif %}
@@ -76,6 +77,8 @@
                             <em>({{ 'pts'|transchoice(points) }})</em>
                           {% endif %}
                         {% endif %}
+
+                        <br /><small>{{ach.requirement}}</small>
 
                       </td>
                       <td class="center aligned">
