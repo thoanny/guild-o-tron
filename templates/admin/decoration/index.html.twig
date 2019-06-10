@@ -1,0 +1,37 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Décorations{% endblock %}
+{% block subtitle %}Liste des décorations{% endblock %}
+
+{% block body %}
+
+  <p class="tac"><a href="{{ path('admin_decorations_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter une décoration</a></p>
+
+</div>
+
+<table class="pure-table pure-table-horizontal" align="center">
+  <thead>
+    <tr>
+      <th class="tac">FR</th>
+      <th class="tac">EN</th>
+      <th class="tac">DE</th>
+      <th class="tac">ES</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for decoration in decorations %}
+      <tr>
+        <td class="tac">{{decoration.fr}}</td>
+        <td class="tac">{{decoration.en}}</td>
+        <td class="tac">{{decoration.de}}</td>
+        <td class="tac">{{decoration.es}}</td>
+        <td class="tac"><a href="{{ path('admin_decorations_delete', {'id': decoration.id}) }}" class="pure-button button-small"><i class="fas fa-trash"></i></a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="content">
+
+{% endblock %}

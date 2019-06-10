@@ -1,0 +1,19 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Décorations{% endblock %}
+{% block subtitle %}Ajouter/Modifier une décoration{% endblock %}
+
+{% block body %}
+
+{{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked form-500px', 'autocomplete': 'off'}}) }}
+
+  <p>{{ form_label(form.item, 'Identifiant de l\'objet') }}
+  {{ form_widget(form.item, {'attr': {"class": 'pure-input-1'}}) }}</p>
+
+  {{ form_widget(form) }}
+
+  <p><button type="submit" class="pure-button pure-button-primary">Enregistrer</button></p>
+
+{{ form_end(form) }}
+
+{% endblock %}

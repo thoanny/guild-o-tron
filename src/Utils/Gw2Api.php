@@ -7,7 +7,7 @@ class Gw2Api {
   private $url = 'https://api.guildwars2.com/v2';
   private $lang = 'fr';
 
-  public function get($endpoint = null, $token = null, $data = null, $attr = null) {
+  public function get($endpoint = null, $token = null, $data = null, $attr = null, $lang) {
     if(!$endpoint) {
       return;
     }
@@ -23,7 +23,9 @@ class Gw2Api {
       $attr = http_build_query($attr);
     }
 
-    $url = $this->url . $endpoint . '?lang=' . $this->lang . (($token) ? '&access_token=' . $token : '') . (($attr) ? '&' . $attr : '');
+    $lang = (isset($lang)) ? $lang : $this->lang;
+
+    $url = $this->url . $endpoint . '?lang=' . $lang . (($token) ? '&access_token=' . $token : '') . (($attr) ? '&' . $attr : '');
     $url = iconv("UTF-8", "ISO-8859-1", $url);
 
     $result = false;
