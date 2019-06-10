@@ -28,6 +28,22 @@
             font-size: 125%;
         }
 
+        .text-muted {
+          opacity: .5;
+        }
+
+        .text-success {
+          color: green;
+        }
+
+        .text-error {
+          color: red;
+        }
+
+        table a {
+          color: inherit;
+        }
+
     </style>
   </head>
   <body>
@@ -48,6 +64,7 @@
           <li class="pure-menu-item"><a href="{{ path('admin_guilds_tags') }}" class="pure-menu-link">Mots-clés</a></li>
           <li class="pure-menu-item"><a href="{{ path('admin_guilds_activities') }}" class="pure-menu-link">Activités</a></li>
           <li class="pure-menu-item menu-item-divided"><a href="#" class="pure-menu-link">Événements</a></li>
+          <li class="pure-menu-item menu-item-divided"><a href="{{path('admin_achievements_guides')}}" class="pure-menu-link">Succès</a></li>
           <li class="pure-menu-item menu-item-divided"><a href="#" class="pure-menu-link">Utilisateurs</a></li>
           <li class="pure-menu-item menu-item-divided">
             <a href="/" target="_blank" class="pure-menu-link">Visiter le site <i class="fas fa-external-link-alt"></i></a>

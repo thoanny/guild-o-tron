@@ -51,7 +51,7 @@
 
                     {% set ach = achievements.achievements[achievement] %}
 
-                    <tr class="achievement{% if ach.bits is defined %} has-bits{% endif %}">
+                    <tr class="achievement{% if ach.bits is defined %} has-bits{% endif %}" data-achievement-id="{{ach.id}}">
                       <td>
                         <strong>{{ach.name}}</strong>
 
