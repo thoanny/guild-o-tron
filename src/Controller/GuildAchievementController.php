@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Guild;
 use App\Entity\GuildAchievement;
+use App\Entity\AchievementGuide;
 use App\Utils\Gw2Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -244,12 +245,14 @@ class GuildAchievementController extends AbstractController
   private function formatMembers($members) {
     $_members = [];
 
-    foreach($members as $member) {
-      $_members[$member->getUser()->getAccountName()] = [];
+    if($members) {
+      foreach($members as $member) {
+        $_members[$member->getUser()->getAccountName()] = [];
 
-      if($member->getData()) {
-        foreach($member->getData() as $ach) {
-          $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+        if($member->getData()) {
+          foreach($member->getData() as $ach) {
+            $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+          }
         }
       }
     }
@@ -257,10 +260,22 @@ class GuildAchievementController extends AbstractController
     return $_members;
   }
 
+  private function formatGuides($guides) {
+    $_guides = [];
+
+    if($guides) {
+      foreach($guides as $guide) {
+        $_guides[$guide['id']] = $guide['url'];
+      }
+    }
+
+    return $_guides;
+  }
+
   /**
    * @Route("/guilds/{slug}/achievements", name="guilds_achievements")
    */
-  public function index(string $slug)
+  public function index(string $slug, Request $request)
   {
 
     $entityManager = $this->getDoctrine()->getManager();
@@ -277,18 +292,16 @@ class GuildAchievementController extends AbstractController
 
     $achievements = $this->getGuildAchievements();
 
-    $members = $entityManager->getRepository(GuildAchievement::class)->findByGuild($guild);
-    if($members) {
-      $members = $this->formatMembers($members);
-    }
+    $members = $this->formatMembers( $entityManager->getRepository(GuildAchievement::class)->findByGuild($guild) );
+    $guides = $this->formatGuides( $entityManager->getRepository(AchievementGuide::class)->findByLocale( $request->getLocale() ) );
 
     return $this->render('guild/achievements/index.html.twig', [
       'guild' => $guild,
       'achievements' => $achievements,
+      'guides' => $guides,
       'members' => $members,
       'isMember' => $isMember,
       'hasJoined' => $hasJoined,
-      'controller_name' => 'GuildAchievementController',
     ]);
   }
 

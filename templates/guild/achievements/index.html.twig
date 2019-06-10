@@ -30,7 +30,7 @@
         <table class="ui selectable celled table" id="guild-achievements">
           <thead>
             <tr>
-              <th>{% trans %}menu.achievements{% endtrans %}</th>
+              <th colspan="2">{% trans %}menu.achievements{% endtrans %}</th>
               {% for name, member in members %}
                 <th class="center aligned">{{name}}</th>
               {% endfor %}
@@ -44,7 +44,7 @@
 
                 {% if category.achievements %}
                   <tr class="category active">
-                    <td colspan="{{members|length + 1}}">{{category.name}}</td>
+                    <td colspan="{{members|length + 2}}">{{category.name}}</td>
                   </tr>
 
                   {% for achievement in category.achievements %}
@@ -78,6 +78,11 @@
                         {% endif %}
 
                       </td>
+                      <td class="center aligned">
+                        {% if guides[ach.id] is defined %}
+                          <a href="{{guides[ach.id]}}" target="_blank"><i class="fas fa-book"></i></a>
+                        {% endif %}
+                      </td>
                       {% for name, member in members %}
                         <td class="center aligned">
                           {% if member[ach.id] is defined %}
@@ -102,7 +107,7 @@
                     {% if ach.bits is defined %}
                       {% for b, bit in ach.bits %}
                         <tr class="bit">
-                          <td>
+                          <td colspan="2">
                             &mdash;
                             {% if bit.type == 'Text' %}
                               {{bit.text}}

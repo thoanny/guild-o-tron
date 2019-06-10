@@ -19,22 +19,16 @@ class AchievementGuideRepository extends ServiceEntityRepository
         parent::__construct($registry, AchievementGuide::class);
     }
 
-    // /**
-    //  * @return AchievementGuide[] Returns an array of AchievementGuide objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByLocale($locale)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+      return $this->createQueryBuilder('g')
+        ->select("g.achievement AS id, g.{$locale} AS url")
+        ->andWhere("g.{$locale} != ''")
+        ->orderBy('g.achievement', 'ASC')
+        ->getQuery()
+        ->getResult()
+      ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?AchievementGuide
