@@ -242,18 +242,45 @@ class GuildAchievementController extends AbstractController
   }
 
 
-  private function formatMembers($members) {
+  private function formatMembers($guild) {
+
+    $entityManager = $this->getDoctrine()->getManager();
+    $members = $entityManager->getRepository(GuildAchievement::class)->findByGuild($guild);
     $_members = [];
+
+    // dd($members);
 
     if($members) {
       foreach($members as $member) {
         $_members[$member->getUser()->getAccountName()] = [];
 
-        if($member->getData()) {
-          foreach($member->getData() as $ach) {
-            $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+        $now = new \DateTime('now');
+        $interval = $member->getUpdatedAt()->diff($now, true);
+
+        $diff = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+
+        if($diff > 15) {
+
+          $api = new Gw2Api();
+          $achievements = $api->get('/account/achievements', $member->getUser()->getApiKey());
+
+          if($achievements) {
+            $member->setData($achievements);
+            $entityManager->flush();
+
+            foreach($achievements as $ach) {
+              $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+            }
+          }
+
+        } else {
+          if($member->getData()) {
+            foreach($member->getData() as $ach) {
+              $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+            }
           }
         }
+
       }
     }
 
@@ -292,7 +319,7 @@ class GuildAchievementController extends AbstractController
 
     $achievements = $this->getGuildAchievements();
 
-    $members = $this->formatMembers( $entityManager->getRepository(GuildAchievement::class)->findByGuild($guild) );
+    $members = $this->formatMembers($guild);
     $guides = $this->formatGuides( $entityManager->getRepository(AchievementGuide::class)->findByLocale( $request->getLocale() ) );
 
     return $this->render('guild/achievements/index.html.twig', [
