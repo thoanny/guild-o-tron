@@ -61,7 +61,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for roster in guild.getGuildRaids %}
+            {% for roster in roster %}
             <tr>
               <td>{{roster.user.accountName|anonymize}}</td>
                 {% for raid in raids %}

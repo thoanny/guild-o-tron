@@ -26,6 +26,31 @@ class GuildRaidController extends AbstractController
      return -1;
   }
 
+  private function updateRoster($guild) {
+    $entityManager = $this->getDoctrine()->getManager();
+    $roster = $entityManager->getRepository(GuildRaid::class)->findByGuild($guild);
+    $api = new Gw2Api();
+
+    if($roster) {
+      foreach($roster as $r) {
+        $now = new \DateTime('now');
+        $interval = $r->getUpdatedAt()->diff($now, true);
+        $diff = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+
+        if($diff > 15) {
+          $raids = $api->get('/account/raids', $r->getUser()->getApiKey());
+
+          if($raids) {
+            $r->setData($raids);
+            $entityManager->flush();
+          }
+        }
+      }
+    }
+
+    return $roster;
+  }
+
   /**
    * @Route("/guilds/{slug}/raids", name="guilds_raids")
    */
@@ -46,6 +71,7 @@ class GuildRaidController extends AbstractController
     }
 
     $hasJoined = $entityManager->getRepository(GuildRaid::class)->findOneBy(['user' => $user, 'guild' => $guild]);
+    $roster = $this->updateRoster($guild);
 
     $api = new Gw2Api();
     $raids = $api->get('/raids');
@@ -59,7 +85,8 @@ class GuildRaidController extends AbstractController
       'guild' => $guild,
       'isMember' => $isMember,
       'hasJoined' => $hasJoined,
-      'raids' => $raids
+      'raids' => $raids,
+      'roster' => $roster
     ]);
 
   }
