@@ -7,7 +7,7 @@ class Gw2Api {
   private $url = 'https://api.guildwars2.com/v2';
   private $lang = 'fr';
 
-  public function get($endpoint = null, $token = null, $data = null, $attr = null, $lang) {
+  public function get($endpoint = null, $token = null, $data = null, $attr = null, $lang = null) {
     if(!$endpoint) {
       return;
     }
