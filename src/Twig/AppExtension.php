@@ -120,6 +120,10 @@ class AppExtension extends AbstractExtension
           'conjured_amalgamate' => 'Amalgame conjuré',
           'twin_largos' => 'Jumeaux largos',
           'qadim' => 'Qadim',
+          'the_key_of_ahdashim' => 'La clé d\'Ahdashim',
+          'adina' => 'Cardinale Adina',
+          'sabir' => 'Cardinal Sabir',
+          'qadim_the_peerless' => 'Qadim l\'Inégalé',
         ],
         'es' => [
           '' => '',
