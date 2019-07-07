@@ -1,0 +1,15 @@
+<div class="accordion">
+  {% for ingredient in recipe.ingredients %}
+  {% set item = items[ingredient.item_id] %}
+    <div class="{% if ingredient.recipe is not empty %}title{% else %}no-child{% endif %}" data-id="{{item.id}}">
+      {% if ingredient.recipe is not empty %}<i class="dropdown icon"></i>{% endif %}
+      <img class="ui mini right spaced image" src="{{item.icon}}" onerror="this.src = '{{asset('build/no-icon.png')}}';">
+      {{ingredient.count * multi}}&nbsp;&times; {{item.name}}
+    </div>
+    {% if ingredient.recipe is not empty %}
+      <div class="content">
+        {% include 'guild/_parts/ingredients.html.twig' with {'recipe': ingredient.recipe, 'items': items, 'multi': ingredient.count * deco.quantity} %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,80 @@
+{% extends 'guild/base.html.twig' %}
+
+{% block title %}Hello GuildDecorationController!{% endblock %}
+
+{% block body %} {{parent()}}
+
+<div class="ui grid container">
+  <div class="column">
+    <h2>{{ 'decorations'|trans }}</h2>
+  </div>
+</div>
+
+<div class="ui grid container">
+  <div class="column">
+
+    {{ form_start(form, {'attr': {'class': 'ui form', 'autocomplete': 'off'}}) }}
+
+    <div class="fields">
+      <div class="field three wide">
+        {{ form_label(form.quantity, 'decorations.quantity'|trans) }}
+        {{ form_widget(form.quantity) }}
+      </div>
+
+      <div class="field nine wide">
+        {{ form_label(form.decoration, 'decorations.decoration'|trans) }}
+        {{ form_widget(form.decoration) }}
+      </div>
+
+      <div class="field four wide">
+        <label>&nbsp;</label>
+        <button type="submit" class="fluid ui button green">{% trans %}add{% endtrans %}</button>
+
+      </div>
+    </div>
+
+    {{ form_widget(form) }}
+
+
+    {{ form_end(form) }}
+
+  </div>
+</div>
+
+{% if decorations %}
+  <div class="ui grid container">
+    <div class="row">
+      <div class="column">
+        {% for deco in decorations %}
+          <h3>{{deco.quantity}}&times; {{ attribute(deco.decoration, app.request.locale) }}</h3>
+
+          <div class="ui styled accordion">
+            {% for ingredient in deco.recipe.ingredients %}
+            {% set item = deco.recipe._items[ingredient.item_id] %}
+              <div class="{% if ingredient.recipe is not empty %}title{% else %}no-child{% endif %}" data-id="{{item.id}}">
+                {% if ingredient.recipe is not empty %}<i class="dropdown icon"></i>{% endif %}
+                <img class="ui mini right spaced image" src="{{item.icon}}" onerror="this.src = '{{asset('build/no-icon.png')}}';">
+                {{ingredient.count * deco.quantity}}&nbsp;&times; {{item.name}}
+              </div>
+              {% if ingredient.recipe is not empty %}
+                <div class="content">
+                  {% include 'guild/_parts/ingredients.html.twig' with {'recipe': ingredient.recipe, 'items': deco.recipe._items, 'multi': ingredient.count * deco.quantity} %}
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            {% for ingredient in deco.recipe.guild_ingredients %}
+            {% set upgrade = deco.recipe._upgrades[ingredient.upgrade_id] %}
+              <div class="no-child" data-id="{{ingredient.upgrade_id}}">
+                <img class="ui mini right spaced image" src="{{upgrade.icon}}" onerror="this.src = '{{asset('build/no-icon.png')}}';">
+                {{ingredient.count * deco.quantity}}&nbsp;&times; {{upgrade.name}}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

@@ -227,6 +227,11 @@ class Guild
      */
     private $guildRaids;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GuildDecoration", mappedBy="Guild")
+     */
+    private $guildDecorations;
+
     public function __construct()
     {
         $this->guildLogs = new ArrayCollection();
@@ -234,6 +239,7 @@ class Guild
         $this->guild_tags = new ArrayCollection();
         $this->guild_activities = new ArrayCollection();
         $this->guildRaids = new ArrayCollection();
+        $this->guildDecorations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -820,6 +826,37 @@ class Guild
             // set the owning side to null (unless already changed)
             if ($guildRaid->getGuild() === $this) {
                 $guildRaid->setGuild(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuildDecoration[]
+     */
+    public function getGuildDecorations(): Collection
+    {
+        return $this->guildDecorations;
+    }
+
+    public function addGuildDecoration(GuildDecoration $guildDecoration): self
+    {
+        if (!$this->guildDecorations->contains($guildDecoration)) {
+            $this->guildDecorations[] = $guildDecoration;
+            $guildDecoration->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuildDecoration(GuildDecoration $guildDecoration): self
+    {
+        if ($this->guildDecorations->contains($guildDecoration)) {
+            $this->guildDecorations->removeElement($guildDecoration);
+            // set the owning side to null (unless already changed)
+            if ($guildDecoration->getGuild() === $this) {
+                $guildDecoration->setGuild(null);
             }
         }
 

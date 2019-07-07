@@ -596,3 +596,14 @@ footer {
     color: #f2711c;
   }
 }
+
+.ui.accordion {
+  .accordion {
+    margin-top: 0 !important;
+  }
+
+  .no-child {
+    padding: .75em 1em;
+    border-top: 1px solid rgba(34,36,38,.15);
+  }
+}

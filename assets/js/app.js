@@ -148,4 +148,8 @@ $(document).ready(function() {
     $ach.nextUntil('.category').filter('.bit').hide();
   });
 
+  $('.ui.accordion')
+    .accordion()
+  ;
+
 });
