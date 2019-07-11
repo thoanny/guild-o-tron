@@ -79,6 +79,26 @@ function _init_gw2_upgrades() {
 
 }
 
+function _init_gw2_decorations_check_bank() {
+
+  var $decorations = $(document).find('[data-decorations]');
+
+  if($decorations.length > 0) {
+    $.get('/user/bank/get', function(res) {
+      $.each(res, function(k, v) {
+        $(`[data-decorations] .item-${k} .ubank`).text(`+${v}`).addClass('ui violet circular label');
+      });
+    });
+
+    $.get('/user/materials/get', function(res) {
+      $.each(res, function(k, v) {
+        $(`[data-decorations] .item-${k} .umaterials`).text(`+${v}`).addClass('ui pink circular label');
+      });
+    });
+  }
+
+}
+
 $(document).ready(function() {
   $('button#buttonCheckApiKey').on('click', function() {
     var $token = $('input#inputToken');
@@ -151,5 +171,7 @@ $(document).ready(function() {
   $('.ui.accordion')
     .accordion()
   ;
+
+  _init_gw2_decorations_check_bank();
 
 });

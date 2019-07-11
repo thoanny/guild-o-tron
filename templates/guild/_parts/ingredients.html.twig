@@ -1,10 +1,10 @@
 <div class="accordion">
   {% for ingredient in recipe.ingredients %}
   {% set item = items[ingredient.item_id] %}
-    <div class="{% if ingredient.recipe is not empty %}title{% else %}no-child{% endif %}" data-id="{{item.id}}">
+    <div class="{% if ingredient.recipe is not empty %}title{% else %}no-child{% endif %} item-{{item.id}}">
       {% if ingredient.recipe is not empty %}<i class="dropdown icon"></i>{% endif %}
       <img class="ui mini right spaced image" src="{{item.icon}}" onerror="this.src = '{{asset('build/no-icon.png')}}';">
-      {{ingredient.count * multi}}&nbsp;&times; {{item.name}}
+      {{ingredient.count * multi}}&nbsp;&times; {{item.name}} <span class="ubank"></span> <span class="umaterials"></span>
     </div>
     {% if ingredient.recipe is not empty %}
       <div class="content">
