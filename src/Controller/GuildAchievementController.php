@@ -269,7 +269,8 @@ class GuildAchievementController extends AbstractController
             $entityManager->flush();
 
             foreach($achievements as $ach) {
-              $_members[$member->getUser()->getAccountName()][$ach['id']] = $ach;
+              // dd($ach);
+              $_members[$member->getUser()->getAccountName()][$ach->id] = $ach;
             }
           }
 
