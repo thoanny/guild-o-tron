@@ -1,34 +1,43 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Mots-clés{% endblock %}
-{% block subtitle %}Ajouter/Modifier un mot clé{% endblock %}
-
 {% block body %}
 
-{{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked form-500px', 'autocomplete': 'off'}}) }}
+  <h1 class="text-center">Éditer un mot-clé</h1>
 
-  <p>
-    {{ form_label(form.uid, 'Identifiant unique (UID)') }}
-    {{ form_widget(form.uid, {'attr': {"class": 'pure-input-1'}}) }}
-    <span class="pure-form-message-inline">Uniquement des minuscules (a-z) et underscores (_).</span>
-  </p>
+  {{ form_start(form, {'attr': {'autocomplete': 'off'}}) }}
 
-  <p>{{ form_label(form.fr, 'Mot-clé en français') }}
-  {{ form_widget(form.fr, {'attr': {"class": 'pure-input-1'}}) }}</p>
+    <div class="form-group">
+      {{ form_label(form.uid, 'Identifiant unique (UID)') }}
+      {{ form_widget(form.uid, {'attr': {"class": 'form-control'}}) }}
+      <small class="form-text text-muted">Uniquement des minuscules (a-z) et underscores (_).</small>
+    </div>
 
-  <p>{{ form_label(form.en, 'Mot-clé en anglais') }}
-  {{ form_widget(form.en, {'attr': {"class": 'pure-input-1'}}) }}</p>
+    <div class="form-group">
+      {{ form_label(form.fr, 'Mot-clé en français') }}
+      {{ form_widget(form.fr, {'attr': {"class": 'form-control'}}) }}
+    </div>
 
-  <p>{{ form_label(form.de, 'Mot-clé en allemand') }}
-  {{ form_widget(form.de, {'attr': {"class": 'pure-input-1'}}) }}</p>
+    <div class="form-group">
+      {{ form_label(form.en, 'Mot-clé en anglais') }}
+      {{ form_widget(form.en, {'attr': {"class": 'form-control'}}) }}
+    </div>
 
-  <p>{{ form_label(form.es, 'Mot-clé en espagnol') }}
-  {{ form_widget(form.es, {'attr': {"class": 'pure-input-1'}}) }}</p>
+    <div class="form-group">
+      {{ form_label(form.de, 'Mot-clé en allemand') }}
+      {{ form_widget(form.de, {'attr': {"class": 'form-control'}}) }}
+    </div>
 
-  {{ form_widget(form) }}
+    <div class="form-group">
+      {{ form_label(form.es, 'Mot-clé en espagnol') }}
+      {{ form_widget(form.es, {'attr': {"class": 'form-control'}}) }}
+    </div>
 
-  <p><button type="submit" class="pure-button pure-button-primary">Enregistrer</button></p>
+    {{ form_widget(form) }}
 
-{{ form_end(form) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    <a href="{{path('admin_guilds_tags')}}" class="btn btn-secondary float-right">Annuler</a>
+
+  {{ form_end(form) }}
 
 {% endblock %}

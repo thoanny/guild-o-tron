@@ -1,39 +1,32 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Guides des succès{% endblock %}
-{% block subtitle %}Liste des guides des succès{% endblock %}
-
 {% block body %}
 
-  <p class="tac"><a href="{{ path('admin_achievements_guides_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter un guide</a></p>
+  <h1>Guides des succès <a href="{{ path('admin_achievements_guides_edit', {'id': 'new'}) }}" class="btn btn-outline-primary"><i class="fas fa-plus"></i></a></h1>
 
-</div>
-
-<table class="pure-table pure-table-horizontal" align="center">
-  <thead>
-    <tr>
-      <th class="tac">Succès</th>
-      <th class="tac">FR</th>
-      <th class="tac">EN</th>
-      <th class="tac">DE</th>
-      <th class="tac">ES</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for guide in guides %}
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td class="tac"><a href="https://api.guildwars2.com/v2/achievements/{{guide.achievement}}?lang=fr" target="_blank">{{guide.achievement}}</a></td>
-        <td class="tac">{% if guide.fr %}<a href="{{guide.fr}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
-        <td class="tac">{% if guide.en %}<a href="{{guide.en}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
-        <td class="tac">{% if guide.de %}<a href="{{guide.de}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
-        <td class="tac">{% if guide.es %}<a href="{{guide.es}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
-        <td class="tac"><a href="{{ path('admin_achievements_guides_edit', {'id': guide.id}) }}" class="pure-button button-small"><i class="fas fa-edit"></i> Modif.</a></td>
+        <th>Succès</th>
+        <th>FR</th>
+        <th>EN</th>
+        <th>DE</th>
+        <th>ES</th>
+        <th>&nbsp;</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-<div class="content">
+    </thead>
+    <tbody>
+      {% for guide in guides %}
+        <tr>
+          <td><a href="https://api.guildwars2.com/v2/achievements/{{guide.achievement}}?lang=fr" target="_blank">{{guide.achievement}}</a></td>
+          <td>{% if guide.fr %}<a href="{{guide.fr}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
+          <td>{% if guide.en %}<a href="{{guide.en}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
+          <td>{% if guide.de %}<a href="{{guide.de}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
+          <td>{% if guide.es %}<a href="{{guide.es}}" target="_blank"><i class="fas fa-book"></i></a>{% else %}<i class="fas fa-book text-muted"></i>{% endif %}</td>
+          <td><a href="{{ path('admin_achievements_guides_edit', {'id': guide.id}) }}"><i class="fas fa-edit"></i> Modifier</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

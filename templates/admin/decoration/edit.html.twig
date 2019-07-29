@@ -1,19 +1,22 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Décorations{% endblock %}
-{% block subtitle %}Ajouter/Modifier une décoration{% endblock %}
-
 {% block body %}
 
-{{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked form-500px', 'autocomplete': 'off'}}) }}
+  <h1 class="text-center">Ajouter une décoration</h1>
 
-  <p>{{ form_label(form.item, 'Identifiant de l\'objet') }}
-  {{ form_widget(form.item, {'attr': {"class": 'pure-input-1'}}) }}</p>
+  {{ form_start(form, {'attr': {'autocomplete': 'off'}}) }}
 
-  {{ form_widget(form) }}
+    <div class="form-group">
+      {{ form_label(form.item, 'Identifiant de l\'objet') }}
+      {{ form_widget(form.item, {'attr': {"class": 'form-control'}}) }}
+    </div>
 
-  <p><button type="submit" class="pure-button pure-button-primary">Enregistrer</button></p>
+    {{ form_widget(form) }}
 
-{{ form_end(form) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    <a href="{{path('admin_decorations')}}" class="btn btn-secondary float-right">Annuler</a>
+
+  {{ form_end(form) }}
 
 {% endblock %}

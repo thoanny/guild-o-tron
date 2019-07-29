@@ -1,37 +1,31 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Décorations{% endblock %}
-{% block subtitle %}Liste des décorations{% endblock %}
-
 {% block body %}
 
-  <p class="tac"><a href="{{ path('admin_decorations_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter une décoration</a></p>
+  <h1>Décorations de guildes <a href="{{ path('admin_decorations_edit', {'id': 'new'}) }}" class="btn btn-outline-primary"><i class="fas fa-plus"></i></a></h1>
 
-</div>
-
-<table class="pure-table pure-table-horizontal" align="center">
-  <thead>
-    <tr>
-      <th class="tac">FR</th>
-      <th class="tac">EN</th>
-      <th class="tac">DE</th>
-      <th class="tac">ES</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for decoration in decorations %}
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td class="tac">{{decoration.fr}}</td>
-        <td class="tac">{{decoration.en}}</td>
-        <td class="tac">{{decoration.de}}</td>
-        <td class="tac">{{decoration.es}}</td>
-        <td class="tac"><a href="{{ path('admin_decorations_delete', {'id': decoration.id}) }}" class="pure-button button-small"><i class="fas fa-trash"></i></a></td>
+        <th>FR</th>
+        <th>EN</th>
+        <th>DE</th>
+        <th>ES</th>
+        <th>&nbsp;</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for decoration in decorations %}
+        <tr>
+          <td>{{decoration.fr}}</td>
+          <td>{{decoration.en}}</td>
+          <td>{{decoration.de}}</td>
+          <td>{{decoration.es}}</td>
+          <td><a href="{{ path('admin_decorations_delete', {'id': decoration.id}) }}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-<div class="content">
 
 {% endblock %}

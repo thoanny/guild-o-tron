@@ -1,15 +1,10 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Activités{% endblock %}
-{% block subtitle %}Liste des activités{% endblock %}
-
 {% block body %}
 
-  <p class="tac"><a href="{{ path('admin_guilds_activities_edit', {'id': 'new'}) }}" class="pure-button"><i class="fas fa-plus"></i> Ajouter une activité</a></p>
+  <h1>Activités <a href="{{ path('admin_guilds_activities_edit', {'id': 'new'}) }}" class="btn btn-outline-primary"><i class="fas fa-plus"></i></a></h1>
 
-</div>
-
-  <table class="pure-table pure-table-horizontal" align="center">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>UID</th>
@@ -28,7 +23,7 @@
           <td>{{activity.en}}</td>
           <td>{{activity.de}}</td>
           <td>{{activity.de}}</td>
-          <td><a href="{{ path('admin_guilds_activities_edit', {'id': activity.id}) }}" class="pure-button button-small"><i class="fas fa-edit"></i> Modif.</a></td>
+          <td><a href="{{ path('admin_guilds_activities_edit', {'id': activity.id}) }}"><i class="fas fa-edit"></i> Modifier</a></td>
         </tr>
       {% endfor %}
     </tbody>
