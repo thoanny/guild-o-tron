@@ -1,0 +1,28 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+  <h1>Utilisateurs</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th width="1">#</th>
+        <th>Nom de compte</th>
+        <th>Adresse e-mail</th>
+        <th width="1">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+        <tr>
+          <td>{{u.id}}</td>
+          <td>{{u.accountName}}</td>
+          <td>{{u.email}}</td>
+          <td><a href="{{path('admin_users_delete', {'id': u.id})}}" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
