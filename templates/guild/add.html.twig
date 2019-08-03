@@ -13,7 +13,7 @@
 
         <div class="field">
           <label for="inputToken">{% trans %}guilds.add.token.label{% endtrans %}</label>
-          <input type="text" name="token" id="inputToken" value="" required />
+          <input type="text" name="token" id="inputToken" value="{{app.user.apiKey}}" required />
         </div>
 
         <p><button type="button" name="check" id="buttonCheckApiKey" class="ui icon button green"><i class="check icon"></i> {% trans %}guilds.add.check.button{% endtrans %}</button></p>
