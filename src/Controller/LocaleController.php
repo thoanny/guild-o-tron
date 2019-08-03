@@ -18,8 +18,16 @@ class LocaleController extends AbstractController
   public function index(Request $request, $language = null)
   {
 
+    $user = $this->getUser();
+
     if($language && in_array($language, $this->languages)) {
       $this->get('session')->set('_locale', $language);
+
+      if($user) {
+        $user->setLocale($language);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+      }
     }
 
     $url = $request->headers->get('referer');
