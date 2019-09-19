@@ -614,6 +614,26 @@ class GuildController extends AbstractController
      ]);
    }
 
+  /**
+   * @Route("/guilds/{slug}/treasury/ajax", name="guilds_treasury_ajax")
+   */
+   public function treasury_ajax(string $slug): Response
+   {
+     $api = new Gw2Api();
+     $entityManager = $this->getDoctrine()->getManager();
+     $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
+
+     $treasury = $this->getGuildTreasuryFromAPI($guild);
+
+     dd($treasury);
+
+     $response = new JsonResponse([
+       'guild' => $guild,
+       'treasury' => $treasury,
+     ]);
+     return $response;
+   }
+
    /**
     * @Route("/guilds/{slug}/stash", name="guilds_stash")
     */
