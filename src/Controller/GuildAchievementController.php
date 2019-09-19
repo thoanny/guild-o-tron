@@ -346,10 +346,6 @@ class GuildAchievementController extends AbstractController
     $guild = $entityManager->getRepository(Guild::class)->findOneBySlug($slug);
 
     $user = $this->getUser();
-    if ($guild->getUser() !== $user) {
-      $this->addFlash('danger', 'flash.unauthorized');
-      return $this->redirectToRoute('guilds_show', ['slug' => $slug]);
-    }
 
     $hasJoined = $entityManager->getRepository(GuildAchievement::class)->findOneBy(['user' => $user, 'guild' => $guild]);
     if($hasJoined) {
