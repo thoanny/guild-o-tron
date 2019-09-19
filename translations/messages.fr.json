@@ -140,5 +140,15 @@
     "event.group.size.99": "Plusieurs escouades (50+)",
     "flash.event.registration.added": "Votre inscription a bien été enregistrée.",
     "guild.event.activity": "Activité",
-    "pts": "{1} 1 pt|]1,Inf] %count% pts"
+    "menu.account": "Compte",
+    "achievements.leave": "Se retirer de la liste",
+    "achievements.join": "S'ajouter à la liste",
+    "mp": "Points de maîtrise",
+    "pts": "Points de succès",
+    "raids.leave": "Rejoindre le roster",
+    "raids.join": "Quitter le roster",
+    "menu.decorations": "Décorations",
+    "decorations": "Décorations",
+    "decorations.quantity": "Quantité",
+    "decorations.decoration": "Décoration"
 }
